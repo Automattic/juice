@@ -1,1 +1,8 @@
-<ul><li style="display: block; color: red;"><ul><li style="display: block; color: red;"><ul><li style="display: block; color: red;"></li></ul></li></ul></li></ul>
+<ul>
+  <li style="display: block;color: #f00;">
+    <ul>
+      <li style="display: block;color: #f00;">
+        <ul>
+          <li style="display: block;color: #f00;"></li></ul>
+      </li></ul>
+  </li></ul>
