@@ -1,5 +1,5 @@
 <div id="wrap" a="b">
-  <div class="wrap" id="wrap-2">
-    <div id="a" style="color: red; background: green; border-color: green;"></div>
+  <div class="wrap" id="wrap-2" style="display: inline-block;">
+    <div id="a" style="color: red;display: block;background: green;border-color: green;"></div>
   </div>
 </div>
