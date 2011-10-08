@@ -114,6 +114,15 @@ module.exports = {
     dom[0].type.should.equal('tag');
     dom[0].name.should.equal('p');
   },
+
+  'test converting dom to html': function () {
+    var dom = utils.domToHTML([{
+        raw: 'div a="b"'
+      , data: 'div a="b"'
+      , type: 'tag'
+      , name: 'div'
+      , attribs: { a: 'b', title: '"' }
+    }]).should.eql('<div a="b" title="&quot;"></div>');
   'test juice': function () {
     juice('<div a="b">woot</div>', 'div { color: red; }').should.equal('<div a="b" style="color: red">woot</div>');
   }
