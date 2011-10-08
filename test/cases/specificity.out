@@ -1,0 +1,5 @@
+<div id="wrap" a="b">
+  <div class="wrap" id="wrap-2">
+    <div id="a" style="color: red; background: green; border-color: green;"></div>
+  </div>
+</div>

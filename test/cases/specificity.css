@@ -1,0 +1,55 @@
+#wrap #a        // [2,
+0,
+0] - winner {
+  color: #f00;
+}
+#wrap a         // [1,
+0,
+1] {
+  color: #000;
+}
+#a              // [1,
+0,
+0] {
+  color: #00f;
+}
+div[a=b] .wrap div      // [0,
+2,
+2] {
+  display: block;
+}
+#wrap .wrap             // [1,
+1,
+0] - winner {
+  display: inline-block;
+}
+#wrap div.wrap #a       // [2,
+1,
+1] {
+  background: #000;
+}
+#wrap[a=b] div.wrap #a  // [2,
+2,
+1] - winner {
+  background: #008000;
+}
+#wrap[a=c] div.wrap #a  // [2,
+2,
+1] - no match {
+  background: #00f;
+}
+#wrap .wrap #a          // [2,
+1,
+0] {
+  background: #f00;
+}
+#wrap .wrap #a          // [2,
+0,
+1] - winner {
+  border-color: #f00;
+}
+div #wrap-2 #a          // [2,
+0,
+1] - winner {
+  border-color: #008000;
+}

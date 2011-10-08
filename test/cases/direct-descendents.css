@@ -1,0 +1,6 @@
+p em {
+  background: #00f;
+}
+p > em {
+  color: #f00;
+}
