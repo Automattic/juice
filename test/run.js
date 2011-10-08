@@ -33,7 +33,7 @@ var failures = 0;
 function test (test, fn) {
   var base = __dirname + '/cases/' + test
     , html =  read(base + '.html')
-    , css = read(base + '.html')
+    , css = read(base + '.css')
 
   function read (file) {
     return fs.readFileSync(file, 'utf8');
@@ -42,7 +42,7 @@ function test (test, fn) {
   var actual = juice(html, css)
     , expected = read(base + '.out')
 
-  if (actual.trim() == out.trim()) {
+  if (actual.trim() == expected.trim()) {
     fn();
   } else {
     fn(actual, expected);
