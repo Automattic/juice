@@ -123,8 +123,18 @@ module.exports = {
       , name: 'div'
       , attribs: { a: 'b', title: '"' }
     }]).should.eql('<div a="b" title="&quot;"></div>');
+
+    var dom = utils.domToHTML([{
+        raw: 'br'
+      , data: 'br'
+      , type: 'tag'
+      , name: 'br'
+    }]).should.eql('<br>');
+  },
+
   'test juice': function () {
-    juice('<div a="b">woot</div>', 'div { color: red; }').should.equal('<div a="b" style="color: red">woot</div>');
+    juice('<div a="b">woot</div>', 'div { color: red; }')
+      .should.equal('<div a="b" style="color: red;">woot</div>');
   }
 
 };
