@@ -61,9 +61,9 @@ fs.readdir(__dirname + '/cases', function (err, files) {
     , curr;
 
   files.forEach(function (file) {
-    if (/\.jade$/.test(file)) {
+    if (/\.html$/.test(file)) {
       ++count;
-      tests.push(basename(file, '.jade'));
+      tests.push(basename(file, '.html'));
     }
   });
 
