@@ -7,7 +7,7 @@
  * Module dependencies.
  */
 
-var juice = require('../juice')
+var juice = require('../lib/juice')
   , basename = require('path').basename
   , fs = require('fs')
 
