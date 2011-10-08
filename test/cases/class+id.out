@@ -1,1 +1,1 @@
-<p id="test" class="woot" style="border: 1px solid red; display: inline-block;">Woot</p>
+<p id="test" class="woot" style="border: 1px solid #f00;display: inline-block;">Woot</p>
