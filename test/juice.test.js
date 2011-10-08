@@ -107,6 +107,13 @@ module.exports = {
     ]);
   },
 
+  'test parsing html': function () {
+    var dom = utils.parseHTML('<p>testing</p>');
+    dom.length.should.equal(1);
+    dom[0].raw.should.equal('p');
+    dom[0].type.should.equal('tag');
+    dom[0].name.should.equal('p');
+  },
   'test juice': function () {
     juice('<div a="b">woot</div>', 'div { color: red; }').should.equal('<div a="b" style="color: red">woot</div>');
   }
