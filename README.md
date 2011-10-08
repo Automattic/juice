@@ -6,6 +6,7 @@ attribute.
 ## How to use
 
 ```js
+var juice = require('juice');
 juice('<p>Test</p>', 'p { color: red; }')
 // '<p style="color: red;">Test</p>'
 ```
