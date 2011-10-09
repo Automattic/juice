@@ -11,6 +11,12 @@ juice('<p>Test</p>', 'p { color: red; }')
 // '<p style="color: red;">Test</p>'
 ```
 
+## What is this useful for ?
+
+- HTML emails. For a comprehensive list of supported selectors see
+[here](http://www.campaignmonitor.com/css/)
+- Embedding HTML in 3rd-party websites.
+
 ## Credits
 
 (The MIT License)
