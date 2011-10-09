@@ -1,8 +1,11 @@
 <ul>
-  <li style="display: block;color: #f00;">
+  <li style="display: block; color: #f00;">
     <ul>
-      <li style="display: block;color: #f00;">
+      <li style="display: block; color: #f00;">
         <ul>
-          <li style="display: block;color: #f00;"></li></ul>
-      </li></ul>
-  </li></ul>
+          <li style="display: block; color: #f00;"></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
