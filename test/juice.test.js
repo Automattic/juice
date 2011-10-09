@@ -107,31 +107,6 @@ module.exports = {
     ]);
   },
 
-  'test parsing html': function () {
-    var dom = utils.parseHTML('<p>testing</p>');
-    dom.length.should.equal(1);
-    dom[0].raw.should.equal('p');
-    dom[0].type.should.equal('tag');
-    dom[0].name.should.equal('p');
-  },
-
-  'test converting dom to html': function () {
-    var dom = utils.domToHTML([{
-        raw: 'div a="b"'
-      , data: 'div a="b"'
-      , type: 'tag'
-      , name: 'div'
-      , attribs: { a: 'b', title: '"' }
-    }]).should.eql('<div a="b" title="&quot;"></div>');
-
-    var dom = utils.domToHTML([{
-        raw: 'br'
-      , data: 'br'
-      , type: 'tag'
-      , name: 'br'
-    }]).should.eql('<br>');
-  },
-
   'test juice': function () {
     juice('<div a="b">woot</div>', 'div { color: red; }')
       .should.equal('<div a="b" style="color: red;">woot</div>');
