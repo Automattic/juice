@@ -1,0 +1,11 @@
+a {
+  color: red !important;
+  background: blue !important;
+  border-style: dashed !important;
+}
+
+#a {
+  color: purple;
+  background: purple;
+  border-style: solid;
+}
