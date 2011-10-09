@@ -2,6 +2,10 @@
     "name": "juice"
   , "version": "0.0.2"
   , "description": "Inlines css into html source"
+  , "contributors": [
+        { "name": "Guillermo Rauch", "email": "guillermo@learnboost.com" }
+      , { "name": "Arian Stolwijk", "email": "arian@aryweb.nl" }
+    ]
   , "devDependencies": {
         "should": "0.3.1"
       , "expresso": "0.9.0"
