@@ -38,4 +38,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### 3rd-party
 
+- Uses the excellent [JSDom](http://github.com/tmpvar/jsdom) for the underlying DOM
+representation.
+- Uses [cssom](https://github.com/NV/CSSOM) to parse out CSS selectors and
+[Slick](http://github.com/subtleGradient/slick) to tokenize them.
 - Icon by [UnheardSounds](http://unheardsounds.deviantart.com/gallery/26536908#/d2ngozi)
