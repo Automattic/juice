@@ -1,4 +1,16 @@
 
+0.0.5 / 2011-10-10
+==================
+
+  * Added whitelist of pseudos to ignore (fixes `:first-child` etc)
+  * Fine-tuned jsdom for speed (disabled unneded features).
+  * Added caching of parsed selectors.
+
+0.0.4 / 2011-10-10
+==================
+
+  * Fixed `:hover`.
+
 0.0.3 / 2011-10-09
 ==================
 
