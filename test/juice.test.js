@@ -28,6 +28,10 @@ module.exports = {
     extract('.test.a, #a.b').should.eql(['.test.a', '#a.b']);
     extract('a[type=text, a=b], .a, .b, #c #d').should
       .eql(['a[type=text, a=b]', '.a', '.b', '#c #d']);
+    extract('a:not(.a,.b,.c)').should.eql(['a:not(.a,.b,.c)']);
+    extract('a:not(.a,.b,.c), .b').should.eql(['a:not(.a,.b,.c)', '.b']);
+    extract('a:not(.a,.b,[type=text]), .b').should
+      .eql(['a:not(.a,.b,[type=text])', '.b']);
   },
 
   'test selector specificity comparison': function () {
