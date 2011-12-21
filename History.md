@@ -1,4 +1,12 @@
 
+0.0.6 / 2011-12-20
+==================
+
+  * Corrected juice unit tests for latest cssom.
+  * Fixed presence of \n in selectors.
+  * Fixed unneeded removal of inline event handlers in html.
+  * Bumped jsdom.
+
 0.0.5 / 2011-10-10
 ==================
 
