@@ -97,8 +97,8 @@ module.exports = {
     var parse = utils.parseCSS;
 
     parse('a, b { c: e; }').should.eql([
-        ['a', { '0': 'c', length: 1, _importants: { c: '' }, c: 'e' } ]
-      , ['b', { '0': 'c', length: 1, _importants: { c: '' }, c: 'e' } ]
+        ['a', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
+      , ['b', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
     ]);
 
     parse([
@@ -106,10 +106,10 @@ module.exports = {
       , 'b.e #d { d: e; }'
       , 'c[a=b] { d: e; }'
     ].join('\n')).should.eql([
-        ['a', { '0': 'c', length: 1, _importants: { c: '' }, c: 'e' } ]
-      , ['b', { '0': 'c', length: 1, _importants: { c: '' }, c: 'e' } ]
-      , ['b.e #d', { '0': 'd', length: 1, _importants: { d: '' }, d: 'e' }]
-      , ['c[a=b]', { '0': 'd', length: 1, _importants: { d: '' }, d: 'e' }]
+        ['a', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
+      , ['b', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
+      , ['b.e #d', { '0': 'd', length: 1, _importants: { d: '' }, __starts: 22, d: 'e' }]
+      , ['c[a=b]', { '0': 'd', length: 1, _importants: { d: '' }, __starts: 39, d: 'e' }]
     ]);
   },
 
