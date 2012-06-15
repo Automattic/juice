@@ -17,6 +17,14 @@ juice('<p>Test</p>', 'p { color: red; }')
 [here](http://www.campaignmonitor.com/css/)
 - Embedding HTML in 3rd-party websites.
 
+## Example usage
+
+For rendering beautiful emails with [ejs][1] and [juice][2], check out [node-email-templates][3].
+
+[1]: https://github.com/visionmedia/ejs
+[2]: https://github.com/LearnBoost/juice
+[3]: https://github.com/niftylettuce/node-email-templates
+
 ## Credits
 
 (The MIT License)
