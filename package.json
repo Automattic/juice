@@ -1,6 +1,6 @@
 {
     "name": "juice"
-  , "version": "0.0.7"
+  , "version": "0.0.6"
   , "description": "Inlines css into html source"
   , "contributors": [
         { "name": "Guillermo Rauch", "email": "guillermo@learnboost.com" }
