@@ -1,0 +1,8 @@
+a,
+p {
+  color: green;
+}
+
+@media only screen and (max-width: 600px) {
+  a { color: red; }
+}
