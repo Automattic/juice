@@ -1,1 +1,2 @@
-<a id="a" style="color: red; background: blue; border-style: dashed;">woot</a>
+<html><body><a id="a" style="color: red; background: blue; border-style: dashed;">woot</a>
+</body></html>

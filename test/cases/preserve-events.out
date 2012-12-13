@@ -1,2 +1,3 @@
-<a href="#" onclick="return false;">Google</a>
+<html><body><a href="#" onclick="return false;">Google</a>
 <p onclick="return false;" style="color: red;">Google</p>
+</body></html>
