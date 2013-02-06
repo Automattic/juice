@@ -1,2 +1,3 @@
-<html><body><p style="color: red; background: blue;">The color should stay intact</p>
+<html><body>
+<p style="color: red; background: blue;">The color should stay intact</p>
 </body></html>
