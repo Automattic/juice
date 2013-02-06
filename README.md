@@ -11,6 +11,13 @@ juice('<p>Test</p>', 'p { color: red; }')
 // '<p style="color: red;">Test</p>'
 ```
 
+### Directly on a jsdom instance
+
+```js
+var juice = require('juice');
+juice.juiceDom(jsDomInstance, css);
+```
+
 ## What is this useful for ?
 
 - HTML emails. For a comprehensive list of supported selectors see
