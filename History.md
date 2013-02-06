@@ -1,4 +1,11 @@
 
+0.0.8 / 2013-02-06
+==================
+
+  * expose a lower level export so you can operate on a jsdom document [superjoe30]
+  * fix exports not working [superjoe30]
+  * fix jshint problems [superjoe30]
+
 0.0.7 / 2013-02-06
 ==================
 
