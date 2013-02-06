@@ -1,4 +1,13 @@
 
+0.0.7 / 2013-02-06
+==================
+
+  * fixed test case expected outputs to have starting and ending <html> and <body> tags as jsdom appends them in its html() function if they do not exist
+  * regression test for previous fix for media queries. note i had to wrap my test .out content in <html><body> tags in order to pass tests, it looks like they are appended at some point for partial html content which just guessing is new behavior from when these tests were written
+  * make sure the css rule has selectorText to prevent parsing exception. hit this on @media rules which do not have selector text. afaik this means media queries will not be inlined. however everything else is.
+  * bump jsdom
+  * Added note regarding node-email-templates to README
+
 0.0.6 / 2011-12-20
 ==================
 
