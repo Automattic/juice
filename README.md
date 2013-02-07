@@ -18,6 +18,10 @@ var juice = require('juice');
 juice.juiceDom(jsDomInstance, css);
 ```
 
+Note: Be sure to use the same jsdom version that juice uses.
+Also be sure to clean up after you're done. You may have to
+call `jsDomInstance.parentWindow.close()` to free up memory.
+
 ## What is this useful for ?
 
 - HTML emails. For a comprehensive list of supported selectors see
