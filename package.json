@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Inlines css into html source",
   "scripts": {
     "test": "node test/run.js"
