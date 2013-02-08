@@ -7,7 +7,7 @@
  * Module dependencies.
  */
 
-var juice = require('../juice')
+var juice = require('../')
   , basename = require('path').basename
   , fs = require('fs')
 
@@ -39,6 +39,7 @@ function test (testName, fn) {
     return fs.readFileSync(file, 'utf8');
   }
 
+  // use the legacy invocation to test backward compatibility
   var actual = juice(html, css)
     , expected = read(base + '.out')
 
