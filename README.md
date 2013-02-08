@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/LearnBoost/juice.png)](https://travis-ci.org/LearnBoost/juice)
+[![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/LearnBoost/juice)
 ![](http://david-dm.org/LearnBoost/juice.png)
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
