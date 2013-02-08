@@ -23,6 +23,9 @@
       "email": "superjoe30@gmail.com"
     }
   ],
+  "engines": {
+    "node": ">=0.6.0 <0.9.0"
+  },
   "dependencies": {
     "cssom": "~0.2.5",
     "jsdom": "~0.4.0",
