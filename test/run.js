@@ -7,7 +7,7 @@
  * Module dependencies.
  */
 
-var juice = require('../lib/juice')
+var juice = require('../')
   , basename = require('path').basename
   , fs = require('fs')
 
@@ -30,8 +30,8 @@ var failures = 0;
  * @param {Function} fn
  */
 
-function test (test, fn) {
-  var base = __dirname + '/cases/' + test
+function test (testName, fn) {
+  var base = __dirname + '/cases/' + testName
     , html =  read(base + '.html')
     , css = read(base + '.css')
 
@@ -39,17 +39,18 @@ function test (test, fn) {
     return fs.readFileSync(file, 'utf8');
   }
 
+  // use the legacy invocation to test backward compatibility
   var actual = juice(html, css)
     , expected = read(base + '.out')
 
-  if (actual.trim() == expected.trim()) {
+  if (actual.trim() === expected.trim()) {
     fn();
   } else {
     fn(actual, expected);
   }
 
-  return test;
-};
+  return testName;
+}
 
 /**
  * Auto-load and run tests.
@@ -82,7 +83,7 @@ fs.readdir(__dirname + '/cases', function (err, files) {
       }
       next();
     });
-  })();
+  }());
 });
 
 /**
@@ -93,16 +94,16 @@ fs.readdir(__dirname + '/cases', function (err, files) {
  */
 
 function diff (actual, expected) {
-  var actual = actual.split('\n')
-    , expected = expected.split('\n')
-    , len = largestLineIn(expected);
+  actual = actual.split('\n');
+  expected = expected.slit('\n');
+  var len = largestLineIn(expected);
 
   expected.forEach(function(line, i){
-    if (!line.length && i == expected.length - 1) return;
+    if (!line.length && i === expected.length - 1) return;
     var other = actual[i]
-      , pad = len - line.length
-      , pad = Array(++pad).join(' ')
-      , same = line == other;
+      , pad = len - line.length;
+    pad = (new Array(++pad)).join(' ');
+    var same = line === other;
     if (same) {
       console.error('  %d| %j%s | %j', i+1, line, pad, other);
     } else {
@@ -131,14 +132,14 @@ function largestLineIn(lines) {
 function done () {
   console.log();
   console.log(
-      '  \033[90mcompleted\033[0m'
-    + ' \033[32m%d\033[0m'
-    + ' \033[90mtests\033[0m', count);
+      '  \033[90mcompleted\033[0m' +
+      ' \033[32m%d\033[0m' +
+      ' \033[90mtests\033[0m', count);
 
   if (failures) {
-    console.error('  \033[90mfailed\033[0m'
-      + ' \033[31m%d\033[0m'
-      + ' \033[90mtests\033[0m', failures);
+    console.error('  \033[90mfailed\033[0m' +
+        ' \033[31m%d\033[0m' +
+        ' \033[90mtests\033[0m', failures);
     process.exit(failures);
   }
 
