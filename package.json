@@ -3,7 +3,7 @@
   "version": "0.0.9",
   "description": "Inlines css into html source",
   "scripts": {
-    "test": "node test/run.js"
+    "test": "mocha --reporter spec"
   },
   "contributors": [
     {
@@ -26,10 +26,13 @@
   "dependencies": {
     "cssom": "~0.2.5",
     "jsdom": "~0.4.0",
-    "mootools-slick-parser": "1.3.2"
+    "mootools-slick-parser": "1.3.2",
+    "batch": "~0.2.1",
+    "superagent": "~0.12.2"
   },
   "devDependencies": {
     "should": "0.3.1",
-    "expresso": "0.9.0"
+    "expresso": "0.9.0",
+    "mocha": "~1.8.1"
   }
 }
