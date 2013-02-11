@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Inlines css into html source",
   "scripts": {
     "test": "mocha --reporter spec"
