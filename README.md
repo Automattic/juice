@@ -76,7 +76,7 @@ Output:
    - `extraCss` - extra css to apply to the file. Defaults to `""`.
    - `applyStyleTags` - whether to inline styles in `<style></style>`
      Defaults to `true`.
-   - `applyLinkTags` - whether to resolve `<link rel="stylesheet"` tags
+   - `applyLinkTags` - whether to resolve `<link rel="stylesheet">` tags
      and inline the resulting styles. Defaults to `true`.
    - `removeStyleTags` - whether to remove the original `<style></style>`
      tags after (possibly) inlining the css from them. Defaults to `true`.
@@ -105,6 +105,17 @@ call `document.parentWindow.close()` to free up memory.
  * `document` - a jsdom instance
  * `options` - see `juice.juiceContent`
  * `callback(err)`
+
+### juice.inlineContent(html, css)
+
+This takes html and css and returns new html with the provided css inlined.
+It does not look at `<style>` or `<link rel="stylesheet">` elements at all.
+
+### juice.inlineDocument(document, css)
+
+Given a jsdom instance and css, this modifies the jsdom instance so that the
+provided css is inlined. It does not look at `<style>` or
+`<link rel="stylesheet">` elements at all.
 
 ### juice.ignoredPseudos
 
