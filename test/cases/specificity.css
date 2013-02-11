@@ -6,43 +6,22 @@
 }
 #a { /* [1, 0, 0] */
   color: #00f;
-
-  /* delete this when https://github.com/dperini/nwmatcher/issues/68
-   * is fixed.
-   */
-  display: block;
-  /* end delete this */
 }
-/*
- * uncomment when https://github.com/dperini/nwmatcher/issues/68
- * is fixed.
-div[a=b] .wrap div { /* [0, 2, 2] * /
+div[a=b] .wrap div { /* [0, 2, 2] */
   display: block;
 }
-*/
 #wrap .wrap { /* [1, 1, 0] - winner */
   display: inline-block;
 }
 #wrap div.wrap #a { /* [2, 1, 1] */
   background: #000;
 }
-/*
- * uncomment when https://github.com/dperini/nwmatcher/issues/68
- * is fixed.
-#wrap[a=b] div.wrap #a { /* [2, 2, 1] - winner * /
+#wrap[a=b] div.wrap #a { /* [2, 2, 1] - winner */
   background: green;
 }
-#wrap[a=c] div.wrap #a { /* [2, 2, 1] - no match * /
+#wrap[a=c] div.wrap #a { /* [2, 2, 1] - no match */
   background: #00f;
 }
-*/
-/* delete when https://github.com/dperini/nwmatcher/issues/68
- * is fixed.
- */
-#wrap div.wrap #a {
-  background: green;
-}
-/* end delete */
 
 #wrap .wrap #a { /* [2, 1, 0] */
   background: #f00;
