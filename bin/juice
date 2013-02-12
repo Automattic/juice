@@ -22,6 +22,9 @@ if (program.file && program.output) {
       fs.writeFile(program.output, html, function(err){
         if(err) console.log('Error writing output');
       });
+	} else {
+		console.log('Error rendering ' + program.file);
+		console.log(err);
 	}
   });
 } else {
