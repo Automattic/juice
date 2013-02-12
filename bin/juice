@@ -8,25 +8,24 @@ var fs = require('fs');
 program.name = package.name;
 
 program.version(package.version)
-  .usage('-f path/to/file -o path/to/ouput')
-  .option('-f, --file [path]', 'File to be rendered')
-  .option('-o, --output [path]', 'Name of rendered file')
+  .usage('input.html output.html')
   .parse(process.argv);
 
-// Just start when a input and output file are givens
-if (program.file && program.output) {
-  // Render file
-  juice(program.file, function(err, html) {
-	if (!err){
-	  // Write output file
-      fs.writeFile(program.output, html, function(err){
-        if(err) console.log('Error writing output');
-      });
-	} else {
-		console.log('Error rendering ' + program.file);
-		console.log(err);
-	}
-  });
-} else {
-  console.log('Wrong number of arguments see juice -h for help');
-}
+if (program.args < 2) program.help();
+
+var inputFile = program.args[0]
+  , outputFile = program.args[1];
+
+juice(inputFile, function(err, html) {
+  if (err) {
+    console.error(err.stack)
+    process.exit(1);
+  } else {
+    fs.writeFile(outputFile, html, function(err) {
+      if (err) {
+        console.error(err.stack);
+        process.exit(1);
+      }
+    });
+  }
+});
