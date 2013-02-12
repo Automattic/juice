@@ -8,6 +8,7 @@ var fs = require('fs');
 program.name = package.name;
 
 program.version(package.version)
+  .usage('-f path/to/file -o path/to/ouput')
   .option('-f, --file [path]', 'File to be rendered')
   .option('-o, --output [path]', 'Name of rendered file')
   .parse(process.argv);
