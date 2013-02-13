@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/LearnBoost/juice)
-![](http://david-dm.org/LearnBoost/juice.png)
+[![Dependency Status](https://david-dm.org/LearnBoost/juice.png)](https://david-dm.org/LearnBoost/juice)
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style`
