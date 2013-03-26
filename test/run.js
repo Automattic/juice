@@ -95,7 +95,7 @@ fs.readdir(__dirname + '/cases', function (err, files) {
 
 function diff (actual, expected) {
   actual = actual.split('\n');
-  expected = expected.slit('\n');
+  expected = expected.split('\n');
   var len = largestLineIn(expected);
 
   expected.forEach(function(line, i){
