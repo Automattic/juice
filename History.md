@@ -1,33 +1,40 @@
 0.3.1 / 2013-03-26
+==================
 
  * do not crash on ::selectors (covered by normalize.css test case)
 
 0.3.0 / 2013-03-26
+==================
 
  * update jsdom dependency to 0.5.4
  * support node v0.10
  * switch dependency to slick instead of mootools which was rudely unpublished
 
 0.2.0 / 2013-02-13
+==================
 
  * update jsdom dependency to 0.5.0
 
 0.1.3 / 2013-02-12
+==================
 
  * fix specificity test. all test cases passed now.
  * add a command line `juice` program
 
 0.1.2 / 2013-02-11
+==================
 
  * fix incorrectly lowercasing <link> href
 
 0.1.1 / 2013-02-11
+==================
 
  * explicitly document which node versions are supported
    with `engines` and travis-ci.
  * expose `juice.inlineDocument` and `juice.inlineContent`
 
 0.1.0 / 2013-02-07
+==================
 
  * fix / test case for @media queries
  * merge [boost](https://github.com/superjoe30/boost) into juice
