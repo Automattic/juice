@@ -5,3 +5,7 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+a:link, a:visited {
+  font-weight: bold;
+}
