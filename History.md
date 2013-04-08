@@ -1,3 +1,10 @@
+0.3.3 / 2013-04-08
+==================
+
+ * fix resolving file:// paths on windows (thanks Mirco Zeiss)
+ * fix crash during cleanup. (thanks Ger Hobbelt)
+ * update superagent to 0.14.0
+
 0.3.2 / 2013-03-26
 ==================
 
