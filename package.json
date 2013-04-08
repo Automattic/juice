@@ -31,7 +31,7 @@
     "cssom": "~0.2.5",
     "jsdom": "~0.5.4",
     "batch": "~0.3.2",
-    "superagent": "~0.13.0",
+    "superagent": "~0.14.0",
     "commander": "~1.1.1",
     "slick": "~1.10.0"
   },
