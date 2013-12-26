@@ -74,6 +74,8 @@ Output:
  * `filePath` - html file
  * `options` - (optional) object containing these properties:
    - `extraCss` - extra css to apply to the file. Defaults to `""`.
+   - `addDoctype` - jsdom removes doctype so this allows user to add one. Defaults to `""`.
+   - `preserveEntities` - Preserves/converts special characters to their html entity form. Defaults to `true`.
    - `applyStyleTags` - whether to inline styles in `<style></style>`
      Defaults to `true`.
    - `applyLinkTags` - whether to resolve `<link rel="stylesheet">` tags
