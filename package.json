@@ -6,24 +6,6 @@
   "scripts": {
     "test": "mocha --reporter spec"
   },
-  "contributors": [
-    {
-      "name": "Guillermo Rauch",
-      "email": "guillermo@learnboost.com"
-    },
-    {
-      "name": "Arian Stolwijk",
-      "email": "arian@aryweb.nl"
-    },
-    {
-      "name": "Paweł Marzec",
-      "email": "rork@cojestgrane.pl"
-    },
-    {
-      "name": "Andrew Kelley",
-      "email": "superjoe30@gmail.com"
-    }
-  ],
   "engines": {
     "node": ">=0.8.0"
   },
@@ -42,6 +24,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/LearnBoost/juice.git"
+    "url": "https://github.com/superjoe30/juice.git"
   }
 }
