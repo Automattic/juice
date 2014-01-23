@@ -1,14 +1,15 @@
-[![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/LearnBoost/juice)
-[![Dependency Status](https://david-dm.org/LearnBoost/juice.png)](https://david-dm.org/LearnBoost/juice)
+[![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/superjoe30/juice)
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style`
 attribute.
 
+This is a fork from LearnBoost's juice which is not actively maintained.
+
 ## How to use
 
 ```js
-var juice = require('juice');
+var juice = require('juice2');
 juice("/path/to/file.html", function(err, html) {
   console.log(html);
 });

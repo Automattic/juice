@@ -1,3 +1,10 @@
+0.5.0 / 2013-04-15
+==================
+
+ * update dependencies to latest
+ * fix not preserving DOCTYPE (thanks [jgannonjr](https://github.com/jgannonjr))
+ * fix decoding local file paths (thanks [alexluke](https://github.com/alexluke))
+
 0.4.0 / 2013-04-15
 ==================
 
