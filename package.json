@@ -7,7 +7,7 @@
     "test": "mocha --reporter spec"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.20"
   },
   "dependencies": {
     "cssom": "~0.3.0",
