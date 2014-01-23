@@ -28,17 +28,17 @@
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "cssom": "~0.2.5",
-    "jsdom": "~0.6.0",
-    "batch": "~0.3.2",
-    "superagent": "~0.14.0",
-    "commander": "~1.1.1",
-    "slick": "~1.10.0"
+    "cssom": "~0.3.0",
+    "jsdom": "~0.8.11",
+    "batch": "~0.5.0",
+    "superagent": "~0.16.0",
+    "commander": "~2.1.0",
+    "slick": "~1.10.4"
   },
   "devDependencies": {
-    "should": "~1.2.2",
+    "should": "~3.0.1",
     "expresso": "~0.9.2",
-    "mocha": "~1.8.2"
+    "mocha": "~1.17.1"
   },
   "repository": {
     "type": "git",
