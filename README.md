@@ -1,10 +1,8 @@
-[![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/superjoe30/juice)
+[![Build Status](https://travis-ci.org/superjoe30/juice.png?branch=master)](https://travis-ci.org/superjoe30/juice)
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style`
 attribute.
-
-This is a fork from LearnBoost's juice which is not actively maintained.
 
 ## How to use
 
