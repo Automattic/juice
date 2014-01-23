@@ -6,6 +6,7 @@ var juice = require('../')
   , assert = require('assert')
 
 var tests = [
+  "doctype",
   "no_css",
   "two_styles",
   "remote_url",
