@@ -2,8 +2,8 @@
 ==================
 
  * update dependencies to latest
- * fix not preserving DOCTYPE (thanks [jgannonjr](https://github.com/jgannonjr))
- * fix decoding local file paths (thanks [alexluke](https://github.com/alexluke))
+ * fix not preserving DOCTYPE [jgannonjr]
+ * fix decoding local file paths [alexluke]
 
 0.4.0 / 2013-04-15
 ==================
@@ -61,7 +61,7 @@
 ==================
 
  * fix / test case for @media queries
- * merge [boost](https://github.com/superjoe30/boost) into juice
+ * merge [boost](https://github.com/andrewrk/boost) into juice
  * legacy `juice` function still works as is
  * add `juice(filePath, [options], callback)`
  * add `juice.juiceDocument(document, options, callback)`
@@ -77,9 +77,9 @@
 0.0.8 / 2013-02-06
 ==================
 
-  * expose a lower level export so you can operate on a jsdom document [superjoe30]
-  * fix exports not working [superjoe30]
-  * fix jshint problems [superjoe30]
+  * expose a lower level export so you can operate on a jsdom document [andrewrk]
+  * fix exports not working [andrewrk]
+  * fix jshint problems [andrewrk]
 
 0.0.7 / 2013-02-06
 ==================
