@@ -10,17 +10,17 @@
     "node": ">=0.10.20"
   },
   "dependencies": {
-    "cssom": "~0.3.0",
-    "jsdom": "~0.8.11",
-    "batch": "~0.5.0",
-    "superagent": "~0.16.0",
-    "commander": "~2.1.0",
-    "slick": "~1.10.4"
+    "slick": "^1.11.1",
+    "batch": "^0.5.0",
+    "commander": "^2.2.0",
+    "cssom": "^0.3.0",
+    "superagent": "^0.17.0",
+    "jsdom": "^0.10.5"
   },
   "devDependencies": {
-    "should": "~3.0.1",
-    "expresso": "~0.9.2",
-    "mocha": "~1.17.1"
+    "should": "^3.3.1",
+    "mocha": "^1.18.2",
+    "expresso": "^0.9.2"
   },
   "repository": {
     "type": "git",
