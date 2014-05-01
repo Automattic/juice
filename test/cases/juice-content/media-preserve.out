@@ -6,6 +6,9 @@
     color: blue !important;
     background: red;
   }
+  @font-face {
+    font-family: 'Arial2';
+  }
 }
 </style>
 </head>

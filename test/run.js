@@ -33,7 +33,8 @@ var failures = 0;
 function test (testName, fn, options) {
   var base = __dirname + '/cases/' + testName
     , html =  read(base + '.html')
-    , css = read(base + '.css')
+    , css = read( base + '.css' )
+    , config = options ? JSON.parse( read( base + '.json' ) ) : null
 
   function read (file) {
     return fs.readFileSync(file, 'utf8');
@@ -52,7 +53,7 @@ function test (testName, fn, options) {
   	}
   };
 
-  if ( typeof ( options ) === 'undefined' )
+  if ( config === null )
   {
   	// use the legacy invocation to test backward compatibility
   	var actual = juice( html, css );
@@ -60,7 +61,7 @@ function test (testName, fn, options) {
   }
   else
   {
-  	juice.juiceContent( html, options, onDone )
+  	juice.juiceContent( html, config, onDone );
   }
 
   return testName;
@@ -72,36 +73,49 @@ function test (testName, fn, options) {
 
 fs.readdir(__dirname + '/cases', function (err, files) {
   if (err) throw err;
-  var tests = []
-    , curr;
+  var tests = [];
 
   files.forEach(function (file) {
     if (/\.html$/.test(file)) {
       ++count;
       tests.push( { basename: basename( file, '.html' ) });
     }
-  });
+  } );
 
-  ++count;
-  tests.push( { basename: 'options/media-preserve', options: { url: './', preserveMediaQueries: true } } );
+  fs.readdir( __dirname + '/cases/juice-content', function ( err, files )
+  {
+  	if ( err ) throw err;
 
-  (function next () {
-    curr = tests.shift();
-    if (!curr) return done();
-    process.stderr.write('    \033[90m' + curr.basename + '\033[0m');
-    test(curr.basename, function(actual, expected){
-      if (actual) {
-        ++failures;
-        console.error('\r  \033[31m✖\033[0m \033[90m' + curr.basename + '\033[0m\n');
-        diff(actual, expected);
-        console.error();
-      } else {
-        console.error('\r  \033[36m✔\033[0m \033[90m' + curr.basename + '\033[0m');
-      }
-      next();
-    }, curr.options);
-  }());
-});
+  	files.forEach( function ( file )
+  	{
+  		if ( /\.html$/.test( file ) )
+  		{
+  			++count;
+  			tests.push( { basename: 'juice-content/' + basename( file, '.html' ), options: true } );
+  		}
+  	} );
+
+  	nextTest( tests );
+  } );
+} );
+
+
+function nextTest (tests) {
+	curr = tests.shift();
+	if (!curr) return done();
+	process.stderr.write('    \033[90m' + curr.basename + '\033[0m');
+	test(curr.basename, function(actual, expected){
+		if (actual) {
+			++failures;
+			console.error('\r  \033[31m✖\033[0m \033[90m' + curr.basename + '\033[0m\n');
+			diff(actual, expected);
+			console.error();
+		} else {
+			console.error('\r  \033[36m✔\033[0m \033[90m' + curr.basename + '\033[0m');
+		}
+		nextTest(tests);
+	}, curr.options);
+}
 
 /**
  * Diff `actual` / `expected`.
