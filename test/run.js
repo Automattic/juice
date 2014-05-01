@@ -71,50 +71,52 @@ function test (testName, fn, options) {
  * Auto-load and run tests.
  */
 
-fs.readdir(__dirname + '/cases', function (err, files) {
-  if (err) throw err;
+fs.readdir( __dirname + '/cases', function ( err, files ) {
+  if ( err ) throw err;
   var tests = [];
 
-  files.forEach(function (file) {
-    if (/\.html$/.test(file)) {
+  files.forEach( function ( file )
+  {
+    if ( /\.html$/.test( file ) ) {
       ++count;
-      tests.push( { basename: basename( file, '.html' ) });
+      tests.push( { basename: basename( file, '.html' ) } );
     }
   } );
 
   fs.readdir( __dirname + '/cases/juice-content', function ( err, files )
   {
-  	if ( err ) throw err;
+    if ( err ) throw err;
 
-  	files.forEach( function ( file )
-  	{
-  		if ( /\.html$/.test( file ) )
-  		{
-  			++count;
-  			tests.push( { basename: 'juice-content/' + basename( file, '.html' ), options: true } );
-  		}
-  	} );
+    files.forEach( function ( file )
+    {
+      if ( /\.html$/.test( file ) ) {
+        ++count;
+        tests.push( { basename: 'juice-content/' + basename( file, '.html' ), options: true } );
+      }
+    } );
 
-  	nextTest( tests );
+    nextTest( tests );
   } );
 } );
 
 
-function nextTest (tests) {
-	curr = tests.shift();
-	if (!curr) return done();
-	process.stderr.write('    \033[90m' + curr.basename + '\033[0m');
-	test(curr.basename, function(actual, expected){
-		if (actual) {
-			++failures;
-			console.error('\r  \033[31m✖\033[0m \033[90m' + curr.basename + '\033[0m\n');
-			diff(actual, expected);
-			console.error();
-		} else {
-			console.error('\r  \033[36m✔\033[0m \033[90m' + curr.basename + '\033[0m');
-		}
-		nextTest(tests);
-	}, curr.options);
+function nextTest( tests )
+{
+  curr = tests.shift();
+  if ( !curr ) return done();
+  process.stderr.write( '    \033[90m' + curr.basename + '\033[0m' );
+  test( curr.basename, function ( actual, expected )
+  {
+    if ( actual ) {
+      ++failures;
+      console.error( '\r  \033[31m✖\033[0m \033[90m' + curr.basename + '\033[0m\n' );
+      diff( actual, expected );
+      console.error();
+    } else {
+      console.error( '\r  \033[36m✔\033[0m \033[90m' + curr.basename + '\033[0m' );
+    }
+    nextTest( tests );
+  }, curr.options );
 }
 
 /**
