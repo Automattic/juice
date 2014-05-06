@@ -79,6 +79,9 @@ Output:
      and inline the resulting styles. Defaults to `true`.
    - `removeStyleTags` - whether to remove the original `<style></style>`
      tags after (possibly) inlining the css from them. Defaults to `true`.
+   - `preserveMediaQueries` - preserves all media queries (and contained styles) 
+     within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. 
+     Other styles are removed. Defaults to `false`.
    - `removeLinkTags` - whether to remove the original `<link rel="stylesheet">`
      tags after (possibly) inlining the css from them. Defaults to `true`.
    - `url` - how to resolve hrefs. Defaults to using `filePath`. If you want
