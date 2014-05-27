@@ -84,7 +84,7 @@ Output:
      within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. 
      Other styles are removed. Defaults to `false`.
    - `applyWidthAttributes` - whether to use any CSS pixel widths to create
-     `width` attributes on elements that support widths: `table`, `td`, `img`, `input`
+     `width` attributes on elements set in `juice.widthElements`
    - `removeLinkTags` - whether to remove the original `<link rel="stylesheet">`
      tags after (possibly) inlining the css from them. Defaults to `true`.
    - `url` - how to resolve hrefs. Defaults to using `filePath`. If you want
