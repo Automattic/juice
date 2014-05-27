@@ -1,3 +1,19 @@
+1.1.0 / 2014-05-22
+==================
+
+ * preserve single quotes for values [jrit]
+
+1.0.0 / 2014-05-07
+==================
+
+ * order styles alphabetically to preserve expected style priority [jrit]
+ * major version bumped in case people expected styles to not be sorted alphabetically
+
+0.7.0 / 2014-05-06
+==================
+
+ * add preserveMediaQueries API [jrit]
+
 0.6.0 / 2014-04-25
 ==================
 
