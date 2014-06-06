@@ -10,6 +10,7 @@
 var juice = require('../')
   , basename = require('path').basename
   , fs = require('fs')
+  , path = require('path');
 
 /**
  * Test count.
@@ -61,6 +62,8 @@ function test (testName, fn, options) {
   }
   else
   {
+    var slashes = path.sep + path.sep;
+    config.url = "file:" + slashes + path.dirname(path.resolve(process.cwd(), base + '.html'));
   	juice.juiceContent( html, config, onDone );
   }
 

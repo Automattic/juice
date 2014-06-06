@@ -1,0 +1,2 @@
+p { width: 200px; }
+@media all { p { width: 100px; } }
