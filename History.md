@@ -1,3 +1,11 @@
+
+0.5.0 / 2014-09-08
+==================
+
+ * update dependencies [binarykitchen]
+ * handle errors in loading external css
+ * add repository field to readme
+
 0.4.0 / 2013-04-15
 ==================
 
