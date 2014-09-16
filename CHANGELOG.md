@@ -1,3 +1,11 @@
+1.3.0 / 2014-07-22
+==================
+
+ * Update dependencies and code cleanup
+ * heads up, xhtml might be handled differently
+ * extract LICENSE from README
+ * rename History.md to CHANGELOG.md
+
 1.2.0 / 2014-05-22
 ==================
 
