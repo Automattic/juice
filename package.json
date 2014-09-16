@@ -15,8 +15,7 @@
     "cssom": "~0.3.0",
     "superagent": "~0.18.2",
     "jsdom": "~0.11.1",
-    "pend": "~1.1.2",
-    "batch": "^0.5.0"
+    "pend": "~1.1.2"
   },
   "devDependencies": {
     "should": "~4.0.4",
