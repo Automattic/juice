@@ -75,8 +75,11 @@ Output:
    - `extraCss` - extra css to apply to the file. Defaults to `""`.
    - `applyStyleTags` - whether to inline styles in `<style></style>`
      Defaults to `true`.
-   - `applyLinkTags` - whether to resolve `<link rel="stylesheet">` tags
-     and inline the resulting styles. Defaults to `true`.
+   - `applyLinkTags` [Deprecated, use applyLinksToStyleTags] - whether to resolve `<link rel="stylesheet">` tags
+     and inline the resulting styles into document `head`. Defaults to `true`.
+   - `applyLinksToStyleTags` - whether to resolve `<link rel="stylesheet">` tags
+     and replace them with `style` tags. This works with `preserveMediaQueries` 
+     unlike the deprecated `applyLinkTags`. Defaults to `true`.
    - `removeStyleTags` - whether to remove the original `<style></style>`
      tags after (possibly) inlining the css from them. Defaults to `true`.
    - `preserveMediaQueries` - preserves all media queries (and contained styles) 
