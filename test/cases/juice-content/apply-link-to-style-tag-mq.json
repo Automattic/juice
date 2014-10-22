@@ -1,0 +1,5 @@
+{
+    "applyLinksToStyleTags": true,
+    "removeStyleTags": true,
+    "preserveMediaQueries": true
+}
