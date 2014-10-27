@@ -9,6 +9,7 @@ var tests = [
   "no_css",
   "two_styles",
   "remote_url",
+  "spaces_in_path",
 ];
 
 tests.forEach(function(testName) {
