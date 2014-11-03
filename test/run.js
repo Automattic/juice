@@ -30,23 +30,38 @@ var failures = 0;
  * @param {Function} fn
  */
 
-function test (testName, fn) {
+function test (testName, fn, options) {
   var base = __dirname + '/cases/' + testName
     , html =  read(base + '.html')
-    , css = read(base + '.css')
+    , css = read( base + '.css' )
+    , config = options ? JSON.parse( read( base + '.json' ) ) : null
 
   function read (file) {
     return fs.readFileSync(file, 'utf8');
   }
 
-  // use the legacy invocation to test backward compatibility
-  var actual = juice(html, css)
-    , expected = read(base + '.out')
+  var onDone = function ( err, actual )
+  {
+  	var expected = read( base + '.out' );
 
-  if (actual.trim() === expected.trim()) {
-    fn();
-  } else {
-    fn(actual, expected);
+  	if ( actual.trim() === expected.trim() )
+  	{
+  		fn();
+  	} else
+  	{
+  		fn( actual, expected );
+  	}
+  };
+
+  if ( config === null )
+  {
+  	// use the legacy invocation to test backward compatibility
+  	var actual = juice( html, css );
+  	onDone( null, actual );
+  }
+  else
+  {
+  	juice.juiceContent( html, config, onDone );
   }
 
   return testName;
@@ -56,35 +71,53 @@ function test (testName, fn) {
  * Auto-load and run tests.
  */
 
-fs.readdir(__dirname + '/cases', function (err, files) {
-  if (err) throw err;
-  var tests = []
-    , curr;
+fs.readdir( __dirname + '/cases', function ( err, files ) {
+  if ( err ) throw err;
+  var tests = [];
 
-  files.forEach(function (file) {
-    if (/\.html$/.test(file)) {
+  files.forEach( function ( file )
+  {
+    if ( /\.html$/.test( file ) ) {
       ++count;
-      tests.push(basename(file, '.html'));
+      tests.push( { basename: basename( file, '.html' ) } );
     }
-  });
+  } );
 
-  (function next () {
-    curr = tests.shift();
-    if (!curr) return done();
-    process.stderr.write('    \033[90m' + curr + '\033[0m');
-    test(curr, function(actual, expected){
-      if (actual) {
-        ++failures;
-        console.error('\r  \033[31m✖\033[0m \033[90m' + curr + '\033[0m\n');
-        diff(actual, expected);
-        console.error();
-      } else {
-        console.error('\r  \033[36m✔\033[0m \033[90m' + curr + '\033[0m');
+  fs.readdir( __dirname + '/cases/juice-content', function ( err, files )
+  {
+    if ( err ) throw err;
+
+    files.forEach( function ( file )
+    {
+      if ( /\.html$/.test( file ) ) {
+        ++count;
+        tests.push( { basename: 'juice-content/' + basename( file, '.html' ), options: true } );
       }
-      next();
-    });
-  }());
-});
+    } );
+
+    nextTest( tests );
+  } );
+} );
+
+
+function nextTest( tests )
+{
+  curr = tests.shift();
+  if ( !curr ) return done();
+  process.stderr.write( '    \033[90m' + curr.basename + '\033[0m' );
+  test( curr.basename, function ( actual, expected )
+  {
+    if ( actual ) {
+      ++failures;
+      console.error( '\r  \033[31m✖\033[0m \033[90m' + curr.basename + '\033[0m\n' );
+      diff( actual, expected );
+      console.error();
+    } else {
+      console.error( '\r  \033[36m✔\033[0m \033[90m' + curr.basename + '\033[0m' );
+    }
+    nextTest( tests );
+  }, curr.options );
+}
 
 /**
  * Diff `actual` / `expected`.
