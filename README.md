@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/LearnBoost/juice)
-[![Dependency Status](https://david-dm.org/LearnBoost/juice.png)](https://david-dm.org/LearnBoost/juice)
+[![Build Status](https://travis-ci.org/Automattic/juice.png?branch=master)](https://travis-ci.org/Automattic/juice)
+[![Dependency Status](https://david-dm.org/Automattic/juice.png)](https://david-dm.org/Automattic/juice)
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style`
@@ -61,7 +61,7 @@ Output:
 
 [1]: https://github.com/niftylettuce/node-email-templates
 [2]: https://github.com/visionmedia/ejs
-[3]: https://github.com/LearnBoost/juice
+[3]: https://github.com/Automattic/juice
 [4]: https://github.com/superjoe30/swig-email-templates
 [5]: https://github.com/paularmstrong/swig
 [6]: https://docs.djangoproject.com/en/dev/topics/templates/#template-inheritance
@@ -83,6 +83,8 @@ Output:
    - `preserveMediaQueries` - preserves all media queries (and contained styles) 
      within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. 
      Other styles are removed. Defaults to `false`.
+   - `applyWidthAttributes` - whether to use any CSS pixel widths to create
+     `width` attributes on elements set in `juice.widthElements`
    - `removeLinkTags` - whether to remove the original `<link rel="stylesheet">`
      tags after (possibly) inlining the css from them. Defaults to `true`.
    - `url` - how to resolve hrefs. Defaults to using `filePath`. If you want
@@ -114,7 +116,7 @@ call `document.parentWindow.close()` to free up memory.
 This takes html and css and returns new html with the provided css inlined.
 It does not look at `<style>` or `<link rel="stylesheet">` elements at all.
 
-### juice.inlineDocument(document, css)
+### juice.inlineDocument(document, css, options)
 
 Given a jsdom instance and css, this modifies the jsdom instance so that the
 provided css is inlined. It does not look at `<style>` or
@@ -123,6 +125,10 @@ provided css is inlined. It does not look at `<style>` or
 ### juice.ignoredPseudos
 
 Array of ignored pseudo-selectors such as 'hover' and 'active'.
+
+### juice.widthElements
+
+Array of HTML elements that can receive `width` attributes.
 
 ## Credits
 
