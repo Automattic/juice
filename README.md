@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/LearnBoost/juice.png?branch=master)](https://travis-ci.org/LearnBoost/juice)
-[![Dependency Status](https://david-dm.org/LearnBoost/juice.png)](https://david-dm.org/LearnBoost/juice)
+[![Build Status](https://travis-ci.org/Automattic/juice.png?branch=master)](https://travis-ci.org/Automattic/juice)
+[![Dependency Status](https://david-dm.org/Automattic/juice.png)](https://david-dm.org/Automattic/juice)
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style`
@@ -61,7 +61,7 @@ Output:
 
 [1]: https://github.com/niftylettuce/node-email-templates
 [2]: https://github.com/visionmedia/ejs
-[3]: https://github.com/LearnBoost/juice
+[3]: https://github.com/Automattic/juice
 [4]: https://github.com/superjoe30/swig-email-templates
 [5]: https://github.com/paularmstrong/swig
 [6]: https://docs.djangoproject.com/en/dev/topics/templates/#template-inheritance
