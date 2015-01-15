@@ -1,10 +1,10 @@
 <html><body>
 <ul>
-  <li style="color: #f00; display: block;">
+  <li style="display: block; color: #f00;">
     <ul>
-      <li style="color: #f00; display: block;">
+      <li style="display: block; color: #f00;">
         <ul>
-          <li style="color: #f00; display: block;"></li>
+          <li style="display: block; color: #f00;"></li>
         </ul>
       </li>
     </ul>
