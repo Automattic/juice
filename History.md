@@ -1,3 +1,7 @@
+Next Release
+==================
+
+ * Inline pseudo elements as <span> elements
 
 0.5.0 / 2014-09-08
 ==================
