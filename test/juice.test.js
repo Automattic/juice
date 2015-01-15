@@ -96,7 +96,7 @@ module.exports = {
   'test parsing css into a object structure': function () {
     var parse = utils.parseCSS;
 
-    parse('a, b { c: e; }').should.eql([
+    parse('a, b { c: e; }').should.containDeep([
         ['a', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
       , ['b', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
     ]);
@@ -105,7 +105,7 @@ module.exports = {
         'a, b { c: e; }'
       , 'b.e #d { d: e; }'
       , 'c[a=b] { d: e; }'
-    ].join('\n')).should.eql([
+    ].join('\n')).should.containDeep([
         ['a', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
       , ['b', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
       , ['b.e #d', { '0': 'd', length: 1, _importants: { d: '' }, __starts: 22, d: 'e' }]
@@ -115,7 +115,7 @@ module.exports = {
 
   'test juice': function () {
     juice('<div a="b">woot</div>', 'div { color: red; }')
-      .should.equal('<div a="b" style="color: red;">woot</div>');
+      .should.equal('<html><body><div a="b" style="color: red;">woot</div></body></html>');
   }
 
 };
