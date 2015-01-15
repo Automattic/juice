@@ -23,7 +23,7 @@
     "email": "npm@fgribreau.com"
   }],
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "dependencies": {
     "cssom": "0.3.0",
