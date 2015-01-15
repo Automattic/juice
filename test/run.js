@@ -71,33 +71,43 @@ function test (testName, fn, options) {
  * Auto-load and run tests.
  */
 
-fs.readdir( __dirname + '/cases', function ( err, files ) {
-  if ( err ) throw err;
-  var tests = [];
-
-  files.forEach( function ( file )
-  {
-    if ( /\.html$/.test( file ) ) {
-      ++count;
-      tests.push( { basename: basename( file, '.html' ) } );
+if (process.argv.length > 2) {
+  nextTest(process.argv.slice(2).map(function(name) {
+    return {
+      basename: name,
+      options: name.slice(0, "juice-content/".length) === "juice-content/",
     }
-  } );
-
-  fs.readdir( __dirname + '/cases/juice-content', function ( err, files )
-  {
+  }));
+}
+else {
+  fs.readdir( __dirname + '/cases', function ( err, files ) {
     if ( err ) throw err;
+    var tests = [];
 
     files.forEach( function ( file )
     {
       if ( /\.html$/.test( file ) ) {
         ++count;
-        tests.push( { basename: 'juice-content/' + basename( file, '.html' ), options: true } );
+        tests.push( { basename: basename( file, '.html' ) } );
       }
     } );
 
-    nextTest( tests );
+    fs.readdir( __dirname + '/cases/juice-content', function ( err, files )
+    {
+      if ( err ) throw err;
+
+      files.forEach( function ( file )
+      {
+        if ( /\.html$/.test( file ) ) {
+          ++count;
+          tests.push( { basename: 'juice-content/' + basename( file, '.html' ), options: true } );
+        }
+      } );
+
+      nextTest( tests );
+    } );
   } );
-} );
+}
 
 
 function nextTest( tests )
