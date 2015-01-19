@@ -6,31 +6,37 @@
   "scripts": {
     "test": "mocha --reporter spec"
   },
-  "contributors": [{
-    "name": "Guillermo Rauch",
-    "email": "guillermo@learnboost.com"
-  }, {
-    "name": "Arian Stolwijk",
-    "email": "arian@aryweb.nl"
-  }, {
-    "name": "Paweł Marzec",
-    "email": "rork@cojestgrane.pl"
-  }, {
-    "name": "Andrew Kelley",
-    "email": "superjoe30@gmail.com"
-  }, {
-    "name": "Francois-Guillaume Ribreau",
-    "email": "npm@fgribreau.com"
-  }],
+  "contributors": [
+    {
+      "name": "Guillermo Rauch",
+      "email": "guillermo@learnboost.com"
+    },
+    {
+      "name": "Arian Stolwijk",
+      "email": "arian@aryweb.nl"
+    },
+    {
+      "name": "Paweł Marzec",
+      "email": "rork@cojestgrane.pl"
+    },
+    {
+      "name": "Andrew Kelley",
+      "email": "superjoe30@gmail.com"
+    },
+    {
+      "name": "Francois-Guillaume Ribreau",
+      "email": "npm@fgribreau.com"
+    }
+  ],
   "engines": {
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "cssom": "0.3.0",
-    "jsdom": "0.9.0",
-    "batch": "0.5.1",
-    "superagent": "~0.20.0",
+    "batch": "0.5.2",
     "commander": "2.3.0",
+    "cssom": "0.3.0",
+    "html-resource-inline": "^1.0.0",
+    "jsdom": "0.9.0",
     "slick": "1.12.1"
   },
   "devDependencies": {

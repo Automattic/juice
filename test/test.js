@@ -3,7 +3,7 @@ var juice = require('../')
   , path = require('path')
   , fs = require('fs')
   , Batch = require('batch')
-  , assert = require('assert')
+  , assert = require('assert');
 
 var tests = [
   "doctype",
@@ -21,8 +21,7 @@ function createIt(testName) {
   return function(cb) {
     var batch = new Batch();
     batch.push(function(cb) {
-      var filePath = path.join(__dirname, "html", testName + ".in.html");
-      juice(filePath, cb);
+      juice.juiceFile(path.join(__dirname, "html", testName + ".in.html"), {relativeTo: 'test/html/'}, cb);
     });
     batch.push(function(cb) {
       fs.readFile(path.join(__dirname, "html", testName + ".out.html"), 'utf8', cb);
