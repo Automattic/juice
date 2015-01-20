@@ -35,7 +35,7 @@
     "batch": "0.5.2",
     "commander": "2.3.0",
     "cssom": "0.3.0",
-    "html-resource-inline": "^1.0.0",
+    "web-resource-inliner": "1.0.0",
     "jsdom": "0.9.0",
     "slick": "1.12.1"
   },
