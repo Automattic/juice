@@ -36,7 +36,7 @@ function test (testName, options) {
     , css = read( base + '.css' )
     , config = options ? JSON.parse( read( base + '.json' ) ) : null;
 
-    options = {relativeTo: 'test/cases/'};
+    options = {};
 
   return function(done) {
     var onJuiced = function ( err, actual )
