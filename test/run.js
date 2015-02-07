@@ -12,7 +12,7 @@ var juice = require('../')
 
 var files = fs.readdirSync( __dirname + '/cases' );
 files.forEach(function(file) {
-  if ( /\.html$/.test( file ) ) {
+  if( /\.html$/.test( file ) ) {
     var name = basename( file, '.html' );
     it(name, test(name, false));
   }
@@ -21,7 +21,7 @@ files.forEach(function(file) {
 var optionFiles = fs.readdirSync( __dirname + '/cases/juice-content' );
 
 optionFiles.forEach(function(file) {
-  if ( /\.html$/.test( file ) ) {
+  if( /\.html$/.test( file ) ) {
     var name = 'juice-content/' + basename( file, '.html' );
     it(name, test(name, true));
   }
@@ -50,12 +50,10 @@ function test (testName, options) {
       done();
     };
 
-    if ( config === null )
-    {
+    if(config === null) {
       juice.inlineContent(html, css, options, onJuiced);
     }
-    else
-    {
+    else {
       juice.juiceContent(html, config, onJuiced);
     }
   };
