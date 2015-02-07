@@ -1,5 +1,6 @@
 /*globals describe:false it:false*/
 var juice = require('../')
+  , utils = require('../lib/utils')
   , path = require('path')
   , fs = require('fs')
   , Batch = require('batch')
@@ -28,7 +29,7 @@ function createIt(testName) {
     });
     batch.end(function(err, results) {
       if (err) return cb(err);
-      assert.strictEqual(results[1].trim(), results[0].trim());
+      assert.strictEqual(utils.normalizeLineEndings(results[1].trim()), results[0].trim());
       cb();
     });
   };
