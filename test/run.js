@@ -1,5 +1,6 @@
 
 var juice = require('../')
+  , utils = require('../lib/utils')
   , basename = require('path').basename
   , fs = require('fs')
   , assert = require('assert');
@@ -36,7 +37,7 @@ function test (testName, options) {
     , css = read( base + '.css' )
     , config = options ? JSON.parse( read( base + '.json' ) ) : null;
 
-    options = {};
+  options = {};
 
   return function(done) {
     var onJuiced = function ( err, actual )
@@ -44,18 +45,18 @@ function test (testName, options) {
       if(err){
         return done(err);
       }
-      var expected = read( base + '.out');
-      assert.equal(actual.trim(), expected.trim());
+      var expected = read(base + '.out');
+      assert.equal(actual.trim(), utils.normalizeLineEndings(expected.trim()));
       done();
     };
 
     if ( config === null )
     {
-      juice.inlineContent( html, css, options, onJuiced );
+      juice.inlineContent(html, css, options, onJuiced);
     }
     else
     {
-      juice.juiceContent( html, config, onJuiced );
+      juice.juiceContent(html, config, onJuiced);
     }
   };
 }
