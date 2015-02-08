@@ -46,7 +46,7 @@ function test (testName, options) {
         return done(err);
       }
       var expected = read(base + '.out');
-      assert.equal(actual.trim(), utils.normalizeLineEndings(expected.trim()));
+      assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
       done();
     };
 

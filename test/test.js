@@ -29,7 +29,7 @@ function createIt(testName) {
     });
     batch.end(function(err, results) {
       if (err) return cb(err);
-      assert.strictEqual(utils.normalizeLineEndings(results[1].trim()), results[0].trim());
+      assert.strictEqual(utils.normalizeLineEndings(results[1].trim()), utils.normalizeLineEndings(results[0].trim()));
       cb();
     });
   };
