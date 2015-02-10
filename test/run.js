@@ -18,6 +18,12 @@ files.forEach(function(file) {
   }
 });
 
+it("juice(html)", function(){
+  var expected = '<div style="color: red;"></div>';
+  var actual = juice('<style>div{color:red;}</style><div/>');
+  assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
+});
+
 var optionFiles = fs.readdirSync( __dirname + '/cases/juice-content' );
 
 optionFiles.forEach(function(file) {
