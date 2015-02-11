@@ -90,6 +90,9 @@ Output:
    - `url` - how to resolve hrefs. Defaults to using `filePath`. If you want
      to override, be sure your `url` has the protocol at the beginning, e.g.
      `http://` or `file://`.
+   -`importantEverything`: Add `important!` to *all* styles. This is
+     helpful for email clients that have their own `important!` styles
+     (e.g., Gmail's `a { color: #7a1026 !important; }` style).
  * `callback(err, html)`
    - `err` - `Error` object or `null`.
    - `html` - contains the html from `filePath`, with potentially `<style>` and
