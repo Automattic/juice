@@ -11,7 +11,7 @@ var juice = require('../')
   , Selector = juice.Selector
   , Property = juice.Property
   , utils = juice.utils
-  , should = require('should')
+  , should = require('should');
 
 /**
  * Tests.
