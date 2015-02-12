@@ -57,10 +57,10 @@ function test (testName, options) {
     };
 
     if(config === null) {
-      juice.inlineContent(html, css, options, onJuiced);
+      onJuiced(null, juice.inlineContent(html, css, options));
     }
     else {
-      juice.juiceContent(html, config, onJuiced);
+      juice.juiceResources(html, config, onJuiced);
     }
   };
 }
