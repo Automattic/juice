@@ -1,3 +1,18 @@
+1.0.0 / 2015-02-12
+==================
+
+ * add support for node 0.12
+ * drop support for node 0.8
+ * use cheerio instead of jsdom
+ * move remote resource fetching to external library web-resource-inliner
+ * adjust public methods as needed to support other changes
+ * rename `juiceContent` to `juiceResources`
+ * maintain CSS single quotes
+ * ability to inline css pixel widths to `width` attribute with `applyWidthAttributes`
+ * alphabetize styles for improved specificity
+ * ability to keep media query styles with option `preserveMediaQueries`
+ * clean up testing setup, including removing old dependency on expresso
+ * istanbul put in place to show test coverage
 
 0.5.0 / 2014-09-08
 ==================
