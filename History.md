@@ -13,6 +13,7 @@
  * ability to keep media query styles with option `preserveMediaQueries`
  * clean up testing setup, including removing old dependency on expresso
  * istanbul put in place to show test coverage
+ * remove now unused options `applyLinkTags` and `removeLinkTags`
 
 0.5.0 / 2014-09-08
 ==================
