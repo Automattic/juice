@@ -1,0 +1,5 @@
+<html><body style="color: red;">
+<?php
+echo "Hello world";
+?>
+</body></html>
