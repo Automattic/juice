@@ -1,3 +1,9 @@
+1.0.1 / 2015-02-18
+==================
+
+* legacy support for `url` option
+* bump version on web-resource-inliner to use `relativeTo` with a url and remote paths starting `//`
+
 1.0.0 / 2015-02-12
 ==================
 
