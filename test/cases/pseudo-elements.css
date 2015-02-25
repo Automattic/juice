@@ -27,3 +27,7 @@ b:after {
 b:after {
  content: "b";
 }
+
+b :last-child {
+  color: red;
+}
