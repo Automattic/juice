@@ -1,7 +1,7 @@
 Next Release
 ==================
 
- * Inline pseudo elements as <span> elements
+ * Add option to inline pseudo elements as <span> elements
 
 1.0.0 / 2015-02-12
 ==================
