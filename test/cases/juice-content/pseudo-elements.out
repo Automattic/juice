@@ -1,6 +1,6 @@
 <html><body>
 
 <a href="#" style="color: blue; text-decoration: underline;"><span>®+</span>Test<span style="font-weight: bold;">a</span></a>
-<b><span>b</span></b>
-<b><span style="color: red;"></span><span>b</span></b>
+<b><span style="color: green;">b</span></b>
+<b><span style="color: red;"></span><span style="color: green;">b</span></b>
 </body></html>
