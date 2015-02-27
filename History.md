@@ -4,6 +4,7 @@
 * legacy support for `url` option
 * bump version on web-resource-inliner to use `relativeTo` with a url and remote paths starting `//`
 * update skipped tests to mocha so they will run with `npm test` and on travis
+* bump web-resource-inliner version to expose `strict` option, which is now `false` by default
 
 1.0.0 / 2015-02-12
 ==================

@@ -38,7 +38,7 @@
     "commander": "2.3.0",
     "cssom": "0.3.0",
     "slick": "1.12.1",
-    "web-resource-inliner": "1.0.1"
+    "web-resource-inliner": "1.1.0"
   },
   "devDependencies": {
     "should": "4.0.4",
