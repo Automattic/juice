@@ -4,7 +4,7 @@
 </head>
 <body>
     <p style="text-align: center; vertical-align: middle;">none</p>
-    <table style="background-color: red; background-image: url('test.png');" background="url('test.png')" bgcolor="red">
+    <table style="background-image: url('test.png'); background-color: red;" background="url('test.png')" bgcolor="red">
         <tr>
             <td style="text-align: center; vertical-align: middle;" align="center" valign="middle">
                 wide
