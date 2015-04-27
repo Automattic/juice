@@ -1,3 +1,10 @@
+1.0.2 / 2015-04-27
+==================
+
+* added option `applyAttributesTableElements`
+* bump version on web-resource-inliner to 1.1.1
+* fix bin/juice so it works as documented
+
 1.0.1 / 2015-02-22
 ==================
 
