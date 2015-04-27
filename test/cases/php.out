@@ -1,0 +1,6 @@
+<html><body style="color: red;">
+<?php
+echo "Hello world";
+?>
+<a href="<?php echo user()->getSystemAddress() ?>" target="_blank"></a>
+</body></html>

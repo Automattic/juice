@@ -1,0 +1,15 @@
+<html>
+<head>
+    
+</head>
+<body>
+    <p style="text-align: center; vertical-align: middle;">none</p>
+    <table style="background-color: red; background-image: url('test.png');" background="url('test.png')" bgcolor="red">
+        <tr>
+            <td style="text-align: center; vertical-align: middle;" align="center" valign="middle">
+                wide
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
