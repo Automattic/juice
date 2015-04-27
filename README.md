@@ -49,6 +49,7 @@ All juice methods take an options object that can contain any of these propertie
  * `removeStyleTags` - whether to remove the original `<style></style>` tags after (possibly) inlining the css from them. Defaults to `true`.
  * `preserveMediaQueries` - preserves all media queries (and contained styles) within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `false`.
  * `applyWidthAttributes` - whether to use any CSS pixel widths to create `width` attributes on elements set in `juice.widthElements`. Defaults to `false`.
+ * `applyAttributesTableElements` - whether to create attributes for styles in `juice.styleToAttribute` on elements set in `juice.tableElements`. Defaults to `false`.
  * `webResources` - An options object that will be passed through to web-resource-inliner for juice functions that will get remote resources (`juiceResources` and `juiceFile`). Defaults to `{}`.
  * `inlinePseudoElements` - Whether to insert pseudo elements (`::before` and `::after`) as `<span>` into the dom. *Note*: Modifying the dom may conflict with css selectors elsewhere on the page.
 
@@ -114,6 +115,14 @@ Array of ignored pseudo-selectors such as 'hover' and 'active'.
 #### juice.widthElements
 
 Array of HTML elements that can receive `width` attributes.
+
+#### juice.styleToAttribute
+
+Object of style property names (key) to their respective attribute names (value).
+
+#### juice.tableElements
+
+Array of table HTML elements that can receive attributes defined in `juice.styleToAttribute`.
 
 ## Credits
 

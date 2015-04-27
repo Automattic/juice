@@ -1,0 +1,3 @@
+<p>Dear {{ $person->user->firstname }},</p>
+
+[{include file="email/html/footer.tpl"}]

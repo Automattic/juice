@@ -11,68 +11,63 @@ var juice = require('../')
   , Selector = juice.Selector
   , Property = juice.Property
   , utils = juice.utils
-  , should = require('should');
+  , assert = require('assert');
 
 /**
  * Tests.
  */
 
-module.exports = {
-
-  'test extracting selectors': function () {
+it('extracting selectors', function () {
     var extract = utils.extract;
 
-    extract('#a').should.eql(['#a']);
-    extract('#a, .b').should.eql(['#a', '.b']);
-    extract('#a, .b,').should.eql(['#a', '.b']);
-    extract('.test.a, #a.b').should.eql(['.test.a', '#a.b']);
-    extract('a[type=text, a=b], .a, .b, #c #d').should
-      .eql(['a[type=text, a=b]', '.a', '.b', '#c #d']);
-    extract('a:not(.a,.b,.c)').should.eql(['a:not(.a,.b,.c)']);
-    extract('a:not(.a,.b,.c), .b').should.eql(['a:not(.a,.b,.c)', '.b']);
-    extract('a:not(.a,.b,[type=text]), .b').should
-      .eql(['a:not(.a,.b,[type=text])', '.b']);
-    extract('a:not(.a,.b,[type=text, a=b]), .b').should
-      .eql(['a:not(.a,.b,[type=text, a=b])', '.b']);
-  },
+    assert.deepEqual(extract('#a'),['#a']);
+    assert.deepEqual(extract('#a, .b'),['#a', '.b']);
+    assert.deepEqual(extract('#a, .b,'),['#a', '.b']);
+    assert.deepEqual(extract('.test.a, #a.b'),['.test.a', '#a.b']);
+    assert.deepEqual(extract('a[type=text, a=b], .a, .b, #c #d'),['a[type=text, a=b]', '.a', '.b', '#c #d']);
+    assert.deepEqual(extract('a:not(.a,.b,.c)'),['a:not(.a,.b,.c)']);
+    assert.deepEqual(extract('a:not(.a,.b,.c), .b'),['a:not(.a,.b,.c)', '.b']);
+    assert.deepEqual(extract('a:not(.a,.b,[type=text]), .b'),['a:not(.a,.b,[type=text])', '.b']);
+    assert.deepEqual(extract('a:not(.a,.b,[type=text, a=b]), .b'),['a:not(.a,.b,[type=text, a=b])', '.b']);
+} );
 
-  'test selector specificity comparison': function () {
+it('selector specificity comparison', function () {
     var compare = utils.compare;
 
-    compare([0, 1, 2, 3], [0, 2, 0, 0]).should.eql([0, 2, 0, 0]);
-    compare([0, 2, 0, 0], [0, 1, 2, 3]).should.eql([0, 2, 0, 0]);
+    assert.deepEqual(compare([0, 1, 2, 3], [0, 2, 0, 0]),[0, 2, 0, 0]);
+    assert.deepEqual(compare([0, 2, 0, 0], [0, 1, 2, 3]),[0, 2, 0, 0]);
 
     // check that the second reference is returned upon draws
     var b = [0, 1, 1, 4];
-    compare([0, 1, 1, 4], b).should.equal(b);
+    assert.deepEqual(compare([0, 1, 1, 4], b),b);
 
-    compare([0, 0, 0, 4], [0, 0, 0, 10]).should.eql([0, 0, 0, 10]);
-    compare([0, 0, 0, 10], [0, 0, 0, 4]).should.eql([0, 0, 0, 10]);
+    assert.deepEqual(compare([0, 0, 0, 4], [0, 0, 0, 10]),[0, 0, 0, 10]);
+    assert.deepEqual(compare([0, 0, 0, 10], [0, 0, 0, 4]),[0, 0, 0, 10]);
 
-    compare([0, 4, 0, 0], [0, 0, 100, 4]).should.eql([0, 4, 0, 0]);
-    compare([0, 0, 100, 4], [0, 4, 0, 0]).should.eql([0, 4, 0, 0]);
+    assert.deepEqual(compare([0, 4, 0, 0], [0, 0, 100, 4]),[0, 4, 0, 0]);
+    assert.deepEqual(compare([0, 0, 100, 4], [0, 4, 0, 0]),[0, 4, 0, 0]);
 
-    compare([0, 1, 1, 5], [0, 1, 1, 15]).should.eql([0, 1, 1, 15]);
-    compare([0, 1, 1, 15], [0, 1, 1, 5]).should.eql([0, 1, 1, 15]);
-  },
+    assert.deepEqual(compare([0, 1, 1, 5], [0, 1, 1, 15]),[0, 1, 1, 15]);
+    assert.deepEqual(compare([0, 1, 1, 15], [0, 1, 1, 5]),[0, 1, 1, 15]);
+} );
 
-  'test selector specificity calculator': function () {
+it('selector specificity calculator', function () {
     function spec (selector) {
       return new Selector(selector).specificity();
     };
 
-    spec('#test').should.eql([0, 1, 0, 0]);
-    spec('#a #b #c').should.eql([0, 3, 0, 0]);
-    spec('.a .b .c').should.eql([0, 0, 3, 0]);
-    spec('div.a div.b div.c').should.eql([0, 0, 3, 3]);
-    spec('div a span').should.eql([0, 0, 0, 3]);
-    spec('#test input[type=text]').should.eql([0, 1, 1, 1]);
-    spec('[type=text]', [0, 0, 1, 0]);
-    spec('*').should.eql([0, 0, 0, 0]);
-    spec('div *').should.eql([0, 0, 0, 1]);
-  },
+    assert.deepEqual(spec('#test'),[0, 1, 0, 0]);
+    assert.deepEqual(spec('#a #b #c'),[0, 3, 0, 0]);
+    assert.deepEqual(spec('.a .b .c'),[0, 0, 3, 0]);
+    assert.deepEqual(spec('div.a div.b div.c'),[0, 0, 3, 3]);
+    assert.deepEqual(spec('div a span'),[0, 0, 0, 3]);
+    assert.deepEqual(spec('#test input[type=text]'),[0, 1, 1, 1]);
+    assert.deepEqual(spec('[type=text]'), [0, 0, 1, 0]);
+    assert.deepEqual(spec('*'),[0, 0, 0, 0]);
+    assert.deepEqual(spec('div *'),[0, 0, 0, 1]);
+} );
 
-  'test property comparison based on selector specificity': function () {
+it('property comparison based on selector specificity', function () {
     function prop (k, v, sel) {
       return new Property(k, v, new Selector(sel));
     }
@@ -80,42 +75,53 @@ module.exports = {
     var a = prop('color', 'white', '#woot')
       , b = prop('color', 'red', '#a #woot')
 
-    a.compare(b).should.equal(b);
+    assert.deepEqual(a.compare(b),b);
 
     var a = prop('background-color', 'red', '#a')
       , b = prop('background-color', 'red', '.a.b.c')
 
-    a.compare(b).should.equal(a);
+    assert.deepEqual(a.compare(b),a);
 
     var a = prop('background-color', 'red', '#a .b.c')
       , b = prop('background-color', 'red', '.a.b.c #c')
 
-    a.compare(b).should.equal(b);
-  },
+    assert.deepEqual(a.compare(b),b);
+} );
 
-  'test parsing css into a object structure': function () {
+it('parse simple css into a object structure', function () {
     var parse = utils.parseCSS;
 
-    parse('a, b { c: e; }').should.eql([
-        ['a', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
-      , ['b', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
-    ]);
+    var actual = parse('a, b { c: e; }');
+    var a = actual[0];
+    var b = actual[1];
 
-    parse([
-        'a, b { c: e; }'
-      , 'b.e #d { d: e; }'
-      , 'c[a=b] { d: e; }'
-    ].join('\n')).should.eql([
-        ['a', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
-      , ['b', { '0': 'c', length: 1, _importants: { c: '' }, __starts: 5, c: 'e' } ]
-      , ['b.e #d', { '0': 'd', length: 1, _importants: { d: '' }, __starts: 22, d: 'e' }]
-      , ['c[a=b]', { '0': 'd', length: 1, _importants: { d: '' }, __starts: 39, d: 'e' }]
-    ]);
-  },
+    assert.equal(a[0],'a');
+    assert.equal(a[1]['0'],'c');
+    assert.equal(a[1].length,1);
+    assert.deepEqual(a[1]._importants, { c: '' });
+    assert.equal(a[1].c,'e');
+    assert.deepEqual(a[1],b[1]);
+} );
 
-  'test juice': function () {
-    juice('<div a="b">woot</div>', 'div { color: red; }')
-      .should.equal('<div a="b" style="color: red;">woot</div>');
-  }
+it('parse complex css into a object structure', function () {
+    var parse = utils.parseCSS;
 
-};
+    var actual = parse(['a, b { c: e; }', 'b.e #d { d: e; }', 'c[a=b] { d: e; }'].join('\n'));
+    var a = actual[0];
+    var b = actual[1];
+    var bed = actual[2];
+    var cab = actual[3];
+
+    delete bed[1].parentRule;
+    delete cab[1].parentRule;
+    delete bed[1].__starts;
+    delete cab[1].__starts;
+
+    assert.deepEqual(a[1],b[1]);
+    assert.deepEqual(bed[1],cab[1]);
+} );
+
+it('test juice', function () {
+    assert.deepEqual(juice('<div a="b">woot</div>', {extraCss: 'div { color: red; }'}),
+        '<div a="b" style="color: red;">woot</div>');
+} );

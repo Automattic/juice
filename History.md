@@ -3,6 +3,21 @@ Next Release
 
  * Add option to inline pseudo elements as <span> elements
 
+1.0.2 / 2015-04-27
+==================
+
+* added option `applyAttributesTableElements`
+* bump version on web-resource-inliner to 1.1.1
+* fix bin/juice so it works as documented
+
+1.0.1 / 2015-02-22
+==================
+
+* legacy support for `url` option
+* bump version on web-resource-inliner to use `relativeTo` with a url and remote paths starting `//`
+* update skipped tests to mocha so they will run with `npm test` and on travis
+* bump web-resource-inliner version to expose `strict` option, which is now `false` by default
+
 1.0.0 / 2015-02-12
 ==================
 
