@@ -1,3 +1,10 @@
+Next Release
+==================
+
+ * Fix order of inlined style properties. Now sorted by selector
+   specificity, resulting in the same computed styles that the original
+   CSS would have had.
+
 1.0.2 / 2015-04-27
 ==================
 
