@@ -51,7 +51,7 @@ All juice methods take an options object that can contain any of these propertie
  * `applyWidthAttributes` - whether to use any CSS pixel widths to create `width` attributes on elements set in `juice.widthElements`. Defaults to `false`.
  * `applyAttributesTableElements` - whether to create attributes for styles in `juice.styleToAttribute` on elements set in `juice.tableElements`. Defaults to `false`.
  * `webResources` - An options object that will be passed through to web-resource-inliner for juice functions that will get remote resources (`juiceResources` and `juiceFile`). Defaults to `{}`.
- * `inlinePseudoElements` - Whether to insert pseudo elements (`::before` and `::after`) as `<span>` into the dom. *Note*: Modifying the dom may conflict with css selectors elsewhere on the page.
+ * `inlinePseudoElements` - Whether to insert pseudo elements (`::before` and `::after`) as `<span>` into the dom. *Note*: Inserting pseudo elements will modify the dom and may conflict with css selectors elsewhere on the page (e.g., `:last-child`).
 
 ### Methods
 
