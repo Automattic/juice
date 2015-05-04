@@ -1,0 +1,6 @@
+<html><body>
+
+<a href="#" style="text-decoration: underline; color: blue;"><span>®+</span>Test<span style="font-weight: bold;">a</span></a>
+<b><span style="color: green;">b</span></b>
+<b><span style="color: red;"></span><span style="color: green;">b</span></b>
+</body></html>
