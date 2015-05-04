@@ -1,9 +1,7 @@
-Next Release
+1.1.0 / 2015-05-04
 ==================
 
- * Fix order of inlined style properties. Now sorted by selector
-   specificity, resulting in the same computed styles that the original
-   CSS would have had.
+ * Fix order of inlined style properties. Now sorted by selector specificity, resulting in the same computed styles that the original CSS would have had.
  * Add option to inline pseudo elements as <span> elements
 
 1.0.2 / 2015-04-27
