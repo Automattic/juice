@@ -1,3 +1,13 @@
+1.1.2 / 2015-05-08
+==================
+
+* remove index.js and point `main` in package.json to `/lib/juice.js`
+
+1.1.1
+==================
+
+* publish with line endings fixed in /bin
+
 1.1.0 / 2015-05-04
 ==================
 
