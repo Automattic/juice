@@ -13,10 +13,24 @@ program.version(package.version)
 
 if (program.args < 2) program.help();
 
-var inputFile = program.args[0]
-  , outputFile = program.args[1];
+var inputFile = program.args[0];
+var outputFile = program.args[1];
+var opts;
 
-juice.juiceFile(inputFile, {}, function(err, html) {
+if (process.argv.length > 3) {
+
+  process.argv.splice(4).forEach(function (element) {
+
+    var parts = element.split('=');
+
+    if (parts[0].match(/^--/)) {
+      opts[parts[0].replace(/^--/, '')] = parts[1];
+    }
+  });
+
+}
+
+juice.juiceFile(inputFile, opts, function(err, html) {
   if (err) {
     console.error(err.stack)
     process.exit(1);

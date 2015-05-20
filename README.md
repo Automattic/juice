@@ -124,6 +124,12 @@ Object of style property names (key) to their respective attribute names (value)
 
 Array of table HTML elements that can receive attributes defined in `juice.styleToAttribute`.
 
+### Command Line
+
+Usage:
+
+`juice input.html output.html <options>`
+
 ## Credits
 
 (The MIT License)
