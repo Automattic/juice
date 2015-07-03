@@ -1,9 +1,10 @@
+"use strict";
 
-var juice = require('../')
-  , utils = require('../lib/utils')
-  , basename = require('path').basename
-  , fs = require('fs')
-  , assert = require('assert');
+var juice = require('../');
+var utils = require('../lib/utils');
+var basename = require('path').basename;
+var fs = require('fs');
+var assert = require('assert');
 
 
 /**
@@ -38,10 +39,10 @@ function read (file) {
 }
 
 function test (testName, options) {
-  var base = __dirname + '/cases/' + testName
-    , html =  read(base + '.html')
-    , css = read( base + '.css' )
-    , config = options ? JSON.parse( read( base + '.json' ) ) : null;
+  var base = __dirname + '/cases/' + testName;
+  var html =  read(base + '.html');
+  var css = read( base + '.css' );
+  var config = options ? JSON.parse( read( base + '.json' ) ) : null;
 
   options = {};
 
