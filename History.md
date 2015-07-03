@@ -1,3 +1,9 @@
+1.3.0 / 2015-07-02
+==================
+
+* Add option `preserveImportant`
+* Make lib `use_strict` compliant and lint files
+
 1.2.0 / 2015-05-21
 ==================
 
