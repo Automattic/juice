@@ -1,3 +1,4 @@
+"use strict";
 
 /*!
  * Juice unit tests.
@@ -7,11 +8,11 @@
  * Test dependencies.
  */
 
-var juice = require('../')
-  , Selector = juice.Selector
-  , Property = juice.Property
-  , utils = juice.utils
-  , assert = require('assert');
+var juice = require('../');
+var Selector = juice.Selector;
+var Property = juice.Property;
+var utils = juice.utils;
+var assert = require('assert');
 
 /**
  * Tests.
@@ -54,7 +55,7 @@ it('selector specificity comparison', function () {
 it('selector specificity calculator', function () {
     function spec (selector) {
       return new Selector(selector).specificity();
-    };
+    }
 
     assert.deepEqual(spec('#test'),[0, 1, 0, 0]);
     assert.deepEqual(spec('#a #b #c'),[0, 3, 0, 0]);
@@ -72,18 +73,18 @@ it('property comparison based on selector specificity', function () {
       return new Property(k, v, new Selector(sel));
     }
 
-    var a = prop('color', 'white', '#woot')
-      , b = prop('color', 'red', '#a #woot')
+    var a = prop('color', 'white', '#woot');
+    var b = prop('color', 'red', '#a #woot');
 
     assert.deepEqual(a.compare(b),b);
 
-    var a = prop('background-color', 'red', '#a')
-      , b = prop('background-color', 'red', '.a.b.c')
+    a = prop('background-color', 'red', '#a');
+    b = prop('background-color', 'red', '.a.b.c');
 
     assert.deepEqual(a.compare(b),a);
 
-    var a = prop('background-color', 'red', '#a .b.c')
-      , b = prop('background-color', 'red', '.a.b.c #c')
+    a = prop('background-color', 'red', '#a .b.c');
+    b = prop('background-color', 'red', '.a.b.c #c');
 
     assert.deepEqual(a.compare(b),b);
 } );

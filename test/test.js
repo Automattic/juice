@@ -1,10 +1,13 @@
 /*globals describe:false it:false*/
-var juice = require('../')
-  , utils = require('../lib/utils')
-  , path = require('path')
-  , fs = require('fs')
-  , Batch = require('batch')
-  , assert = require('assert');
+
+"use strict";
+
+var juice = require('../');
+var utils = require('../lib/utils');
+var path = require('path');
+var fs = require('fs');
+var Batch = require('batch');
+var assert = require('assert');
 
 var tests = [
   "doctype",
@@ -16,6 +19,14 @@ var tests = [
 
 tests.forEach(function(testName) {
   it(testName, createIt(testName));
+});
+
+it("inlineContent", function()
+{
+  var html = '<p>Hello</p>';
+  var css = 'p{font-weight:bold;}';
+
+  assert.strictEqual(juice.inlineContent(html, css), '<p style="font-weight: bold;">Hello</p>');
 });
 
 function createIt(testName) {
