@@ -1,0 +1,3 @@
+<body style="color: red;">
+<%= config.sitePrefix %>verify?grant=<%= grant._id %>&secret=<%= grant.secret %>
+</body>
