@@ -8,24 +8,45 @@ var fs = require('fs');
 program.name = package.name;
 
 program.version(package.version)
-  .usage('input.html output.html')
+  .usage('[options] input.html output.html')
+  .option('--css [filepath]', 'Add an extra CSS file')
   .parse(process.argv);
 
 if (program.args < 2) program.help();
 
 var inputFile = program.args[0]
-  , outputFile = program.args[1];
+  , outputFile = program.args[1]
+  , options = {}
+  , waitingOn = 1;
 
-juice.juiceFile(inputFile, {}, function(err, html) {
+if (program.css) {
+  waitingOn++;
+  fs.readFile(program.css, function (err, css) {
+    if (handleError(err)) { return; }
+    options.extraCss = css;
+    next();
+  });
+}
+
+next();
+
+function doJuice() {
+  juice.juiceFile(inputFile, options, function(err, html) {
+    if (handleError(err)) { return; }
+    fs.writeFile(outputFile, html, handleError);
+  });
+}
+
+function next(err) {
+  if (handleError(err)) { return; }
+  waitingOn--;
+  if (waitingOn <= 0) { doJuice(); }
+}
+
+function handleError(err) {
   if (err) {
-    console.error(err.stack)
+    console.error(err.stack);
     process.exit(1);
-  } else {
-    fs.writeFile(outputFile, html, function(err) {
-      if (err) {
-        console.error(err.stack);
-        process.exit(1);
-      }
-    });
   }
-});
+  return err ? true : false;
+}
