@@ -40,6 +40,8 @@ result will be:
 
 ## Documentation
 
+Juice is exposed as a standard module, and from CLI with a smaller set of options.
+
 ### Options
 
 All juice methods take an options object that can contain any of these properties, though not every method uses all of these:
@@ -125,6 +127,16 @@ Object of style property names (key) to their respective attribute names (value)
 #### juice.tableElements
 
 Array of table HTML elements that can receive attributes defined in `juice.styleToAttribute`.
+
+
+### CLI Options
+
+To use Juice from CLI, run `juice [options] input.html output.html`
+
+Current CLI options:
+
+- `--css [filepath]` will load and inject CSS into `extraCss`.
+
 
 ## Credits
 
