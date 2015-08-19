@@ -1,3 +1,9 @@
+1.4.0 / 2015-08-19
+==================
+
+* Add extra CSS option to CLI
+* CLI has test coverage now
+
 1.3.3 / 2015-07-14
 ==================
 
