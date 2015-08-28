@@ -1,0 +1,41 @@
+<html><body>
+<style>
+a {
+  text-decoration: underline;
+}
+
+a:before,
+a:after {
+  content: "a";
+}
+
+* a:before {
+  content: '®\+';
+}
+
+a:after,
+a::after {
+  font-weight: bold;
+}
+
+a:first-child {
+  color: blue;
+}
+
+b:after {
+ content: " ";
+}
+
+b:after {
+ content: "b";
+ color: green;
+}
+
+b :last-child {
+  color: red;
+}
+</style>
+<a href="#">Test</a>
+<b></b>
+<b><span></span></b>
+</body></html>

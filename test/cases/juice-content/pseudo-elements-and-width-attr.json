@@ -1,0 +1,6 @@
+{
+  "url": "./",
+  "removeStyleTags": true,
+  "inlinePseudoElements": true,
+  "applyWidthAttributes": true
+}
