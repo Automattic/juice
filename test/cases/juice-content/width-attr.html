@@ -1,8 +1,11 @@
 <html>
 <head>
     <style>
-        p, td, img {
+        p, td.px, img.px {
             width: 200px;
+        }
+        td.percentage, img.percentage {
+            width: 50%;
         }
     </style>
 </head>
@@ -10,11 +13,15 @@
     <p>none</p>
     <table>
         <tr>
-            <td>
+            <td class="px">
+                wide
+            </td>
+            <td class="percentage">
                 wide
             </td>
         </tr>
     </table>
-    <img src="" alt="wide">
+    <img src="" alt="wide" class="px">
+    <img src="" alt="wide" class="percentage">
 </body>
 </html>
