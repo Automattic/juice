@@ -6,11 +6,15 @@
     <p style="width: 200px;">none</p>
     <table>
         <tr>
-            <td style="width: 200px;" width="200">
+            <td class="px" style="width: 200px;" width="200">
+                wide
+            </td>
+            <td class="percentage" style="width: 50%;" width="50%">
                 wide
             </td>
         </tr>
     </table>
-    <img src="" alt="wide" style="width: 200px;" width="200">
+    <img src="" alt="wide" class="px" style="width: 200px;" width="200">
+    <img src="" alt="wide" class="percentage" style="width: 50%;">
 </body>
 </html>
