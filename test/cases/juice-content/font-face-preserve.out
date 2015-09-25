@@ -1,0 +1,12 @@
+<html>
+<head>
+    <style>
+@font-face {
+    font-family: 'Tahoma2';
+}
+</style>
+</head>
+<body>
+    <p style="color: blue;">hi</p>
+</body>
+</html>

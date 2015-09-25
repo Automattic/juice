@@ -1,7 +1,8 @@
-1.5.0 / 2015-08-19
+1.5.0 / 2015-09-25
 ==================
 
 * Exclude non-visual tags from inlining
+* Add option `preserveFontFaces`
 
 1.4.0 / 2015-08-19
 ==================
