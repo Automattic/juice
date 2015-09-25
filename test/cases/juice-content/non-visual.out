@@ -1,0 +1,10 @@
+<html style="color: red;">
+<head>
+
+    <meta name="key" content="value">
+    <script></script>
+</head>
+<body style="color: red;">
+    <p style="color: red;"></p>
+</body>
+</html>
