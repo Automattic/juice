@@ -128,6 +128,10 @@ Object of style property names (key) to their respective attribute names (value)
 
 Array of table HTML elements that can receive attributes defined in `juice.styleToAttribute`.
 
+#### juice.nonVisualElements
+
+Array of elements that will not have styles inlined because they are not intended to render.
+
 
 ### CLI Options
 
