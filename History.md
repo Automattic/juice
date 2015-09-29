@@ -3,6 +3,7 @@
 
 * Exclude non-visual tags from inlining
 * Add option `preserveFontFaces`
+* update dep: web-resource-inliner
 
 1.4.0 / 2015-08-19
 ==================
