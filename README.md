@@ -133,6 +133,12 @@ Array of table HTML elements that can receive attributes defined in `juice.style
 
 Array of elements that will not have styles inlined because they are not intended to render.
 
+### Special markup
+
+#### data-embed
+When a `data-embed` attribute is present on a stylesheet `<link>` that has been inlined into the document as a `<style></style>` tag by the web-resource-inliner juice will not inline the styles and will not remove the `<style></style>` tags.
+
+This can be used to embed email client support hacks that rely on css selectors into your email templates.
 
 ### CLI Options
 
