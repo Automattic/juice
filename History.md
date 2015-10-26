@@ -1,3 +1,9 @@
+1.6.0 / 2015-10-26
+==================
+
+* Add feature `data-embed` attribute
+* update deps: web-resource-inliner, batch, commander, slick
+
 1.5.0 / 2015-09-25
 ==================
 
