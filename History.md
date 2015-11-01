@@ -1,3 +1,8 @@
+1.6.1 / 2015-10-31
+==================
+
+* Refactor to provide browser support at `juice/client`
+
 1.6.0 / 2015-10-26
 ==================
 
