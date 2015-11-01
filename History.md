@@ -1,4 +1,4 @@
-1.6.1 / 2015-10-31
+1.6.1 / Pending
 ==================
 
 * Refactor to provide browser support at `juice/client`
