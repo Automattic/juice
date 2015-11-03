@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Inlines css into html source",
   "bin": "./bin/juice",
   "main": "./lib/juice",
@@ -40,7 +40,7 @@
     "commander": "2.9.0",
     "cssom": "0.3.0",
     "slick": "1.12.2",
-    "web-resource-inliner": "1.2.0"
+    "web-resource-inliner": "1.2.1"
   },
   "devDependencies": {
     "should": "4.0.4",
