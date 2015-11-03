@@ -1,8 +1,9 @@
-1.6.1 / Pending
+1.7.0 / 2015-11-03
 ==================
 
 * Refactor to provide browser support at `juice/client`
 * Add option `applyHeightAttributes`
+* Bump dep `web-resource-inliner`
 
 1.6.0 / 2015-10-26
 ==================
