@@ -1,3 +1,9 @@
+1.6.1 / Pending
+==================
+
+* Refactor to provide browser support at `juice/client`
+* Add option `applyHeightAttributes`
+
 1.6.0 / 2015-10-26
 ==================
 
