@@ -1,6 +1,6 @@
  "use strict";
 
-var utils = require('./utils');
+var utils = require('./lib/utils');
 
 var juiceClient = function (html,options) {
   var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});

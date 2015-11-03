@@ -11,8 +11,8 @@
  * Module dependencies.
  */
 
-var utils = require('./utils');
-var packageJson = require('../package');
+var utils = require('./lib/utils');
+var packageJson = require('./package');
 var fs = require('fs');
 var path = require('path');
 var inline = require('web-resource-inliner');

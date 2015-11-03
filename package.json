@@ -2,8 +2,9 @@
   "name": "juice",
   "version": "1.7.0",
   "description": "Inlines css into html source",
-  "bin": "./bin/juice",
-  "main": "./lib/juice",
+  "bin": "bin/juice",
+  "main": "index.js",
+  "browser": "client.js",
   "scripts": {
     "test": "mocha --reporter spec",
     "testcover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
