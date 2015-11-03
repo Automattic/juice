@@ -148,9 +148,6 @@ Current CLI options:
 
 - `--css [filepath]` will load and inject CSS into `extraCss`.
 
-### Running Juice in the Browser
-
-Attempting to Browserify `require('juice')` fails because portions of Juice and its dependencies interact with the file system using the standard `require('fs')`. However, you can `require('juice/client')` via Browserify which has support for `juiceDocument`, `inlineDocument`, and `inlineContent`, but not `juiceFile`, `juiceResources`, or `inlineExternal`. *Note that automated tests are not running in the browser yet.*
 
 ## Credits
 
