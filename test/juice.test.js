@@ -66,6 +66,8 @@ it('selector specificity calculator', function () {
     assert.deepEqual(spec('[type=text]'), [0, 0, 1, 0]);
     assert.deepEqual(spec('*'),[0, 0, 0, 0]);
     assert.deepEqual(spec('div *'),[0, 0, 0, 1]);
+    assert.deepEqual(spec('div.a.b'),[0, 0, 2, 1]);
+    assert.deepEqual(spec('div:not(.a):not(.b)'),[0, 0, 2, 1]);
 } );
 
 it('property comparison based on selector specificity', function () {
