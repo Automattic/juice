@@ -89,6 +89,12 @@ it('property comparison based on selector specificity', function () {
     assert.deepEqual(a.compare(b),b);
 } );
 
+it('property toString', function () {
+    var a = new Property('color', 'white', new Selector('#woot'));
+
+    assert.equal(a.toString(), "color: white;");
+} );
+
 it('parse simple css into a object structure', function () {
     var parse = utils.parseCSS;
 
