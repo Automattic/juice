@@ -10,6 +10,7 @@ program.name = package.name;
 program.version(package.version)
   .usage('[options] input.html output.html')
   .option('--css [filepath]', 'Add an extra CSS file')
+  .option('--noimg', 'Do not inline images')
   .parse(process.argv);
 
 if (program.args < 2) program.help();
@@ -26,6 +27,10 @@ if (program.css) {
     options.extraCss = css;
     next();
   });
+}
+
+if (program.noimg) {
+  options.webResources = {images: false}
 }
 
 next();

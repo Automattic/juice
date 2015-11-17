@@ -152,6 +152,7 @@ To use Juice from CLI, run `juice [options] input.html output.html`
 Current CLI options:
 
 - `--css [filepath]` will load and inject CSS into `extraCss`.
+- `--noimg` will prevent images to be inlined.
 
 ### Running Juice in the Browser
 
