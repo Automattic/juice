@@ -41,6 +41,7 @@
     "commander": "2.9.0",
     "cssom": "0.3.0",
     "slick": "1.12.2",
+    "util-deprecate": "^1.0.2",
     "web-resource-inliner": "1.2.1"
   },
   "devDependencies": {

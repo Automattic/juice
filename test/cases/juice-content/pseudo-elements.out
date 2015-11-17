@@ -3,4 +3,6 @@
 <a href="#" style="text-decoration: underline; color: blue;"><span>®+</span>Test<span style="font-weight: bold;">a</span></a>
 <b><span style="color: green;">b</span></b>
 <b><span style="color: red;"></span><span style="color: green;">b</span></b>
+<c style="color: red;"></c>
+<c class="not"></c>
 </body></html>

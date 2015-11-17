@@ -34,8 +34,14 @@ b:after {
 b :last-child {
   color: red;
 }
+
+c:not(.not) {
+    color: red;
+}
 </style>
 <a href="#">Test</a>
 <b></b>
 <b><span></span></b>
+<c></c>
+<c class="not"></c>
 </body></html>
