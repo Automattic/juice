@@ -2,6 +2,7 @@
 ==================
 
 * Make all options available through CLI
+* Add `--options-file` to CLI for loading JSON options
 * Make CLI tests work on Windows
 * Deprecate `utils.toArray()`
 * Fix handling of `:not()` specificity
