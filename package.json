@@ -43,7 +43,8 @@
     "slick": "1.12.2",
     "util-deprecate": "^1.0.2",
     "web-resource-inliner": "1.2.1",
-    "win-spawn": "^2.0.0"
+    "win-spawn": "^2.0.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "should": "4.0.4",

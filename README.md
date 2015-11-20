@@ -160,6 +160,7 @@ The CLI should have all the above [options](#options) with the names changed fro
 These are additional options not included in the standard `juice` options listed above:
 
 - `--css [filepath]` will load and inject CSS into `extraCss`.
+- `--options-file [filepath]` will load and inject options from a JSON file. Options from the CLI will be given priority over options in the file when there is a conflict.
 
 ### Running Juice in the Browser
 

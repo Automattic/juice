@@ -10,24 +10,25 @@ before(function () {
 });
 
 it('cli parses options', function (done) {
-  assert.strictEqual(cli.argsToOptions({css:"file.css"}).cssFile, "file.css");
-  assert.strictEqual(cli.argsToOptions({"extra-css":"body{color:red;}"}).extraCss, "body{color:red;}");
-  assert.strictEqual(cli.argsToOptions({"apply-style-tags":true}).applyStyleTags, true);
-  assert.strictEqual(cli.argsToOptions({"remove-style-tags":true}).removeStyleTags, true);
-  assert.strictEqual(cli.argsToOptions({"preserve-media-queries":true}).preserveMediaQueries, true);
-  assert.strictEqual(cli.argsToOptions({"preserve-font-faces":true}).preserveFontFaces, true);
-  assert.strictEqual(cli.argsToOptions({"apply-width-attributes":true}).applyWidthAttributes, true);
-  assert.strictEqual(cli.argsToOptions({"apply-height-attributes":true}).applyHeightAttributes, true);
-  assert.strictEqual(cli.argsToOptions({"apply-attributes-table-elements":true}).applyAttributesTableElements, true);
-  assert.strictEqual(cli.argsToOptions({"web-resources-inline-attribute":true}).webResources.inlineAttribute, true);
-  assert.strictEqual(cli.argsToOptions({"web-resources-images":12}).webResources.images, 12);
-  assert.strictEqual(cli.argsToOptions({"web-resources-links":true}).webResources.links, true);
-  assert.strictEqual(cli.argsToOptions({"web-resources-scripts":24}).webResources.scripts, 24);
-  assert.strictEqual(cli.argsToOptions({"web-resources-relative-to":"web"}).webResources.relativeTo, "web");
-  assert.strictEqual(cli.argsToOptions({"web-resources-rebase-relative-to":"root"}).webResources.rebaseRelativeTo, "root");
-  assert.strictEqual(cli.argsToOptions({"web-resources-cssmin":true}).webResources.cssmin, true);
-  assert.strictEqual(cli.argsToOptions({"web-resources-uglify":true}).webResources.uglify, true);
-  assert.strictEqual(cli.argsToOptions({"web-resources-strict":true}).webResources.strict, true);
+  assert.strictEqual(cli.argsToOptions({"css":"file.css"}).cssFile, "file.css");
+  assert.strictEqual(cli.argsToOptions({"optionsFile":"options.json"}).optionsFile, "options.json");
+  assert.strictEqual(cli.argsToOptions({"extraCss":"body{color:red;}"}).extraCss, "body{color:red;}");
+  assert.strictEqual(cli.argsToOptions({"applyStyleTags":true}).applyStyleTags, true);
+  assert.strictEqual(cli.argsToOptions({"removeStyleTags":true}).removeStyleTags, true);
+  assert.strictEqual(cli.argsToOptions({"preserveMediaQueries":true}).preserveMediaQueries, true);
+  assert.strictEqual(cli.argsToOptions({"preserveFontFaces":true}).preserveFontFaces, true);
+  assert.strictEqual(cli.argsToOptions({"applyWidthAttributes":true}).applyWidthAttributes, true);
+  assert.strictEqual(cli.argsToOptions({"applyHeightAttributes":true}).applyHeightAttributes, true);
+  assert.strictEqual(cli.argsToOptions({"applyAttributesTableElements":true}).applyAttributesTableElements, true);
+  assert.strictEqual(cli.argsToOptions({"webResourcesInlineAttribute":true}).webResources.inlineAttribute, true);
+  assert.strictEqual(cli.argsToOptions({"webResourcesImages":12}).webResources.images, 12);
+  assert.strictEqual(cli.argsToOptions({"webResourcesLinks":true}).webResources.links, true);
+  assert.strictEqual(cli.argsToOptions({"webResourcesScripts":24}).webResources.scripts, 24);
+  assert.strictEqual(cli.argsToOptions({"webResourcesRelativeTo":"web"}).webResources.relativeTo, "web");
+  assert.strictEqual(cli.argsToOptions({"webResourcesRebaseRelativeTo":"root"}).webResources.rebaseRelativeTo, "root");
+  assert.strictEqual(cli.argsToOptions({"webResourcesCssmin":true}).webResources.cssmin, true);
+  assert.strictEqual(cli.argsToOptions({"webResourcesUglify":true}).webResources.uglify, true);
+  assert.strictEqual(cli.argsToOptions({"webResourcesStrict":true}).webResources.strict, true);
   done();
 });
 
@@ -56,6 +57,25 @@ it('cli css included', function (done) {
   var outputPath = 'tmp/integration.out';
 
   var juiceProcess = spawn('bin/juice', [htmlPath, '--css', cssPath, outputPath]);
+
+  juiceProcess.on('error', done);
+
+  juiceProcess.on('exit', function (code) {
+    assert(code === 0, 'Expected exit code to be 0');
+    var output = fs.readFileSync(outputPath, 'utf8');
+    var expectedOutput = fs.readFileSync(expectedPath, 'utf8');
+    assert.equal(output, expectedOutput);
+    done();
+  });
+});
+
+it('cli options included', function (done) {
+  var htmlPath = 'test/cases/juice-content/font-face-preserve.html';
+  var optionsFilePath = 'test/cases/juice-content/font-face-preserve.json';
+  var expectedPath = 'test/cases/juice-content/font-face-preserve.out';
+  var outputPath = 'tmp/font-face-preserve.out';
+
+  var juiceProcess = spawn('bin/juice', [htmlPath, '--options-file', optionsFilePath, outputPath]);
 
   juiceProcess.on('error', done);
 
