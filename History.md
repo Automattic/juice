@@ -1,3 +1,11 @@
+1.8.0 / Pending
+==================
+
+* Make all options available through CLI
+* Make CLI tests work on Windows
+* Deprecate `utils.toArray()`
+* Fix handling of `:not()` specificity
+
 1.7.0 / 2015-11-03
 ==================
 
