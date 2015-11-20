@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var juice = require('..');
+var cli = require('../lib/cli');
 var program = require('commander');
 var package = require('../package');
 var fs = require('fs');
@@ -8,20 +9,26 @@ var fs = require('fs');
 program.name = package.name;
 
 program.version(package.version)
-  .usage('[options] input.html output.html')
-  .option('--css [filepath]', 'Add an extra CSS file')
-  .parse(process.argv);
+  .usage('[options] input.html output.html');
+
+Object.keys(cli.options).forEach( function (key) {
+    program.option('--' + key + ' [value]', cli.options[key].def);
+});
+
+program.parse(process.argv);
 
 if (program.args < 2) program.help();
 
 var inputFile = program.args[0]
   , outputFile = program.args[1]
-  , options = {}
+  , options = cli.argsToOptions(program)
   , waitingOn = 1;
 
-if (program.css) {
+if (options.cssFile) {
+  var cssFile = options.cssFile;
+  delete options.cssFile;
   waitingOn++;
-  fs.readFile(program.css, function (err, css) {
+  fs.readFile(cssFile, function (err, css) {
     if (handleError(err)) { return; }
     options.extraCss = css;
     next();

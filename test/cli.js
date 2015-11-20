@@ -1,11 +1,34 @@
 var assert = require('assert');
 var path = require('path');
 var fs = require('fs');
-var spawn = require('child_process').spawn;
+var spawn = require('win-spawn');
+var cli = require('../lib/cli');
 
 before(function () {
   if (fs.existsSync('tmp')) { return; }
   fs.mkdirSync('tmp');
+});
+
+it('cli parses options', function (done) {
+  assert.strictEqual(cli.argsToOptions({css:"file.css"}).cssFile, "file.css");
+  assert.strictEqual(cli.argsToOptions({"extra-css":"body{color:red;}"}).extraCss, "body{color:red;}");
+  assert.strictEqual(cli.argsToOptions({"apply-style-tags":true}).applyStyleTags, true);
+  assert.strictEqual(cli.argsToOptions({"remove-style-tags":true}).removeStyleTags, true);
+  assert.strictEqual(cli.argsToOptions({"preserve-media-queries":true}).preserveMediaQueries, true);
+  assert.strictEqual(cli.argsToOptions({"preserve-font-faces":true}).preserveFontFaces, true);
+  assert.strictEqual(cli.argsToOptions({"apply-width-attributes":true}).applyWidthAttributes, true);
+  assert.strictEqual(cli.argsToOptions({"apply-height-attributes":true}).applyHeightAttributes, true);
+  assert.strictEqual(cli.argsToOptions({"apply-attributes-table-elements":true}).applyAttributesTableElements, true);
+  assert.strictEqual(cli.argsToOptions({"web-resources-inline-attribute":true}).webResources.inlineAttribute, true);
+  assert.strictEqual(cli.argsToOptions({"web-resources-images":12}).webResources.images, 12);
+  assert.strictEqual(cli.argsToOptions({"web-resources-links":true}).webResources.links, true);
+  assert.strictEqual(cli.argsToOptions({"web-resources-scripts":24}).webResources.scripts, 24);
+  assert.strictEqual(cli.argsToOptions({"web-resources-relative-to":"web"}).webResources.relativeTo, "web");
+  assert.strictEqual(cli.argsToOptions({"web-resources-rebase-relative-to":"root"}).webResources.rebaseRelativeTo, "root");
+  assert.strictEqual(cli.argsToOptions({"web-resources-cssmin":true}).webResources.cssmin, true);
+  assert.strictEqual(cli.argsToOptions({"web-resources-uglify":true}).webResources.uglify, true);
+  assert.strictEqual(cli.argsToOptions({"web-resources-strict":true}).webResources.strict, true);
+  done();
 });
 
 it('cli no css', function (done) {
