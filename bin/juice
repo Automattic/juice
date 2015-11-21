@@ -1,46 +1,52 @@
 #!/usr/bin/env node
 
 var juice = require('..');
-var program = require('commander');
-var package = require('../package');
+var cli = require('../lib/cli');
+var xtend = require('xtend');
 var fs = require('fs');
+var path = require('path');
 
-program.name = package.name;
-
-program.version(package.version)
-  .usage('[options] input.html output.html')
-  .option('--css [filepath]', 'Add an extra CSS file')
-  .parse(process.argv);
+var program = cli.getProgram();
 
 if (program.args < 2) program.help();
 
-var inputFile = program.args[0]
-  , outputFile = program.args[1]
-  , options = {}
-  , waitingOn = 1;
+var inputFile = program.args[0];
+var outputFile = program.args[1];
+var options = cli.argsToOptions(program);
+var queue = [];
 
-if (program.css) {
-  waitingOn++;
-  fs.readFile(program.css, function (err, css) {
-    if (handleError(err)) { return; }
-    options.extraCss = css;
-    next();
+if (options.optionsFile) {
+    var optionsFromFile = require(path.join(process.cwd(),options.optionsFile));
+    options = xtend(optionsFromFile, options);
+}
+
+if (options.cssFile) {
+  queue.push( function () {
+      fs.readFile(options.cssFile, function (err, css) {
+        if (handleError(err)) { return; }
+        options.extraCss = css;
+        next();
+      });
   });
 }
 
 next();
 
 function doJuice() {
+  delete options.cssFile;
+  delete options.optionsFile;
+
   juice.juiceFile(inputFile, options, function(err, html) {
     if (handleError(err)) { return; }
     fs.writeFile(outputFile, html, handleError);
   });
 }
 
-function next(err) {
-  if (handleError(err)) { return; }
-  waitingOn--;
-  if (waitingOn <= 0) { doJuice(); }
+function next() {
+  if (queue.length) {
+      return queue.pop()();
+  }
+  doJuice();
 }
 
 function handleError(err) {
@@ -48,5 +54,5 @@ function handleError(err) {
     console.error(err.stack);
     process.exit(1);
   }
-  return err ? true : false;
+  return !!err;
 }

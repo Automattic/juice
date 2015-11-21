@@ -149,9 +149,18 @@ This can be used to embed email client support hacks that rely on css selectors 
 
 To use Juice from CLI, run `juice [options] input.html output.html`
 
-Current CLI options:
+For a listing of all available options, just type `juice -h`.
+
+> Note that if you want to just type `juice` from the command line, you should `npm install juice -g` so it is globally available.
+
+CLI Options:
+
+The CLI should have all the above [options](#options) with the names changed from camel case to hyphen-delimited, so for example `extraCss` becomes `extra-css` and `webResources.scripts` becomes `web-resources-scripts`.
+
+These are additional options not included in the standard `juice` options listed above:
 
 - `--css [filepath]` will load and inject CSS into `extraCss`.
+- `--options-file [filepath]` will load and inject options from a JSON file. Options from the CLI will be given priority over options in the file when there is a conflict.
 
 ### Running Juice in the Browser
 
