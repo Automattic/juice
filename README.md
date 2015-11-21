@@ -90,7 +90,8 @@ Callback returns string containing inlined HTML. Fetches remote resources.
 
 #### juice.juiceDocument($ [, options])
 
-Returns string containing inlined HTML. Does not fetch remote resources.
+This takes a cheerio instance and performs inlining in-place.  Returns the
+same cheerio instance.  Does not fetch remote resources.
 
  * `$` - a cheerio instance, be sure to use the same cheerio version that juice uses
  * `options` - optional, see Options above`
