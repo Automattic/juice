@@ -1,4 +1,4 @@
-1.8.0 / Pending
+1.8.0 / 2015-11-23
 ==================
 
 * Make all options available through CLI
