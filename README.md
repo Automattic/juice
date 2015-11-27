@@ -22,7 +22,7 @@ result will be:
 
 ## What is this useful for ?
 
-- HTML emails. For a comprehensive list of supported selectors see [here](http://www.campaignmonitor.com/css/)
+- HTML emails. For a comprehensive list of supported selectors see [here](https://www.campaignmonitor.com/css/)
 - Embedding HTML in 3rd-party websites.
 
 ## Projects using juice
@@ -31,12 +31,12 @@ result will be:
 * [swig-email-templates][4] - Uses [swig][5], which gives you [template inheritance][6], and can generate a [dummy context][7] from a template.
 
 [1]: https://github.com/niftylettuce/node-email-templates
-[2]: https://github.com/visionmedia/ejs
+[2]: https://github.com/tj/ejs
 [3]: https://github.com/Automattic/juice
-[4]: https://github.com/superjoe30/swig-email-templates
+[4]: https://github.com/andrewrk/swig-email-templates
 [5]: https://github.com/paularmstrong/swig
 [6]: https://docs.djangoproject.com/en/dev/topics/templates/#template-inheritance
-[7]: https://github.com/superjoe30/swig-dummy-context
+[7]: https://github.com/andrewrk/swig-dummy-context
 
 ## Documentation
 
@@ -197,5 +197,5 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 - Uses [cheerio](https://github.com/cheeriojs/cheerio) for the underlying DOM
 representation.
 - Uses [cssom](https://github.com/NV/CSSOM) to parse out CSS selectors and
-[Slick](http://github.com/subtleGradient/slick) to tokenize them.
+[Slick](https://github.com/subtleGradient/slick) to tokenize them.
 - Icon by [UnheardSounds](http://unheardsounds.deviantart.com/gallery/26536908#/d2ngozi)
