@@ -1,3 +1,8 @@
+1.8.1 / 2015-12-01
+==================
+
+* Switch xtend to deep-extend to fix issue loading webResources settings when using --options-file
+
 1.8.0 / 2015-11-23
 ==================
 
