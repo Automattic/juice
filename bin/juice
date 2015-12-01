@@ -2,7 +2,7 @@
 
 var juice = require('..');
 var cli = require('../lib/cli');
-var xtend = require('xtend');
+var xtend = require('deep-extend');
 var fs = require('fs');
 var path = require('path');
 
