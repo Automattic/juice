@@ -17,7 +17,7 @@ var queue = [];
 
 if (options.optionsFile) {
     var optionsFromFile = require(path.join(process.cwd(),options.optionsFile));
-    options = xtend(optionsFromFile, options);
+    options = xtend({}, optionsFromFile, options);
 }
 
 if (options.cssFile) {
