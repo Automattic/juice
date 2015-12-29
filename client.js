@@ -34,30 +34,46 @@ juiceClient.inlineContent = inlineContent;
 
 function inlineDocument($, css, options) {
 
+  options = options || {};
   var rules = utils.parseCSS(css);
   var editedElements = [];
 
   rules.forEach(handleRule);
   editedElements.forEach(setStyleAttrs);
 
-  if (options && options.inlinePseudoElements) {
+  if (options.inlinePseudoElements) {
     editedElements.forEach(inlinePseudoElements);
   }
 
-  if (options && options.applyWidthAttributes) {
+  if (options.applyWidthAttributes) {
     editedElements.forEach(function(el) {
       setDimensionAttrs(el, 'width');
     });
   }
 
-  if (options && options.applyHeightAttributes) {
+  if (options.applyHeightAttributes) {
     editedElements.forEach(function(el) {
       setDimensionAttrs(el, 'height');
     });
   }
 
-  if (options && options.applyAttributesTableElements) {
+  if (options.applyAttributesTableElements) {
     editedElements.forEach(setAttributesOnTableElements);
+  }
+
+  if (options.insertPreservedExtraCss && options.extraCss)
+  {
+    var preservedText = utils.getPreservedText(options.extraCss, {
+      mediaQueries: options.preserveMediaQueries,
+      fontFaces: options.preserveFontFaces
+    });
+    if (preservedText)
+    {
+      var $appendTo = $('head');
+      if (!$appendTo.length) { $appendTo = $('body'); }
+      if (!$appendTo.length) { $appendTo = $.root(); }
+      $appendTo.append('<style>' + preservedText + '</style>');
+    }
   }
 
   function handleRule(rule) {
@@ -132,7 +148,7 @@ function inlineDocument($, css, options) {
       function addProps (style, selector) {
         for (var i = 0, l = style.length; i < l; i++) {
           var name = style[i];
-          var value = style[name] + (options && options.preserveImportant && style._importants[name] ? ' !important' : '');
+          var value = style[name] + (options.preserveImportant && style._importants[name] ? ' !important' : '');
           var sel = style._importants[name] ? utils.importantSelector : selector;
           var prop = new utils.Property(name, value, sel);
           var existing = el.styleProps[name];
