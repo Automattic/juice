@@ -153,7 +153,7 @@ function inlineDocument($, css, options) {
           var prop = new utils.Property(name, value, sel);
           var existing = el.styleProps[name];
 
-          if (existing && existing.compare(prop) === prop || !existing) {
+          if (existing && existing.compare(prop) === prop && !/\!important$/.test(existing.value) || !existing) {
             el.styleProps[name] = prop;
           }
         }
