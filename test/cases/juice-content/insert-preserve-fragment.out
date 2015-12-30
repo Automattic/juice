@@ -1,6 +1,7 @@
-<div></div>
-<style>
+<div>here<style>
 @font-face {
     font-family: 'Extra';
 }
-</style>
+</style></div>
+<div>not here</div>
+<p></p>

@@ -69,10 +69,19 @@ function inlineDocument($, css, options) {
     });
     if (preservedText)
     {
-      var $appendTo = $('head');
-      if (!$appendTo.length) { $appendTo = $('body'); }
-      if (!$appendTo.length) { $appendTo = $.root(); }
-      $appendTo.append('<style>' + preservedText + '</style>');
+      var $appendTo = null;
+      if (options.insertPreservedExtraCss !== true)
+      {
+        $appendTo = $(options.insertPreservedExtraCss);
+      }
+      else
+      {
+        $appendTo = $('head');
+        if (!$appendTo.length) { $appendTo = $('body'); }
+        if (!$appendTo.length) { $appendTo = $.root(); }
+      }
+
+      $appendTo.first().append('<style>' + preservedText + '</style>');
     }
   }
 
