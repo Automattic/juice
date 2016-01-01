@@ -1,3 +1,8 @@
+1.9.0 / Pending
+==================
+
+* Add option `insertPreservedExtraCss`
+
 1.8.1 / 2015-12-01
 ==================
 

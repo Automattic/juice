@@ -11,7 +11,13 @@
   }
 }
 </style>
-</head>
+<style>
+@media all {
+  body {
+    color: blue;
+  }
+}
+</style></head>
 <body>
     <p style="color: blue;">hi</p>
 </body>

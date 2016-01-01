@@ -1,5 +1,7 @@
 {
     "url": "./",
     "removeStyleTags": true,
-    "preserveMediaQueries": true
+    "preserveMediaQueries": true,
+    "insertPreservedExtraCss": true,
+    "extraCss": "@media all { body { color: blue; } }"
 }
