@@ -3,7 +3,7 @@
 var assert = require('assert');
 var path = require('path');
 var fs = require('fs');
-var spawn = require('win-spawn');
+var spawn = require('cross-spawn-async');
 var cli = require('../lib/cli');
 
 before(function () {
