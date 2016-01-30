@@ -1,3 +1,8 @@
+Pending
+==================
+
+* Replace deprecated dep `win-spawn` with `cross-spawn-async`
+
 1.9.0 / 2016-01-04
 ==================
 
