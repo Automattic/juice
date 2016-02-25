@@ -16,7 +16,7 @@ var options = cli.argsToOptions(program);
 var queue = [];
 
 if (options.optionsFile) {
-    var optionsFromFile = require(path.join(process.cwd(),options.optionsFile));
+    var optionsFromFile = require(path.resolve(process.cwd(),options.optionsFile));
     options = xtend({}, optionsFromFile, options);
 }
 
