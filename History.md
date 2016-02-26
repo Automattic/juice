@@ -1,6 +1,8 @@
-Pending
+1.10.0 / 2016-02-25
 ==================
 
+* cli: correctly handle absolute path for `optionsFile`
+* cli: convert all numbers and booleans from default string values
 * Replace deprecated dep `win-spawn` with `cross-spawn-async`
 
 1.9.0 / 2016-01-04

@@ -168,7 +168,7 @@ These are additional options not included in the standard `juice` options listed
 
 Attempting to Browserify `require('juice')` fails because portions of Juice and its dependencies interact with the file system using the standard `require('fs')`. However, you can `require('juice/client')` via Browserify which has support for `juiceDocument`, `inlineDocument`, and `inlineContent`, but not `juiceFile`, `juiceResources`, or `inlineExternal`. *Note that automated tests are not running in the browser yet.*
 
-## Credits
+## License
 
 (The MIT License)
 
