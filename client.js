@@ -211,6 +211,7 @@ function inlineDocument($, css, options) {
   }
 
   function setDimensionAttrs(el, dimension) {
+    if (!el.name) { return; }
     var elName = el.name.toUpperCase();
     if (juiceClient[dimension + 'Elements'].indexOf(elName) > -1) {
       for (var i in el.styleProps) {
@@ -230,6 +231,7 @@ function inlineDocument($, css, options) {
   }
 
   function setAttributesOnTableElements(el) {
+    if (!el.name) { return; }
     var elName = el.name.toUpperCase(),
         styleProps = Object.keys(juiceClient.styleToAttribute);
 
