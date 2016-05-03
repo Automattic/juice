@@ -27,6 +27,7 @@ juiceClient.styleToAttribute = {
   'text-align': 'align',
   'vertical-align': 'valign'
 };
+juiceClient.excludedProperties = [];
 
 juiceClient.juiceDocument = juiceDocument;
 juiceClient.inlineDocument = inlineDocument;
@@ -163,7 +164,9 @@ function inlineDocument($, css, options) {
           var existing = el.styleProps[name];
 
           if (existing && existing.compare(prop) === prop && !/\!important$/.test(existing.value) || !existing) {
-            el.styleProps[name] = prop;
+            if(juiceClient.excludedProperties.indexOf(name) < 0){
+              el.styleProps[name] = prop;
+            }
           }
         }
       }

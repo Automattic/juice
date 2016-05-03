@@ -140,6 +140,10 @@ Array of table HTML elements that can receive attributes defined in `juice.style
 
 Array of elements that will not have styles inlined because they are not intended to render.
 
+#### juiceClient.excludedProperties
+
+Array of css properties that won't be inlined.
+
 ### Special markup
 
 #### data-embed
