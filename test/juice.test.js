@@ -139,6 +139,8 @@ it('test excludedProperties setting', function () {
         ),
         '<div a="b" style="color: blue;">woot</div>'
     );
+    // reset global setting
+    juice.excludedProperties = [];
 } );
 
 it('test juice', function () {
