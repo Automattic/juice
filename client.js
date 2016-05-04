@@ -163,8 +163,9 @@ function inlineDocument($, css, options) {
           var prop = new utils.Property(name, value, sel);
           var existing = el.styleProps[name];
 
-          if (existing && existing.compare(prop) === prop && !/\!important$/.test(existing.value) || !existing) {
-            if(juiceClient.excludedProperties.indexOf(name) < 0){
+          // if property name is not in the excluded properties array
+          if(juiceClient.excludedProperties.indexOf(name) < 0){
+            if (existing && existing.compare(prop) === prop && !/\!important$/.test(existing.value) || !existing) {
               el.styleProps[name] = prop;
             }
           }
