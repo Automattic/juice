@@ -130,6 +130,19 @@ it('parse complex css into a object structure', function () {
     assert.deepEqual(bed[1],cab[1]);
 } );
 
+it('test excludedProperties setting', function () {
+    juice.excludedProperties = ['-webkit-font-smoothing'];
+    assert.deepEqual(
+        juice(
+            '<div a="b">woot</div>',
+            {extraCss: 'div { color: blue; -webkit-font-smoothing: antialiased; }'}
+        ),
+        '<div a="b" style="color: blue;">woot</div>'
+    );
+    // reset global setting
+    juice.excludedProperties = [];
+} );
+
 it('test juice', function () {
     assert.deepEqual(juice('<div a="b">woot</div>', {extraCss: 'div { color: red; }'}),
         '<div a="b" style="color: red;">woot</div>');
