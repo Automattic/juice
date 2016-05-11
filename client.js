@@ -1,17 +1,15 @@
- "use strict";
+'use strict';
 
 var utils = require('./lib/utils');
 
-var juiceClient = function (html,options) {
+var juiceClient = function(html,options) {
   var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
   var doc = juiceDocument($,options);
 
-  if (options && options.xmlMode){
+  if (options && options.xmlMode) {
     return doc.xml();
   }
-  else {
-    return utils.decodeEntities(doc.html());
-  }
+  return utils.decodeEntities(doc.html());
 };
 
 module.exports = juiceClient;
@@ -20,7 +18,7 @@ juiceClient.ignoredPseudos = ['hover', 'active', 'focus', 'visited', 'link'];
 juiceClient.widthElements = ['TABLE', 'TD', 'IMG'];
 juiceClient.heightElements = ['TABLE', 'TD', 'IMG'];
 juiceClient.tableElements = ['TABLE', 'TD', 'TH', 'TR', 'TD', 'CAPTION', 'COLGROUP', 'COL', 'THEAD', 'TBODY', 'TFOOT'];
-juiceClient.nonVisualElements = [ "HEAD", "TITLE", "BASE", "LINK", "STYLE", "META", "SCRIPT", "NOSCRIPT" ];
+juiceClient.nonVisualElements = [ 'HEAD', 'TITLE', 'BASE', 'LINK', 'STYLE', 'META', 'SCRIPT', 'NOSCRIPT' ];
 juiceClient.styleToAttribute = {
   'background-color': 'bgcolor',
   'background-image': 'background',
@@ -62,21 +60,16 @@ function inlineDocument($, css, options) {
     editedElements.forEach(setAttributesOnTableElements);
   }
 
-  if (options.insertPreservedExtraCss && options.extraCss)
-  {
+  if (options.insertPreservedExtraCss && options.extraCss) {
     var preservedText = utils.getPreservedText(options.extraCss, {
       mediaQueries: options.preserveMediaQueries,
       fontFaces: options.preserveFontFaces
     });
-    if (preservedText)
-    {
+    if (preservedText) {
       var $appendTo = null;
-      if (options.insertPreservedExtraCss !== true)
-      {
+      if (options.insertPreservedExtraCss !== true) {
         $appendTo = $(options.insertPreservedExtraCss);
-      }
-      else
-      {
+      } else {
         $appendTo = $('head');
         if (!$appendTo.length) { $appendTo = $('body'); }
         if (!$appendTo.length) { $appendTo = $.root(); }
@@ -122,18 +115,18 @@ function inlineDocument($, css, options) {
       return;
     }
 
-    els.each(function () {
+    els.each(function() {
       var el = this;
 
       if (el.name && juiceClient.nonVisualElements.indexOf(el.name.toUpperCase()) >= 0) {
-          return;
+        return;
       }
 
       if (pseudoElementType) {
-        var pseudoElPropName = "pseudo" + pseudoElementType;
+        var pseudoElPropName = 'pseudo' + pseudoElementType;
         var pseudoEl = el[pseudoElPropName];
         if (!pseudoEl) {
-          pseudoEl = el[pseudoElPropName] = $("<span />").get(0);
+          pseudoEl = el[pseudoElPropName] = $('<span />').get(0);
           pseudoEl.pseudoElementType = pseudoElementType;
           pseudoEl.pseudoElementParent = el;
           el[pseudoElPropName] = pseudoEl;
@@ -155,7 +148,7 @@ function inlineDocument($, css, options) {
       }
 
       // go through the properties
-      function addProps (style, selector) {
+      function addProps(style, selector) {
         for (var i = 0, l = style.length; i < l; i++) {
           var name = style[i];
           var value = style[name] + (options.preserveImportant && style._importants[name] ? ' !important' : '');
@@ -164,7 +157,7 @@ function inlineDocument($, css, options) {
           var existing = el.styleProps[name];
 
           // if property name is not in the excluded properties array
-          if(juiceClient.excludedProperties.indexOf(name) < 0){
+          if (juiceClient.excludedProperties.indexOf(name) < 0) {
             if (existing && existing.compare(prop) === prop && !/\!important$/.test(existing.value) || !existing) {
               el.styleProps[name] = prop;
             }
@@ -183,19 +176,19 @@ function inlineDocument($, css, options) {
     // sort properties by their originating selector's specificity so that
     // props like "padding" and "padding-bottom" are resolved as expected.
     props.sort(function(a, b) {
-      return a.selector.specificity().join("").localeCompare(
-        b.selector.specificity().join(""));
+      return a.selector.specificity().join('').localeCompare(
+        b.selector.specificity().join(''));
     });
     var string = props
       .filter(function(prop) {
         // Content becomes the innerHTML of pseudo elements, not used as a
         // style property
-        return prop.prop !== "content";
+        return prop.prop !== 'content';
       })
       .map(function(prop) {
-        return prop.prop + ": " + prop.value.replace(/["]/g, "'") + ";";
+        return prop.prop + ': ' + prop.value.replace(/["]/g, '\'') + ';';
       })
-      .join(" ");
+      .join(' ');
     if (string) {
       $(el).attr('style', string);
     }
@@ -205,10 +198,9 @@ function inlineDocument($, css, options) {
     if (el.pseudoElementType && el.styleProps.content) {
       $(el).html(parseContent(el.styleProps.content.value));
       var parent = el.pseudoElementParent;
-      if (el.pseudoElementType === "before") {
+      if (el.pseudoElementType === 'before') {
         $(parent).prepend(el);
-      }
-      else {
+      } else {
         $(parent).append(el);
       }
     }
@@ -236,8 +228,8 @@ function inlineDocument($, css, options) {
 
   function setAttributesOnTableElements(el) {
     if (!el.name) { return; }
-    var elName = el.name.toUpperCase(),
-        styleProps = Object.keys(juiceClient.styleToAttribute);
+    var elName = el.name.toUpperCase();
+    var styleProps = Object.keys(juiceClient.styleToAttribute);
 
     if (juiceClient.tableElements.indexOf(elName) > -1) {
       for (var i in el.styleProps) {
@@ -250,14 +242,14 @@ function inlineDocument($, css, options) {
 }
 
 function parseContent(content) {
-  if (content === "none" || content === "normal") {
-    return "";
+  if (content === 'none' || content === 'normal') {
+    return '';
   }
 
   // Naive parsing, assume well-formed value
   content = content.slice(1, content.length - 1);
   // Naive unescape, assume no unicode char codes
-  content = content.replace(/\\/g, "");
+  content = content.replace(/\\/g, '');
   return content;
 }
 
@@ -281,7 +273,7 @@ function getPseudoElementType(selector) {
 }
 
 function isPseudoElementName(pseudo) {
-  return pseudo.name === "before" || pseudo.name === "after";
+  return pseudo.name === 'before' || pseudo.name === 'after';
 }
 
 function filterElementPseudos(pseudos) {
@@ -293,49 +285,43 @@ function filterElementPseudos(pseudos) {
 function juiceDocument($, options) {
   options = utils.getDefaultOptions(options);
   var css = extractCssFromDocument($, options);
-  css += "\n" + options.extraCss;
+  css += '\n' + options.extraCss;
   inlineDocument($, css, options);
   return $;
 }
 
 function inlineContent(html, css, options) {
-    var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
-    inlineDocument($, css, options);
+  var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
+  inlineDocument($, css, options);
 
-    if (options && options.xmlMode){
-      return $.xml();
-    }
-    else {
-      return utils.decodeEntities($.html());
-    }
+  if (options && options.xmlMode) {
+    return $.xml();
+  }
+  return utils.decodeEntities($.html());
 }
 
 function getStylesData($, options) {
   var results = [];
-  var stylesList = $("style");
+  var stylesList = $('style');
   var styleDataList, styleData, styleElement;
-  stylesList.each(function () {
+  stylesList.each(function() {
     styleElement = this;
     styleDataList = styleElement.childNodes;
     if (styleDataList.length !== 1) {
       return;
     }
     styleData = styleDataList[0].data;
-    if ( options.applyStyleTags && styleElement.attribs['data-embed'] === undefined  ) {
-      results.push( styleData );
+    if (options.applyStyleTags && styleElement.attribs['data-embed'] === undefined) {
+      results.push(styleData);
     }
-    if ( options.removeStyleTags && styleElement.attribs['data-embed'] === undefined  )
-    {
-      var preservedText = utils.getPreservedText( styleElement.childNodes[0].nodeValue, {
-          mediaQueries: options.preserveMediaQueries,
-          fontFaces: options.preserveFontFaces
-      } );
-      if ( preservedText )
-      {
+    if (options.removeStyleTags && styleElement.attribs['data-embed'] === undefined) {
+      var preservedText = utils.getPreservedText(styleElement.childNodes[0].nodeValue, {
+        mediaQueries: options.preserveMediaQueries,
+        fontFaces: options.preserveFontFaces
+      });
+      if (preservedText) {
         styleElement.childNodes[0].nodeValue = preservedText;
-      }
-      else
-      {
+      } else {
         $(styleElement).remove();
       }
     }
@@ -346,6 +332,6 @@ function getStylesData($, options) {
 
 function extractCssFromDocument($, options) {
   var results = getStylesData($, options);
-  var css = results.join("\n");
+  var css = results.join('\n');
   return css;
 }
