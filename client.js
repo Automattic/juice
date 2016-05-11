@@ -152,13 +152,14 @@ function inlineDocument($, css, options) {
         for (var i = 0, l = style.length; i < l; i++) {
           var name = style[i];
           var value = style[name] + (options.preserveImportant && style._importants[name] ? ' !important' : '');
-          var sel = style._importants[name] ? utils.importantSelector : selector;
-          var prop = new utils.Property(name, value, sel);
+          var prop = new utils.Property(name, value, selector);
+          var priority = style._importants[name] ? 2 : 0;
           var existing = el.styleProps[name];
 
           // if property name is not in the excluded properties array
           if (juiceClient.excludedProperties.indexOf(name) < 0) {
-            if (existing && existing.compare(prop) === prop && !/\!important$/.test(existing.value) || !existing) {
+            if (existing && existing.compare(prop, priority) === prop && !/\!important$/.test(existing.value)
+                || !existing) {
               el.styleProps[name] = prop;
             }
           }
