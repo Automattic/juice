@@ -1,3 +1,9 @@
+1.11.0 / 2016-05-11
+==================
+
+* feat: exclude css properties from inliner with juiceClient.excludedProperties
+* fix: specificity of consecutive !important rules
+
 1.10.0 / 2016-02-25
 ==================
 

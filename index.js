@@ -1,11 +1,4 @@
-
-/**
- * juice
- * Copyright(c) 2011 LearnBoost <dev@learnboost.com>
- * MIT Licensed
- */
-
- "use strict";
+ 'use strict';
 
 /**
  * Module dependencies.
@@ -48,7 +41,7 @@ function juiceFile(filePath, options, callback) {
       return callback(err);
     }
     options = utils.getDefaultOptions(options); // so we can mutate options without guilt
-    if(!options.webResources.relativeTo){
+    if (!options.webResources.relativeTo) {
       var rel = path.dirname(path.relative(process.cwd(),filePath));
       options.webResources.relativeTo = rel;
     }
@@ -56,7 +49,7 @@ function juiceFile(filePath, options, callback) {
   });
 }
 
-function inlineExternal(html, inlineOptions, callback){
+function inlineExternal(html, inlineOptions, callback) {
   var options = utils.extend({fileContent: html}, inlineOptions);
   inline.html(options, callback);
 };
@@ -65,21 +58,19 @@ function juiceResources(html, options, callback) {
   options = utils.getDefaultOptions(options);
 
   var onInline = function(err, html) {
-    if(err){
+    if (err) {
       return callback(err);
     }
 
     var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
     juiceClient.juiceDocument($, options);
 
-    if (options.xmlMode){
+    if (options.xmlMode) {
       return callback(null, $.xml());
     }
-    else {
-      return callback(null, utils.decodeEntities($.html()));
-    }
+    return callback(null, utils.decodeEntities($.html()));
   };
 
-  options.webResources.relativeTo = options.webResources.relativeTo || options.url; //legacy support
+  options.webResources.relativeTo = options.webResources.relativeTo || options.url; // legacy support
   inlineExternal(html, options.webResources, onInline);
 }

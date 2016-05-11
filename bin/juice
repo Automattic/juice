@@ -8,7 +8,7 @@ var path = require('path');
 
 var program = cli.getProgram();
 
-if (program.args < 2) program.help();
+if (program.args < 2) { program.help(); }
 
 var inputFile = program.args[0];
 var outputFile = program.args[1];
@@ -16,17 +16,17 @@ var options = cli.argsToOptions(program);
 var queue = [];
 
 if (options.optionsFile) {
-    var optionsFromFile = require(path.resolve(process.cwd(),options.optionsFile));
-    options = xtend({}, optionsFromFile, options);
+  var optionsFromFile = require(path.resolve(process.cwd(),options.optionsFile));
+  options = xtend({}, optionsFromFile, options);
 }
 
 if (options.cssFile) {
-  queue.push( function () {
-      fs.readFile(options.cssFile, function (err, css) {
-        if (handleError(err)) { return; }
-        options.extraCss = css;
-        next();
-      });
+  queue.push(function() {
+    fs.readFile(options.cssFile, function(err, css) {
+      if (handleError(err)) { return; }
+      options.extraCss = css;
+      next();
+    });
   });
 }
 
@@ -44,7 +44,7 @@ function doJuice() {
 
 function next() {
   if (queue.length) {
-      return queue.pop()();
+    return queue.pop()();
   }
   doJuice();
 }
