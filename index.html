@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <title>Juice CSS Inliner Online</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font: 14px sans-serif;
+            line-height: 1.4;
+            margin: 20px;
+        }
+        #banner {
+            padding: 20px;
+            margin: -20px -20px 0;
+            background: #333;
+            color: #FFF;
+        }
+        #banner p {
+            font-size: 1.2rem;
+        }
+        #banner a {
+            color: #FFF;
+        }
+        textarea {
+            border: 5px solid #CCC;
+            height: 35vh;
+            min-height: 200px;
+            width: 100%;
+            padding: 10px;
+        }
+        textarea.err {
+            border-color: red;
+        }
+        #err {
+            font-weight: bold;
+            color: #900;
+            padding: 10px;
+        }
+        ul {
+            padding: 0;
+        }
+        li {
+            list-style: none;
+            padding: 5px 0;
+            margin: 0;
+            border-bottom: 1px solid #EEE;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <h1>Juice CSS Inliner</h1>
+
+        <p>
+            Juice is a CSS inliner <a href="https://www.npmjs.com/package/juice">available on npm</a>.
+        </p>
+        <p>
+            Unlike a lot of other CSS inliners available online, Juice has more options,
+            can be included in your Node.js projects, and works in client JavaScript as shown here.
+            When you install Juice from npm, you can also inline contents from external CSS, images, and JavaScript files.
+            This simple online version expects all CSS to be included within style tags in the Input box.
+        </p>
+        <p>
+            Enjoy!
+        </p>
+    </div>
+
+    <h2>Options</h2>
+    <ul>
+        <li><label><input type="checkbox" name="applyStyleTags" checked><strong>applyStyleTags</strong> - whether to inline styles in &lt;style&gt;&lt;/style&gt;</label></li>
+        <li><label><input type="checkbox" name="removeStyleTags" checked><strong>removeStyleTags</strong> - whether to remove the original &lt;style&gt;&lt;/style&gt; tags after (possibly) inlining the css from them.</label></li>
+        <li><label><input type="checkbox" name="preserveMediaQueries" checked><strong>preserveMediaQueries</strong> - preserves all media queries (and contained styles) within &lt;style&gt;&lt;/style&gt; tags as a refinement when removeStyleTags is true. Other styles are removed.</label></li>
+        <li><label><input type="checkbox" name="preserveFontFaces" checked><strong>preserveFontFaces</strong> - preserves all @font-face within &lt;style&gt;&lt;/style&gt; tags as a refinement when removeStyleTags is true. Other styles are removed.</label></li>
+        <li><label><input type="checkbox" name="applyWidthAttributes" checked><strong>applyWidthAttributes</strong> - whether to use any CSS pixel widths to create width attributes on elements set in juice.widthElements.</label></li>
+        <li><label><input type="checkbox" name="applyHeightAttributes" checked><strong>applyHeightAttributes</strong> - whether to use any CSS pixel heights to create height attributes on elements set in juice.heightElements.</label></li>
+        <li><label><input type="checkbox" name="applyAttributesTableElements" checked><strong>applyAttributesTableElements</strong> - whether to create attributes for styles in juice.styleToAttribute on elements set in juice.tableElements.</label></li>
+        <li><label><input type="checkbox" name="inlinePseudoElements"><strong>inlinePseudoElements</strong> - Whether to insert pseudo elements (::before and ::after) as &lt;span&gt; into the DOM. Note: Inserting pseudo elements will modify the DOM and may conflict with CSS selectors elsewhere on the page (e.g., :last-child).</label></li>
+        <li><label><input type="checkbox" name="xmlMode"><strong>xmlMode</strong> - whether to output XML/XHTML with all tags closed. Note that the input must also be valid XML/XHTML or you will get undesirable results.</label></li>
+        <li><label><input type="checkbox" name="preserveImportant"><strong>preserveImportant</strong> - preserves !important in values.</label></li>
+    </ul>
+
+    <h2>Input</h2>
+    <textarea id="input"></textarea>
+    <div id="err"></div>
+
+    <h2>Output</h2>
+    <textarea id="output" readonly></textarea>
+
+    <script src="index.build.js" defer></script>
+</body>
+</html>
