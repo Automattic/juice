@@ -20,6 +20,8 @@ result will be:
 <div style="color: red;"></div>
 ```
 
+[Try out the web client version](http://automattic.github.io/juice/)
+
 ## What is this useful for ?
 
 - HTML emails. For a comprehensive list of supported selectors see [here](https://www.campaignmonitor.com/css/)
