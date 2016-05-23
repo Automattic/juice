@@ -1,3 +1,10 @@
+2.0.0 / 2016-05-23
+==================
+
+* fix: specificity bugs
+* deps: upgrade cheerio, cssom, web-resource-inliner
+* major: most options default to `true` instead of `false` now
+
 1.11.0 / 2016-05-11
 ==================
 
