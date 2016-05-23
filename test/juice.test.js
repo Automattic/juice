@@ -53,8 +53,8 @@ it('selector specificity comparison', function() {
 });
 
 it('selector specificity calculator', function() {
-  function spec(selector, priority) {
-    return new Selector(selector).specificity(priority);
+  function spec(selector) {
+    return new Selector(selector).specificity();
   }
 
   assert.deepEqual(spec('#test'),[0, 1, 0, 0]);
@@ -68,9 +68,6 @@ it('selector specificity calculator', function() {
   assert.deepEqual(spec('div *'),[0, 0, 0, 1]);
   assert.deepEqual(spec('div.a.b'),[0, 0, 2, 1]);
   assert.deepEqual(spec('div:not(.a):not(.b)'),[0, 0, 2, 1]);
-
-  assert.deepEqual(spec('#test', 1),[1, 1, 0, 0]);
-  assert.deepEqual(spec('#test', 2),[2, 1, 0, 0]);
 });
 
 it('property comparison based on selector specificity', function() {
@@ -156,4 +153,29 @@ it('test consecutive important rules', function() {
   assert.deepEqual(
     juice.inlineContent('<p><a>woot</a></p>', 'p a {color: red !important;} a {color: black !important;}'),
       '<p><a style="color: red;">woot</a></p>');
+});
+
+it('test * specificity', function() {
+  assert.deepEqual(
+      juice.inlineContent('<div class="a"></div><div class="b"></div>',
+          '* { margin: 0; padding: 0; } .b { margin: 0 !important; } .a { padding: 20px; }'),
+      '<div class="a" style="margin: 0; padding: 20px;"></div><div class="b" style="padding: 0; margin: 0;"></div>');
+});
+
+it('test style attributes priority', function() {
+  assert.deepEqual(
+      juice.inlineContent('<div style="color: red;"></div>', 'div { color: black; }'),
+      '<div style="color: red;"></div>');
+});
+
+it('test style attributes and important priority', function() {
+  assert.deepEqual(
+      juice.inlineContent('<div style="color: red;"></div>', 'div { color: black !important; }'),
+      '<div style="color: black;"></div>');
+});
+
+it('test style attributes and important priority', function() {
+  assert.deepEqual(
+      juice.inlineContent('<div style="color: red !important;"></div>', 'div { color: black !important; }'),
+      '<div style="color: red;"></div>');
 });

@@ -3,5 +3,6 @@
     "removeStyleTags": true,
     "preserveMediaQueries": true,
     "insertPreservedExtraCss": true,
+    "preserveFontFaces": false,
     "extraCss": "@media all { body { color: blue; } }"
 }

@@ -1,5 +1,6 @@
 {
     "url": "./",
     "removeStyleTags": true,
-    "preserveFontFaces": true
+    "preserveFontFaces": true,
+    "preserveMediaQueries": false
 }
