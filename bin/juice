@@ -24,7 +24,7 @@ if (options.cssFile) {
   queue.push(function() {
     fs.readFile(options.cssFile, function(err, css) {
       if (handleError(err)) { return; }
-      options.extraCss = css;
+      options.extraCss = css.toString();
       next();
     });
   });
