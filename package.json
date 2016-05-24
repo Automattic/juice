@@ -43,7 +43,6 @@
     "cssom": "0.3.1",
     "deep-extend": "^0.4.0",
     "slick": "1.12.2",
-    "util-deprecate": "^1.0.2",
     "web-resource-inliner": "2.0.0"
   },
   "devDependencies": {
