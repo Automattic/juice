@@ -59,7 +59,7 @@ it('cli css included', function(done) {
   var expectedPath = 'test/cases/integration.out';
   var outputPath = 'tmp/integration.out';
 
-  var juiceProcess = spawn('bin/juice', [htmlPath, '--css', cssPath, outputPath]);
+  var juiceProcess = spawn('bin/juice', [htmlPath, '--css', cssPath, '--apply-width-attributes', 'false', outputPath]);
 
   juiceProcess.on('error', done);
 
@@ -84,7 +84,7 @@ it('cli options included', function(done) {
 
   juiceProcess.on('exit', function(code) {
     assert(code === 0, 'Expected exit code to be 0');
-    var output = fs.readFileSync(outputPath, 'utf8');
+    var output = fs.readFileSync(outputPath, 'utf8').replace(/\r/g, '');
     var expectedOutput = fs.readFileSync(expectedPath, 'utf8');
     assert.equal(output, expectedOutput);
     done();

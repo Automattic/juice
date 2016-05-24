@@ -140,7 +140,7 @@ function inlineDocument($, css, options) {
         // if the element has inline styles, fake selector with topmost specificity
         if ($(el).attr('style')) {
           var cssText = '* { ' + $(el).attr('style') + ' } ';
-          addProps(utils.parseCSS(cssText)[0][1], utils.styleSelector);
+          addProps(utils.parseCSS(cssText)[0][1], new utils.Selector('<style>', true));
         }
 
         // store reference to an element we need to compile style="" attr for
@@ -152,14 +152,12 @@ function inlineDocument($, css, options) {
         for (var i = 0, l = style.length; i < l; i++) {
           var name = style[i];
           var value = style[name] + (options.preserveImportant && style._importants[name] ? ' !important' : '');
-          var prop = new utils.Property(name, value, selector);
-          var priority = style._importants[name] ? 2 : 0;
+          var prop = new utils.Property(name, value, selector, style._importants[name] ? 2 : 0);
           var existing = el.styleProps[name];
 
           // if property name is not in the excluded properties array
           if (juiceClient.excludedProperties.indexOf(name) < 0) {
-            if (existing && existing.compare(prop, priority) === prop && !/\!important$/.test(existing.value)
-                || !existing) {
+            if (existing && existing.compare(prop) === prop || !existing) {
               el.styleProps[name] = prop;
             }
           }

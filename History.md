@@ -1,3 +1,11 @@
+2.0.0 / 2016-05-24
+==================
+
+* fix: specificity bugs
+* deps: upgrade cheerio, cssom, web-resource-inliner
+* major: most options default to `true` instead of `false` now
+* major: remove deprecated `toArray`
+
 1.11.0 / 2016-05-11
 ==================
 
