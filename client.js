@@ -150,15 +150,19 @@ function inlineDocument($, css, options) {
       // go through the properties
       function addProps(style, selector) {
         for (var i = 0, l = style.length; i < l; i++) {
-          var name = style[i];
-          var value = style[name] + (options.preserveImportant && style._importants[name] ? ' !important' : '');
-          var prop = new utils.Property(name, value, selector, style._importants[name] ? 2 : 0);
-          var existing = el.styleProps[name];
+          if (style[i].type == 'property') {
+            var name = style[i].name;
+            var value = style[i].value;
+            var important = style[i].value.match(/!important$/) !== null;
+            if (important && !options.preserveImportant) value = value.replace(/\s*!important$/, '');
+            var prop = new utils.Property(name, value, selector, important ? 2 : 0);
+            var existing = el.styleProps[name];
 
-          // if property name is not in the excluded properties array
-          if (juiceClient.excludedProperties.indexOf(name) < 0) {
-            if (existing && existing.compare(prop) === prop || !existing) {
-              el.styleProps[name] = prop;
+            // if property name is not in the excluded properties array
+            if (juiceClient.excludedProperties.indexOf(name) < 0) {
+              if (existing && existing.compare(prop) === prop || !existing) {
+                el.styleProps[name] = prop;
+              }
             }
           }
         }
