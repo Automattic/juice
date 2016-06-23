@@ -181,7 +181,7 @@ function inlineDocument($, css, options) {
     // sort properties by their originating selector's specificity so that
     // props like "padding" and "padding-bottom" are resolved as expected.
     props.sort(function(a, b) {
-      return utils.compareFunc(a.selector.specificity(), b.selector.specificity());
+      return a.compareFunc(b);
     });
     var string = props
       .filter(function(prop) {
