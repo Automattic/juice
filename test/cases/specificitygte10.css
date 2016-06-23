@@ -1,0 +1,6 @@
+div.a.b.c.d.e.f.g.h.i.j {
+  padding: 10px;
+}
+div div.a {
+  padding-top: 0;
+}
