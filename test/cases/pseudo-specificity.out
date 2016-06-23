@@ -1,0 +1,4 @@
+<div>
+  <span class="a b" style="color: blue; background-color: green; padding: 20px;"></span>
+  <span class="c"></span>
+</div>

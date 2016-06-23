@@ -203,6 +203,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 - Uses [cheerio](https://github.com/cheeriojs/cheerio) for the underlying DOM
 representation.
-- Uses [cssom](https://github.com/NV/CSSOM) to parse out CSS selectors and
+- Uses [mensch](https://github.com/brettstimmerman/mensch) to parse out CSS and
 [Slick](https://github.com/subtleGradient/slick) to tokenize them.
 - Icon by [UnheardSounds](http://unheardsounds.deviantart.com/gallery/26536908#/d2ngozi)
