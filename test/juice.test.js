@@ -68,6 +68,11 @@ it('selector specificity calculator', function() {
   assert.deepEqual(spec('div *'),[0, 0, 0, 1]);
   assert.deepEqual(spec('div.a.b'),[0, 0, 2, 1]);
   assert.deepEqual(spec('div:not(.a):not(.b)'),[0, 0, 2, 1]);
+
+  assert.deepEqual(spec('div.a'),[0, 0, 1, 1]);
+  assert.deepEqual(spec('.a:first-child'),[0, 0, 1, 1]);
+  assert.deepEqual(spec('div:not(.c)'),[0, 0, 1, 1]);
+
 });
 
 it('property comparison based on selector specificity', function() {
