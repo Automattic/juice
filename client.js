@@ -161,6 +161,8 @@ function inlineDocument($, css, options) {
             // if property name is not in the excluded properties array
             if (juiceClient.excludedProperties.indexOf(name) < 0) {
               if (existing && existing.compare(prop) === prop || !existing) {
+                // deleting a property let us change the order (move it to the end in the setStyleAttrs loop)
+                if (existing) delete el.styleProps[name];
                 el.styleProps[name] = prop;
               }
             }
