@@ -155,14 +155,23 @@ function inlineDocument($, css, options) {
             var value = style[i].value;
             var important = style[i].value.match(/!important$/) !== null;
             if (important && !options.preserveImportant) value = value.replace(/\s*!important$/, '');
-            var prop = new utils.Property(name, value, selector, important ? 2 : 0);
+            // adds line number and column number for the properties as "additionalPriority" to the 
+            // properties because in CSS the position directly affect the priority.
+            var additionalPriority = [style[i].position.start.line, style[i].position.start.col];
+            var prop = new utils.Property(name, value, selector, important ? 2 : 0, additionalPriority);
             var existing = el.styleProps[name];
 
             // if property name is not in the excluded properties array
             if (juiceClient.excludedProperties.indexOf(name) < 0) {
               if (existing && existing.compare(prop) === prop || !existing) {
                 // deleting a property let us change the order (move it to the end in the setStyleAttrs loop)
-                if (existing) delete el.styleProps[name];
+                if (existing && existing.selector !== selector) {
+                  delete el.styleProps[name];
+                } else if (existing) {
+                  // make "prop" a special composed property.
+                  prop.nextProp = existing;
+                }
+
                 el.styleProps[name] = prop;
               }
             }
@@ -175,8 +184,17 @@ function inlineDocument($, css, options) {
   }
 
   function setStyleAttrs(el) {
-    var props = Object.keys(el.styleProps).map(function(key) {
-      return el.styleProps[key];
+    var l = Object.keys(el.styleProps).length;
+    var props = [];
+    // Here we loop each property and make sure to "expand"
+    // linked "nextProp" properties happening when the same property
+    // is declared multiple times in the same selector.
+    Object.keys(el.styleProps).forEach(function(key) {
+      var np = el.styleProps[key];
+      while (typeof np != 'undefined') {
+        props.push(np);
+        np = np.nextProp;
+      }
     });
     // sort properties by their originating selector's specificity so that
     // props like "padding" and "padding-bottom" are resolved as expected.
