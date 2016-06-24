@@ -191,7 +191,7 @@ function inlineDocument($, css, options) {
     // is declared multiple times in the same selector.
     Object.keys(el.styleProps).forEach(function(key) {
       var np = el.styleProps[key];
-      while (typeof np != 'undefined') {
+      while (typeof np !== 'undefined') {
         props.push(np);
         np = np.nextProp;
       }
