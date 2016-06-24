@@ -1,0 +1,25 @@
+.a {
+  color: #800000;
+  color: red;
+  color: rgba(255,0,0,.5);
+  color: -prefix-unknownvalue;
+}
+.b {
+  color: blue;
+}
+.b {
+  color: rgba(0,0,255,.5);
+}
+.c {
+  color: red !important;
+  color: rgba(255,0,0,.5) !important;
+  color: blue;
+}
+.d {
+  padding: 5px;
+  padding-top: 20px;
+  padding: 10px;
+  padding-top: unexpected value;
+  padding: unknown;
+  padding-top: again something unexpected;
+}
