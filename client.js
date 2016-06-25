@@ -333,10 +333,10 @@ function getStylesData($, options) {
       return;
     }
     styleData = styleDataList[0].data;
-    if (options.applyStyleTags && styleElement.attribs['data-embed'] === undefined) {
+    if (options.applyStyleTags && $(styleElement).attr('data-embed') === undefined) {
       results.push(styleData);
     }
-    if (options.removeStyleTags && styleElement.attribs['data-embed'] === undefined) {
+    if (options.removeStyleTags && $(styleElement).attr('data-embed') === undefined) {
       var preservedText = utils.getPreservedText(styleElement.childNodes[0].nodeValue, {
         mediaQueries: options.preserveMediaQueries,
         fontFaces: options.preserveFontFaces
@@ -347,7 +347,7 @@ function getStylesData($, options) {
         $(styleElement).remove();
       }
     }
-    delete styleElement.attribs['data-embed'];
+    $(styleElement).removeAttr('data-embed');
   });
   return results;
 }
