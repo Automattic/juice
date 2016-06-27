@@ -36,6 +36,11 @@ function inlineDocument($, css, options) {
   options = options || {};
   var rules = utils.parseCSS(css);
   var editedElements = [];
+  var styleAttributeName = 'style';
+  
+  if (options.styleAttributeName) {
+    styleAttributeName = options.styleAttributeName;
+  }
 
   rules.forEach(handleRule);
   editedElements.forEach(setStyleAttrs);
@@ -138,8 +143,8 @@ function inlineDocument($, css, options) {
         el.styleProps = {};
 
         // if the element has inline styles, fake selector with topmost specificity
-        if ($(el).attr('style')) {
-          var cssText = '* { ' + $(el).attr('style') + ' } ';
+        if ($(el).attr(styleAttributeName)) {
+          var cssText = '* { ' + $(el).attr(styleAttributeName) + ' } ';
           addProps(utils.parseCSS(cssText)[0][1], new utils.Selector('<style>', true));
         }
 
@@ -212,7 +217,7 @@ function inlineDocument($, css, options) {
       })
       .join(' ');
     if (string) {
-      $(el).attr('style', string);
+      $(el).attr(styleAttributeName, string);
     }
   }
 
