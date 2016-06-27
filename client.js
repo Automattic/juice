@@ -1,15 +1,16 @@
 'use strict';
 
 var utils = require('./lib/utils');
+var cheerio = require('./lib/cheerio');
 
 var juiceClient = function(html,options) {
-  var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
+  var $ = cheerio.cheerio(html, { xmlMode: options && options.xmlMode});
   var doc = juiceDocument($,options);
 
   if (options && options.xmlMode) {
     return doc.xml();
   }
-  return utils.decodeEntities(doc.html());
+  return cheerio.decodeEntities(doc.html());
 };
 
 module.exports = juiceClient;
@@ -318,13 +319,13 @@ function juiceDocument($, options) {
 }
 
 function inlineContent(html, css, options) {
-  var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
+  var $ = cheerio.cheerio(html, { xmlMode: options && options.xmlMode});
   inlineDocument($, css, options);
 
   if (options && options.xmlMode) {
     return $.xml();
   }
-  return utils.decodeEntities($.html());
+  return cheerio.decodeEntities($.html());
 }
 
 function getStylesData($, options) {

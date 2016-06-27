@@ -10,6 +10,7 @@ var fs = require('fs');
 var path = require('path');
 var inline = require('web-resource-inliner');
 var juiceClient = require('./client');
+var cheerio = require('./lib/cheerio');
 var juice = juiceClient;
 
 module.exports = juice;
@@ -62,13 +63,13 @@ function juiceResources(html, options, callback) {
       return callback(err);
     }
 
-    var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
+    var $ = cheerio.cheerio(html, { xmlMode: options && options.xmlMode});
     juiceClient.juiceDocument($, options);
 
     if (options.xmlMode) {
       return callback(null, $.xml());
     }
-    return callback(null, utils.decodeEntities($.html()));
+    return callback(null, cheerio.decodeEntities($.html()));
   };
 
   options.webResources.relativeTo = options.webResources.relativeTo || options.url; // legacy support
