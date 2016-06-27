@@ -4,13 +4,7 @@ var utils = require('./lib/utils');
 var cheerio = require('./lib/cheerio');
 
 var juiceClient = function(html,options) {
-  var $ = cheerio.cheerio(html, { xmlMode: options && options.xmlMode});
-  var doc = juiceDocument($,options);
-
-  if (options && options.xmlMode) {
-    return doc.xml();
-  }
-  return cheerio.decodeEntities(doc.html());
+  return cheerio(html, { xmlMode: options && options.xmlMode}, juiceDocument, [options]);
 };
 
 module.exports = juiceClient;
@@ -319,13 +313,7 @@ function juiceDocument($, options) {
 }
 
 function inlineContent(html, css, options) {
-  var $ = cheerio.cheerio(html, { xmlMode: options && options.xmlMode});
-  inlineDocument($, css, options);
-
-  if (options && options.xmlMode) {
-    return $.xml();
-  }
-  return cheerio.decodeEntities($.html());
+  return cheerio(html, { xmlMode: options && options.xmlMode}, inlineDocument, [css, options]);
 }
 
 function getStylesData($, options) {

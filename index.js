@@ -53,7 +53,7 @@ function juiceFile(filePath, options, callback) {
 function inlineExternal(html, inlineOptions, callback) {
   var options = utils.extend({fileContent: html}, inlineOptions);
   inline.html(options, callback);
-};
+}
 
 function juiceResources(html, options, callback) {
   options = utils.getDefaultOptions(options);
@@ -63,13 +63,9 @@ function juiceResources(html, options, callback) {
       return callback(err);
     }
 
-    var $ = cheerio.cheerio(html, { xmlMode: options && options.xmlMode});
-    juiceClient.juiceDocument($, options);
-
-    if (options.xmlMode) {
-      return callback(null, $.xml());
-    }
-    return callback(null, cheerio.decodeEntities($.html()));
+    return callback(null,
+      cheerio(html, { xmlMode: options && options.xmlMode}, juiceClient.juiceDocument, [options])
+    );
   };
 
   options.webResources.relativeTo = options.webResources.relativeTo || options.url; // legacy support
