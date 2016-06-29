@@ -40,7 +40,7 @@
     "cheerio": "0.20.0",
     "commander": "2.9.0",
     "cross-spawn-async": "^2.1.8",
-    "mensch": "brettstimmerman/mensch#v0.3.2",
+    "mensch": "brettstimmerman/mensch#9387ba571194bb1fb924032e9513fcec6a6dff6b",
     "deep-extend": "^0.4.0",
     "slick": "1.12.2",
     "web-resource-inliner": "2.0.0"
