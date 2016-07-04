@@ -23,6 +23,7 @@ it('cli parses options', function(done) {
   assert.strictEqual(cli.argsToOptions({'applyWidthAttributes': 'true'}).applyWidthAttributes, true);
   assert.strictEqual(cli.argsToOptions({'applyHeightAttributes': 'true'}).applyHeightAttributes, true);
   assert.strictEqual(cli.argsToOptions({'applyAttributesTableElements': 'true'}).applyAttributesTableElements, true);
+  assert.strictEqual(cli.argsToOptions({'xmlMode': 'true'}).xmlMode, true);
   assert.strictEqual(cli.argsToOptions({'webResourcesInlineAttribute': 'true'}).webResources.inlineAttribute, true);
   assert.strictEqual(cli.argsToOptions({'webResourcesImages': '12'}).webResources.images, 12);
   assert.strictEqual(cli.argsToOptions({'webResourcesLinks': 'true'}).webResources.links, true);
