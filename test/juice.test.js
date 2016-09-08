@@ -68,6 +68,11 @@ it('selector specificity calculator', function() {
   assert.deepEqual(spec('div *'),[0, 0, 0, 1]);
   assert.deepEqual(spec('div.a.b'),[0, 0, 2, 1]);
   assert.deepEqual(spec('div:not(.a):not(.b)'),[0, 0, 2, 1]);
+
+  assert.deepEqual(spec('div.a'),[0, 0, 1, 1]);
+  assert.deepEqual(spec('.a:first-child'),[0, 0, 1, 1]);
+  assert.deepEqual(spec('div:not(.c)'),[0, 0, 1, 1]);
+
 });
 
 it('property comparison based on selector specificity', function() {
@@ -101,14 +106,13 @@ it('parse simple css into a object structure', function() {
   var parse = utils.parseCSS;
 
   var actual = parse('a, b { c: e; }');
+
   var a = actual[0];
   var b = actual[1];
 
   assert.equal(a[0],'a');
-  assert.equal(a[1]['0'],'c');
+  assert.deepEqual(a[1]['0'],{ type: 'property', name: 'c', value: 'e', position: { start: { line: 1, col: 8 }, end: { line: 1, col: 12 } }});
   assert.equal(a[1].length,1);
-  assert.deepEqual(a[1]._importants, { c: '' });
-  assert.equal(a[1].c,'e');
   assert.deepEqual(a[1],b[1]);
 });
 
@@ -121,13 +125,16 @@ it('parse complex css into a object structure', function() {
   var bed = actual[2];
   var cab = actual[3];
 
+  /*
   delete bed[1].parentRule;
   delete cab[1].parentRule;
   delete bed[1].__starts;
   delete cab[1].__starts;
+  */
 
   assert.deepEqual(a[1],b[1]);
-  assert.deepEqual(bed[1],cab[1]);
+  assert.equal(bed[1].name,cab[1].name);
+  assert.equal(bed[1].value,cab[1].value);
 });
 
 it('test excludedProperties setting', function() {

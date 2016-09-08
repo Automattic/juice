@@ -1,0 +1,4 @@
+<div class="a" style="color: #800000; color: red; color: rgba(255,0,0,.5); color: -prefix-unknownvalue;"></div>
+<div class="b" style="color: rgba(0,0,255,.5);"></div>
+<div class="c" style="color: red; color: rgba(255,0,0,.5);"></div>
+<div class="d" style="padding: 5px; padding-top: 20px; padding: 10px; padding-top: unexpected value; padding: unknown; padding-top: again something unexpected;"></div>

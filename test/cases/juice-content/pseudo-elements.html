@@ -38,10 +38,20 @@ b :last-child {
 c:not(.not) {
     color: red;
 }
+
+d:before {
+  content: url(data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=);
+}
+
+d:after {
+  content: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=');
+  width: 20%;
+}
 </style>
 <a href="#">Test</a>
 <b></b>
 <b><span></span></b>
 <c></c>
 <c class="not"></c>
+<d><span>test</span></d>
 </body></html>

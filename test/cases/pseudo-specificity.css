@@ -1,0 +1,18 @@
+span.a {
+  color: red;
+  background-color: red;
+}
+.a:first-child {
+  color: blue;
+  background-color: blue;
+}
+.a:not(div) {
+  background-color: green;
+  padding: 0px;
+}
+.a:first-child {
+  padding: 10px;
+}
+span.b {
+  padding: 20px;
+}
