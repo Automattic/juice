@@ -1,3 +1,8 @@
+3.0.0 / 2016-06-01
+==================
+
+* deps: upgrade web-resource-inliner, change cross-spawn-async to cross-spawn, move batch to devDeps
+
 2.0.0 / 2016-05-24
 ==================
 
