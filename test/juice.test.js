@@ -186,3 +186,12 @@ it('test style attributes and important priority', function() {
       juice.inlineContent('<div style="color: red !important;"></div>', 'div { color: black !important; }'),
       '<div style="color: red;"></div>');
 });
+
+it('test [dontInline] attribute', function() {
+  assert.deepEqual(
+      juice(
+          '<style>div[dontInline] { color: blue;}</style><div a="b">woot</div>'
+      , {removeStyleTags : false}),
+      '<style>div { color: blue;}</style><div a="b">woot</div>'
+  );
+});
