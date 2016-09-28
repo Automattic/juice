@@ -6,12 +6,13 @@ var xtend = require('deep-extend');
 var fs = require('fs');
 var path = require('path');
 
+var withPipe = !process.stdin.isTTY;
 var program = cli.getProgram();
 
-if (program.args < 2) { program.help(); }
+if (program.args < 2 && !withPipe) { program.help(); }
 
 var inputFile = program.args[0];
-var outputFile = program.args[1];
+var outputFile = withPipe ? inputFile : program.args[1] ;
 var options = cli.argsToOptions(program);
 var queue = [];
 
@@ -36,10 +37,26 @@ function doJuice() {
   delete options.cssFile;
   delete options.optionsFile;
 
-  juice.juiceFile(inputFile, options, function(err, html) {
-    if (handleError(err)) { return; }
-    fs.writeFile(outputFile, html, handleError);
-  });
+  if (withPipe) {
+    var data = '';
+    process.stdin.on('readable', function() {
+      var chunk = this.read();
+      if (chunk) {
+        data += chunk;
+      }
+    });
+    process.stdin.on('end', function() {
+      juice.juiceResources(data, options, function(err, html) {
+        if (handleError(err)) { return; }
+        process.stdout.write(html);
+      });
+    });
+  } else {
+    juice.juiceFile(inputFile, options, function(err, html) {
+      if (handleError(err)) { return; }
+      fs.writeFile(outputFile, html, handleError);
+    });
+  }
 }
 
 function next() {
