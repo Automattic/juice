@@ -1,3 +1,8 @@
+3.0.1 / 2016-10-06
+==================
+
+* deps: install mensch from npm instead of github
+
 3.0.0 / 2016-06-01
 ==================
 
