@@ -39,8 +39,9 @@
     "cheerio": "0.20.0",
     "commander": "2.9.0",
     "cross-spawn": "^4.0.0",
-    "mensch": "brettstimmerman/mensch#v0.3.3",
+    "deep-equal": "^1.0.1",
     "deep-extend": "^0.4.0",
+    "mensch": "brettstimmerman/mensch#v0.3.3",
     "slick": "1.12.2",
     "web-resource-inliner": "3.0.0"
   },
