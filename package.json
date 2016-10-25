@@ -38,7 +38,6 @@
   },
   "types": "juice.d.ts",
   "dependencies": {
-    "@types/cheerio": "^0.17.31",
     "cheerio": "0.20.0",
     "commander": "2.9.0",
     "cross-spawn": "^4.0.0",

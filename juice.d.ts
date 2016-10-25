@@ -6,8 +6,6 @@
    import juice = require('juice');
    =============================================== */
 
-/// <reference types="cheerio" />
-
 export = juice;
 
 declare function juice(html: string, options?: juice.Options): string;
@@ -18,11 +16,11 @@ declare namespace juice {
 
   export function juiceFile(filePath: string, options: Options, callback: Callback): string
 
-  export function juiceDocument($: CheerioStatic, options?: Options): CheerioStatic
+  export function juiceDocument($: any, options?: Options): any
 
   export function inlineContent(html: string, css: string, options?: Options): string
 
-  export function inlineDocument($: CheerioStatic, css: string, options?: Options): CheerioStatic
+  export function inlineDocument($: any, css: string, options?: Options): any
 
   export let ignoredPseudos: string[];
   export let widthElements: HTMLElement[];

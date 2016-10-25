@@ -1,3 +1,7 @@
+// This file should be updated when `cheerio` has type definitions
+
+/// <reference path="./cheerio.d.ts" />
+
 import juice = require('../../');
 import cheerio = require('cheerio');
 
@@ -97,27 +101,27 @@ juice.juiceFile(
   (err: Error, html: string): void => console.log(html)
 );
 
-const c1: CheerioStatic = juice.juiceDocument(
+const c1 = juice.juiceDocument(
   cheerio$,
   noOptions
 );
 
-const c2: CheerioStatic = juice.juiceDocument(
+const c2 = juice.juiceDocument(
   cheerio$,
   mostOptions
 );
 
-const c3: CheerioStatic = juice.juiceDocument(
+const c3 = juice.juiceDocument(
   cheerio$,
   minWebResourceOptions
 );
 
-const c4: CheerioStatic = juice.juiceDocument(
+const c4 = juice.juiceDocument(
   cheerio$,
   allWebResourceOptions
 );
 
-const c5: CheerioStatic = juice.juiceDocument(
+const c5 = juice.juiceDocument(
   cheerio$,
 );
 
