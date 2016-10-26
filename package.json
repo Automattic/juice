@@ -6,8 +6,9 @@
   "main": "index.js",
   "browser": "client.js",
   "scripts": {
-    "test": "mocha --reporter spec",
-    "testcover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
+    "test": "mocha --reporter spec && npm run test-typescript",
+    "testcover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "test-typescript": "tsc ./test/typescript/juice-tests.ts && rm ./test/typescript/juice-tests.js"
   },
   "license": "MIT",
   "contributors": [
@@ -35,6 +36,7 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "types": "juice.d.ts",
   "dependencies": {
     "cheerio": "0.20.0",
     "commander": "2.9.0",
@@ -45,9 +47,10 @@
     "web-resource-inliner": "3.0.0"
   },
   "devDependencies": {
-    "should": "4.0.4",
+    "batch": "0.5.3",
     "mocha": "1.21.4",
-    "batch": "0.5.3"
+    "should": "4.0.4",
+    "typescript": "^2.0.3"
   },
   "repository": {
     "type": "git",
