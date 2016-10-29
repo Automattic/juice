@@ -15,6 +15,7 @@ var tests = [
   'two_styles',
   'remote_url',
   'spaces_in_path',
+  'only_matched_once',
 ];
 
 tests.forEach(function(testName) {
@@ -32,7 +33,14 @@ function createIt(testName) {
   return function(cb) {
     var batch = new Batch();
     batch.push(function(cb) {
-      juice.juiceFile(path.join(__dirname, 'html', testName + '.in.html'), {}, cb);
+      var opts = {};
+      if(testName == 'only_matched_once') {
+        opts = {
+          onlyMatchedOnce: true,
+          removeStyleTags: false
+        };
+      }
+      juice.juiceFile(path.join(__dirname, 'html', testName + '.in.html'), opts, cb);
     });
     batch.push(function(cb) {
       fs.readFile(path.join(__dirname, 'html', testName + '.out.html'), 'utf8', cb);
