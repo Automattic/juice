@@ -35,6 +35,8 @@ juice.juiceFile = juiceFile;
 juice.juiceResources = juiceResources;
 juice.inlineExternal = inlineExternal;
 
+juice.codeBlocks = cheerio.codeBlocks;
+
 function juiceFile(filePath, options, callback) {
   // set default options
   fs.readFile(filePath, 'utf8', function(err, content) {

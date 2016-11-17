@@ -20,7 +20,7 @@ var juiceDocument = function(html, options) {
   return juiceClient.juiceDocument(html, options);
 }
 
-juiceClient.inlineContent = function (html, css, options) {
+juiceClient.inlineContent = function(html, css, options) {
   return cheerio(html, { xmlMode: options && options.xmlMode}, juiceClient.inlineDocument, [css, options]);
 };
 
