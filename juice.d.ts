@@ -22,13 +22,14 @@ declare namespace juice {
 
   export function inlineDocument($: any, css: string, options?: Options): any
 
-  export let ignoredPseudos: string[];
-  export let widthElements: HTMLElement[];
+  export let codeBlocks: {start: string, end: string};
+  export let excludedProperties: string[];
   export let heightElements: HTMLElement[];
+  export let ignoredPseudos: string[];
+  export let nonVisualElements: HTMLElement[];
   export let styleToAttribute: { [index: string]: string };
   export let tableElements: HTMLElement[];
-  export let nonVisualElements: HTMLElement[];
-  export let excludedProperties: string[];
+  export let widthElements: HTMLElement[];
 
   export interface Callback { (err: Error, html: string): any; }
 
