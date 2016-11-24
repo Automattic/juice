@@ -143,6 +143,7 @@ juice.inlineDocument(cheerio$, someCss, allWebResourceOptions);
 
 // Global settings
 
+juice.codeBlocks = {start: '{{', end: '}}'};
 juice.ignoredPseudos = ['hover'];
 juice.widthElements = [];
 juice.heightElements = [];
