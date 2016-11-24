@@ -1,9 +1,14 @@
+4.0.1 / 2016-11-24
+==================
+
+* Updated typescript definitions
+
 4.0.0 / 2016-11-17
 ==================
 
 * deps: update web-resource-inliner and cross-spawn
 * engine: specify support as node 4.2+
-* feat: add option `codeBlocks` to support general exclusion of fenced code, like EJS, HBS, etc. 
+* feat: add option `codeBlocks` to support general exclusion of fenced code, like EJS, HBS, etc.
 
 3.0.1 / 2016-10-06
 ==================
