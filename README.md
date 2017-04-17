@@ -31,6 +31,7 @@ result will be:
 
 * [node-email-templates][1] - Node.js module for rendering beautiful emails with [ejs][2] templates and email-friendly inline CSS using [juice][3].
 * [swig-email-templates][4] - Uses [swig][5], which gives you [template inheritance][6], and can generate a [dummy context][7] from a template.
+* [nodejs-api-starter][8] - A project template for building web APIs with Node.js and GraphQL (see [`src/emails`][9]).
 
 [1]: https://github.com/niftylettuce/node-email-templates
 [2]: https://github.com/tj/ejs
@@ -39,6 +40,8 @@ result will be:
 [5]: https://github.com/paularmstrong/swig
 [6]: https://docs.djangoproject.com/en/dev/topics/templates/#template-inheritance
 [7]: https://github.com/andrewrk/swig-dummy-context
+[8]: https://github.com/kriasoft/nodejs-api-starter
+[9]: https://github.com/kriasoft/nodejs-api-starter/tree/master/src/emails
 
 ## Documentation
 
