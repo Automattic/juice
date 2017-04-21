@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/Automattic/juice.png?branch=master)](https://travis-ci.org/Automattic/juice)
-[![Dependency Status](https://david-dm.org/Automattic/juice.png)](https://david-dm.org/Automattic/juice)
+[![Build Status](https://travis-ci.org/Automattic/juice.svg?branch=master)](https://travis-ci.org/Automattic/juice)
+[![Dependency Status](https://david-dm.org/Automattic/juice.svg)](https://david-dm.org/Automattic/juice)
+
 # Juice ![](http://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style` attribute.
