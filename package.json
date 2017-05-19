@@ -25,7 +25,7 @@
     "cheerio": "^0.22.0",
     "commander": "2.9.0",
     "cross-spawn": "^5.0.1",
-    "deep-extend": "^0.4.0",
+    "deep-extend": "^0.5.0",
     "mensch": "^0.3.3",
     "slick": "1.12.2",
     "web-resource-inliner": "^4.1.0"
