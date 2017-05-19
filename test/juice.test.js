@@ -186,3 +186,9 @@ it('test style attributes and important priority', function() {
       juice.inlineContent('<div style="color: red !important;"></div>', 'div { color: black !important; }'),
       '<div style="color: red;"></div>');
 });
+
+it('test that preserved text order is stable', function() {
+  assert.deepEqual(
+      utils.getPreservedText('div { color: red; } @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } }', { mediaQueries: true }).replace(/\s+/g, ' '),
+      ' @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } } ');
+});
