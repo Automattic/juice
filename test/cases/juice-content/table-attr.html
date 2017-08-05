@@ -10,13 +10,31 @@
             background-image: url('test.png');
             background-color: red;
         }
+
+        td.double {
+            background-image: url("test.png");
+        }
+
+        td.single {
+            background-image: url('test.png');
+        }
+
+        td.none {
+            background-image: url(test.png);
+        }
     </style>
 </head>
 <body>
     <p>none</p>
     <table>
         <tr>
-            <td>
+            <td class="double">
+                wide
+            </td>
+            <td class="single">
+                wide
+            </td>
+            <td class="none">
                 wide
             </td>
         </tr>
