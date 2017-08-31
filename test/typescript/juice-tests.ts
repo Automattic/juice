@@ -143,7 +143,7 @@ juice.inlineDocument(cheerio$, someCss, allWebResourceOptions);
 
 // Global settings
 
-juice.codeBlocks.HBS = { start: '{{', end: '}}' };
+juice.codeBlocks['HBS'] = { start: '{{', end: '}}' };
 juice.ignoredPseudos = ['hover'];
 juice.widthElements = [];
 juice.heightElements = [];
