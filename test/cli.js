@@ -18,6 +18,7 @@ it('cli parses options', function(done) {
   assert.strictEqual(cli.argsToOptions({'insertPreservedExtraCss': 'true'}).insertPreservedExtraCss, true);
   assert.strictEqual(cli.argsToOptions({'applyStyleTags': 'true'}).applyStyleTags, true);
   assert.strictEqual(cli.argsToOptions({'removeStyleTags': 'true'}).removeStyleTags, true);
+  assert.strictEqual(cli.argsToOptions({'preserveImportant': 'true'}).preserveImportant, true);
   assert.strictEqual(cli.argsToOptions({'preserveMediaQueries': 'true'}).preserveMediaQueries, true);
   assert.strictEqual(cli.argsToOptions({'preserveFontFaces': 'true'}).preserveFontFaces, true);
   assert.strictEqual(cli.argsToOptions({'applyWidthAttributes': 'true'}).applyWidthAttributes, true);
