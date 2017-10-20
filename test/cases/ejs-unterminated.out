@@ -1,0 +1,3 @@
+<body style="color: red;">
+<div class="<% foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz"></div>
+</body>
