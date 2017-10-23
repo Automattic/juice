@@ -1,3 +1,7 @@
+# 4.2.2 / 2017-10-22
+
+* Fix code blocks encode/decode so cheerio doesn't mulch them if they are tag attributes
+
 # 4.2.1 / 2017-10-20
 
 * Fix regex catastophic backtracking issue with unclosed code blocks
