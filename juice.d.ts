@@ -50,7 +50,7 @@ declare namespace juice {
   }
 
   interface WebResourcesOptions {
-    fileContent: string;
+    fileContent?: string;
     inlineAttribute?: string;
     images?: boolean | number;
     svgs?: boolean | number;
