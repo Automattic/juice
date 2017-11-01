@@ -24,8 +24,11 @@ const mostOptions = {
   preserveImportant: true,
 };
 const minWebResourceOptions = {
+  webResources: {},
+};
+const someWebResourceOptions = {
   webResources: {
-    fileContent: '<link href="css/style.css" rel="stylesheet">',
+    images: false,
   },
 };
 const allWebResourceOptions = {
@@ -67,6 +70,12 @@ juice.juiceResources(
 
 juice.juiceResources(
   sample,
+  someWebResourceOptions,
+  (err: Error, html: string): void => console.log(html)
+);
+
+juice.juiceResources(
+  sample,
   allWebResourceOptions,
   (err: Error, html: string): void => console.log(html)
 );
@@ -97,6 +106,12 @@ juice.juiceFile(
 
 juice.juiceFile(
   'somePath.html',
+  someWebResourceOptions,
+  (err: Error, html: string): void => console.log(html)
+);
+
+juice.juiceFile(
+  'somePath.html',
   allWebResourceOptions,
   (err: Error, html: string): void => console.log(html)
 );
@@ -118,10 +133,15 @@ const c3 = juice.juiceDocument(
 
 const c4 = juice.juiceDocument(
   cheerio$,
-  allWebResourceOptions
+  someWebResourceOptions
 );
 
 const c5 = juice.juiceDocument(
+  cheerio$,
+  allWebResourceOptions
+);
+
+const c6 = juice.juiceDocument(
   cheerio$,
 );
 
@@ -131,6 +151,8 @@ juice.inlineContent(someHtml, someCss, mostOptions);
 
 juice.inlineContent(someHtml, someCss, minWebResourceOptions);
 
+juice.inlineContent(someHtml, someCss, someWebResourceOptions);
+
 juice.inlineContent(someHtml, someCss, allWebResourceOptions);
 
 juice.inlineDocument(cheerio$, someCss, noOptions);
@@ -138,6 +160,8 @@ juice.inlineDocument(cheerio$, someCss, noOptions);
 juice.inlineDocument(cheerio$, someCss, mostOptions);
 
 juice.inlineDocument(cheerio$, someCss, minWebResourceOptions);
+
+juice.inlineDocument(cheerio$, someCss, someWebResourceOptions);
 
 juice.inlineDocument(cheerio$, someCss, allWebResourceOptions);
 
