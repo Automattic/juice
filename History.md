@@ -1,3 +1,9 @@
+# 4.2.3 / 2018-03-08
+
+* fix help typo
+* fix memory leak in cheerio code block encode/decode
+* update TS definition to allow for optional fileContent option
+
 # 4.2.2 / 2017-10-22
 
 * Fix code blocks encode/decode so cheerio doesn't mulch them if they are tag attributes
