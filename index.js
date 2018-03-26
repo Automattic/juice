@@ -10,6 +10,7 @@ var fs = require('fs');
 var path = require('path');
 var inline = require('web-resource-inliner');
 var juiceClient = require('./client');
+var cheerio = require('./lib/cheerio');
 var juice = juiceClient;
 
 module.exports = juice;
@@ -34,6 +35,8 @@ juice.juiceFile = juiceFile;
 juice.juiceResources = juiceResources;
 juice.inlineExternal = inlineExternal;
 
+juice.codeBlocks = cheerio.codeBlocks;
+
 function juiceFile(filePath, options, callback) {
   // set default options
   fs.readFile(filePath, 'utf8', function(err, content) {
@@ -52,7 +55,7 @@ function juiceFile(filePath, options, callback) {
 function inlineExternal(html, inlineOptions, callback) {
   var options = utils.extend({fileContent: html}, inlineOptions);
   inline.html(options, callback);
-};
+}
 
 function juiceResources(html, options, callback) {
   options = utils.getDefaultOptions(options);
@@ -62,13 +65,9 @@ function juiceResources(html, options, callback) {
       return callback(err);
     }
 
-    var $ = utils.cheerio(html, { xmlMode: options && options.xmlMode});
-    juiceClient.juiceDocument($, options);
-
-    if (options.xmlMode) {
-      return callback(null, $.xml());
-    }
-    return callback(null, utils.decodeEntities($.html()));
+    return callback(null,
+      cheerio(html, { xmlMode: options && options.xmlMode}, juiceClient.juiceDocument, [options])
+    );
   };
 
   options.webResources.relativeTo = options.webResources.relativeTo || options.url; // legacy support

@@ -3,7 +3,7 @@
 var assert = require('assert');
 var path = require('path');
 var fs = require('fs');
-var spawn = require('cross-spawn-async');
+var spawn = require('cross-spawn');
 var cli = require('../lib/cli');
 
 before(function() {
@@ -18,11 +18,13 @@ it('cli parses options', function(done) {
   assert.strictEqual(cli.argsToOptions({'insertPreservedExtraCss': 'true'}).insertPreservedExtraCss, true);
   assert.strictEqual(cli.argsToOptions({'applyStyleTags': 'true'}).applyStyleTags, true);
   assert.strictEqual(cli.argsToOptions({'removeStyleTags': 'true'}).removeStyleTags, true);
+  assert.strictEqual(cli.argsToOptions({'preserveImportant': 'true'}).preserveImportant, true);
   assert.strictEqual(cli.argsToOptions({'preserveMediaQueries': 'true'}).preserveMediaQueries, true);
   assert.strictEqual(cli.argsToOptions({'preserveFontFaces': 'true'}).preserveFontFaces, true);
   assert.strictEqual(cli.argsToOptions({'applyWidthAttributes': 'true'}).applyWidthAttributes, true);
   assert.strictEqual(cli.argsToOptions({'applyHeightAttributes': 'true'}).applyHeightAttributes, true);
   assert.strictEqual(cli.argsToOptions({'applyAttributesTableElements': 'true'}).applyAttributesTableElements, true);
+  assert.strictEqual(cli.argsToOptions({'xmlMode': 'true'}).xmlMode, true);
   assert.strictEqual(cli.argsToOptions({'webResourcesInlineAttribute': 'true'}).webResources.inlineAttribute, true);
   assert.strictEqual(cli.argsToOptions({'webResourcesImages': '12'}).webResources.images, 12);
   assert.strictEqual(cli.argsToOptions({'webResourcesLinks': 'true'}).webResources.links, true);
