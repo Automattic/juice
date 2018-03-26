@@ -34,6 +34,7 @@ result will be:
 * [swig-email-templates][4] - Uses [swig][5], which gives you [template inheritance][6], and can generate a [dummy context][7] from a template.
 * [nodejs-api-starter][8] - A project template for building web APIs with Node.js and GraphQL (see [`src/emails`][9]).
 * [notifme-template][10] - A Node.js library to easily handle all your notification (`emails` | `SMS` | `pushes` | `webpushes`) templates. (can be used in combination with [`notifme-sdk`][11]).
+* [mosaico][13] - The first opensource email template editor. Helps you build responsive and appealing email templates in few clicks.
 * [mjml][12] - A markup language designed for painless responsive email coding. The markup gets transpiled to HTML that works in any email client.
 
 [1]: https://github.com/niftylettuce/node-email-templates
@@ -48,6 +49,7 @@ result will be:
 [10]: https://github.com/notifme/notifme-template
 [11]: https://github.com/notifme/notifme-sdk
 [12]: https://github.com/mjmlio/mjml
+[13]: https://github.com/voidlabs/mosaico
 
 ## Documentation
 
