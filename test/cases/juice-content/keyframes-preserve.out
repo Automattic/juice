@@ -1,0 +1,19 @@
+<html>
+<head>
+    <style>
+@keyframes keyframeName {
+  0%,
+100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+</style>
+</head>
+<body>
+    <p style="color: blue; opacity: 0; animation: keyframeName 3s infinite;">hi</p>
+</body>
+</html>
