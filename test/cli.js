@@ -21,6 +21,7 @@ it('cli parses options', function(done) {
   assert.strictEqual(cli.argsToOptions({'preserveImportant': 'true'}).preserveImportant, true);
   assert.strictEqual(cli.argsToOptions({'preserveMediaQueries': 'true'}).preserveMediaQueries, true);
   assert.strictEqual(cli.argsToOptions({'preserveFontFaces': 'true'}).preserveFontFaces, true);
+  assert.strictEqual(cli.argsToOptions({'preserveKeyFrames': 'true'}).preserveKeyFrames, true);
   assert.strictEqual(cli.argsToOptions({'applyWidthAttributes': 'true'}).applyWidthAttributes, true);
   assert.strictEqual(cli.argsToOptions({'applyHeightAttributes': 'true'}).applyHeightAttributes, true);
   assert.strictEqual(cli.argsToOptions({'applyAttributesTableElements': 'true'}).applyAttributesTableElements, true);

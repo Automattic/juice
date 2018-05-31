@@ -15,6 +15,7 @@ const mostOptions = {
   removeStyleTags: true,
   preserveMediaQueries: true,
   preserveFontFaces: true,
+  preserveKeyFrames: true,
   insertPreservedExtraCss: true,
   applyWidthAttributes: true,
   applyHeightAttributes: true,
