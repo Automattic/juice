@@ -1,3 +1,4 @@
 test/
 support/
-README.md
+coverage/
+tmp/
