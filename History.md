@@ -1,3 +1,7 @@
+# 4.3.0 / 2018-06-01
+
+* Adds `preserveKeyFrames` option
+
 # 4.2.3 / 2018-03-08
 
 * fix help typo

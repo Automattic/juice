@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "4.2.3",
+  "version": "4.3.0",
   "description": "Inlines css into html source",
   "bin": "bin/juice",
   "main": "index.js",
