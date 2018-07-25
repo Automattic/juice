@@ -5,7 +5,7 @@
  */
 
 var utils = require('./lib/utils');
-var packageJson = require('./package');
+var packageJson = require('./package.json');
 var fs = require('fs');
 var path = require('path');
 var inline = require('web-resource-inliner');
