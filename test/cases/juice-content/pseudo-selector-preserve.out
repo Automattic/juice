@@ -1,0 +1,24 @@
+<html>
+<head>
+    <style>
+a:hover {
+  color: red;
+}
+a:active {
+  color: red;
+}
+a:focus {
+  color: red;
+}
+a:visited {
+  color: red;
+}
+a:link {
+  color: red;
+}
+</style>
+</head>
+<body>
+    <a href="#">hover me</a>
+</body>
+</html>
