@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "4.3.2",
+  "version": "5.0.0",
   "description": "Inlines css into html source",
   "bin": "bin/juice",
   "main": "index.js",
@@ -30,8 +30,8 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "commander": "^2.15.1",
-    "cross-spawn": "^5.1.0",
-    "deep-extend": "^0.5.1",
+    "cross-spawn": "^6.0.5",
+    "deep-extend": "^0.6.0",
     "mensch": "^0.3.3",
     "slick": "^1.12.2",
     "web-resource-inliner": "^4.2.1"

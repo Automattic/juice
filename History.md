@@ -1,3 +1,8 @@
+# 5.0.0 / 2018-10-02
+
+* Adds `preservePseudos` option with default `true`
+* Adds `th` to list of elements that can receive a `width` attribute
+
 # 4.3.0 / 2018-06-01
 
 * Adds `preserveKeyFrames` option
@@ -14,7 +19,7 @@
 
 # 4.2.1 / 2017-10-20
 
-* Fix regex catastophic backtracking issue with unclosed code blocks
+* Fix regex catastrophic backtracking issue with unclosed code blocks
 
 # 4.2.0 / 2017-10-05
 
