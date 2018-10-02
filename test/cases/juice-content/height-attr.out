@@ -6,6 +6,14 @@
     <p style="height: 200px;">none</p>
     <table>
         <tr>
+            <th class="px" style="height: 200px;" height="200">
+                header 1
+            </th>
+            <th class="percentage" style="height: 50%;" height="50%">
+                header 2
+            </th>
+        </tr>
+        <tr>
             <td class="px" style="height: 200px;" height="200">
                 high
             </td>

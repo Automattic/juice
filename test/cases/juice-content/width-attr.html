@@ -1,10 +1,10 @@
 <html>
 <head>
     <style>
-        p, td.px, img.px {
+        p, td.px, th.px, img.px {
             width: 200px;
         }
-        td.percentage, img.percentage {
+        td.percentage, th.percentage, img.percentage {
             width: 50%;
         }
     </style>
@@ -12,6 +12,14 @@
 <body>
     <p>none</p>
     <table>
+        <tr>
+            <th class="px">
+                header 1
+            </th>
+            <th class="percentage">
+                header 2
+            </th>
+        </tr>
         <tr>
             <td class="px">
                 wide
