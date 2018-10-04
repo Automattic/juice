@@ -36,6 +36,7 @@ result will be:
 * [notifme-template][10] - A Node.js library to easily handle all your notification (`emails` | `SMS` | `pushes` | `webpushes`) templates. (can be used in combination with [`notifme-sdk`][11]).
 * [mosaico][13] - The first opensource email template editor. Helps you build responsive and appealing email templates in few clicks.
 * [mjml][12] - A markup language designed for painless responsive email coding. The markup gets transpiled to HTML that works in any email client.
+* [maizzle][14] - A utility-first CSS-based framework for rapid email development.
 
 [1]: https://github.com/niftylettuce/node-email-templates
 [2]: https://github.com/tj/ejs
@@ -50,6 +51,7 @@ result will be:
 [11]: https://github.com/notifme/notifme-sdk
 [12]: https://github.com/mjmlio/mjml
 [13]: https://github.com/voidlabs/mosaico
+[14]: https://github.com/ThemeMountain/maizzle
 
 ## Documentation
 
