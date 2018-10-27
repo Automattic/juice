@@ -1,18 +1,28 @@
 <html>
 <head>
     <style>
-        .bg-gradient { 
+        .bg-linear-gradient { 
             background-image: linear-gradient(to right, #fdc830, #f37335); 
+        }
+        .bg-radial-gradient { 
+            background-image: radial-gradient(circle at 100%, #333, #333 50%, #eee 75%, #333 75%); 
+        }
+        .bg-image-sanity-check-one {
+            background-image: url('linear-gradient.png');
+        }
+        .bg-image-sanity-check-two {
+            background-image: url('radial-gradient.png');
         }
     </style>
 </head>
 <body>
-    <table class="bg-gradient">
+    <table class="bg-linear-gradient">
         <tr>
-            <th class="bg-gradient">Lorem</th>
+            <th class="bg-radial-gradient">Lorem</th>
         </tr>
         <tr>
-            <td class="bg-gradient">Ipsum</td>
+            <td class="bg-image-sanity-check-one">Ipsum</td>
+            <td class="bg-image-sanity-check-two">Dolor</td>
         </tr>
     </table>
 </body>
