@@ -1,0 +1,15 @@
+<html>
+<head>
+    
+</head>
+<body>
+    <table class="bg-gradient" style="background-image: linear-gradient(to right, #fdc830, #f37335);">
+        <tr>
+            <th class="bg-gradient" style="background-image: linear-gradient(to right, #fdc830, #f37335);">Lorem</th>
+        </tr>
+        <tr>
+            <td class="bg-gradient" style="background-image: linear-gradient(to right, #fdc830, #f37335);">Ipsum</td>
+        </tr>
+    </table>
+</body>
+</html>
