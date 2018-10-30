@@ -37,6 +37,7 @@ result will be:
 * [mosaico][13] - The first opensource email template editor. Helps you build responsive and appealing email templates in few clicks.
 * [mjml][12] - A markup language designed for painless responsive email coding. The markup gets transpiled to HTML that works in any email client.
 * [maizzle][14] - A utility-first CSS-based framework for rapid email development.
+* [dovetailer][15] - Use Sass and Nunjucks to generate HTML emails with text versions, optimized for all email clients and ready to send. A [starter project][16] is also available.
 
 [1]: https://github.com/niftylettuce/node-email-templates
 [2]: https://github.com/tj/ejs
@@ -52,6 +53,8 @@ result will be:
 [12]: https://github.com/mjmlio/mjml
 [13]: https://github.com/voidlabs/mosaico
 [14]: https://github.com/ThemeMountain/maizzle
+[15]: https://github.com/maxlapides/dovetailer
+[16]: https://github.com/maxlapides/dovetailer-starter
 
 ## Documentation
 
