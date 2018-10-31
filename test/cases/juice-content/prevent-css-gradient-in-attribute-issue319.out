@@ -1,0 +1,16 @@
+<html>
+<head>
+    
+</head>
+<body>
+    <table class="bg-linear-gradient" style="background-image: linear-gradient(to right, #fdc830, #f37335);">
+        <tr>
+            <th class="bg-radial-gradient" style="background-image: radial-gradient(circle at 100%, #333, #333 50%, #eee 75%, #333 75%);">Lorem</th>
+        </tr>
+        <tr>
+            <td class="bg-image-sanity-check-one" style="background-image: url('linear-gradient.png');" background="linear-gradient.png">Ipsum</td>
+            <td class="bg-image-sanity-check-two" style="background-image: url('radial-gradient.png');" background="radial-gradient.png">Dolor</td>
+        </tr>
+    </table>
+</body>
+</html>
