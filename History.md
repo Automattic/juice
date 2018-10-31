@@ -1,5 +1,9 @@
 # 5.0.0 / 2018-10-02
 
+* Fix gradient CSS being inlined into the `background` attribute
+
+# 5.0.0 / 2018-10-02
+
 * Adds `preservePseudos` option with default `true`
 * Adds `th` to list of elements that can receive a `width` attribute
 
