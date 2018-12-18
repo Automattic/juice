@@ -93,3 +93,22 @@ it('cli options included', function(done) {
     done();
   });
 });
+
+it('cli supports codeBlock', function(done) {
+  var htmlPath = 'test/cases/cli/code-block-cli.html';
+  var optionsFilePath = 'test/cases/cli/code-block-cli.json';
+  var expectedPath = 'test/cases/cli/code-block-cli.out';
+  var outputPath = 'tmp/font-face-preserve.out';
+
+  var juiceProcess = spawn('bin/juice', [htmlPath, '--options-file', optionsFilePath, outputPath]);
+
+  juiceProcess.on('error', done);
+
+  juiceProcess.on('exit', function(code) {
+    assert(code === 0, 'Expected exit code to be 0');
+    var output = fs.readFileSync(outputPath, 'utf8').replace(/\r/g, '');
+    var expectedOutput = fs.readFileSync(expectedPath, 'utf8');
+    assert.equal(output, expectedOutput);
+    done();
+  });
+});
