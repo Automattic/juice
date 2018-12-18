@@ -98,7 +98,7 @@ it('cli supports codeBlock', function(done) {
   var htmlPath = 'test/cases/cli/code-block-cli.html';
   var optionsFilePath = 'test/cases/cli/code-block-cli.json';
   var expectedPath = 'test/cases/cli/code-block-cli.out';
-  var outputPath = 'tmp/font-face-preserve.out';
+  var outputPath = 'tmp/code-block-cli.out';
 
   var juiceProcess = spawn('bin/juice', [htmlPath, '--options-file', optionsFilePath, outputPath]);
 
