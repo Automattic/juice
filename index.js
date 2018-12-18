@@ -44,6 +44,12 @@ function juiceFile(filePath, options, callback) {
       return callback(err);
     }
     options = utils.getDefaultOptions(options); // so we can mutate options without guilt
+    // Optional support for codeBlocks within optionsFile
+    if (options.codeBlocks) {
+      Object.keys(options.codeBlocks).forEach(function(key) {
+        juice.codeBlocks[key] = options.codeBlocks[key];
+      });
+    }
     if (!options.webResources.relativeTo) {
       var rel = path.dirname(path.relative(process.cwd(),filePath));
       options.webResources.relativeTo = rel;
