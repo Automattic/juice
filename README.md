@@ -180,6 +180,7 @@ These are additional options not included in the standard `juice` options listed
 
 - `--css [filepath]` will load and inject CSS into `extraCss`.
 - `--options-file [filepath]` will load and inject options from a JSON file. Options from the CLI will be given priority over options in the file when there is a conflict.
+- `codeBlocks` is optionally supported in the options file if you include it. This will allow you to support different template languages in a build process.
 
 ### Running Juice in the Browser
 

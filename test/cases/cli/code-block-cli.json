@@ -1,0 +1,12 @@
+{
+    "codeBlocks": {
+        "freeMarkerStart": {
+            "start": "<#",
+            "end": ">"
+        },
+        "freeMarkerEnd": {
+            "start": "</#",
+            "end": ">"
+        }
+    }
+}
