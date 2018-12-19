@@ -1,3 +1,7 @@
+# 5.1.0 / 2018-12-18
+
+* Add `codeBlocks` support in CLI `--options-file`
+
 # 5.0.0 / 2018-10-02
 
 * Fix gradient CSS being inlined into the `background` attribute
