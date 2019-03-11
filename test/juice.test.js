@@ -189,6 +189,6 @@ it('test style attributes and important priority', function() {
 
 it('test that preserved text order is stable', function() {
   assert.deepEqual(
-      utils.getPreservedText('div { color: red; } @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } }', { mediaQueries: true }).replace(/\s+/g, ' '),
+      utils.getPreservedText('div { color: red; } @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } }', { mediaQueries: true }, juice.ignoredPseudos).replace(/\s+/g, ' '),
       ' @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } } ');
 });
