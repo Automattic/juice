@@ -22,7 +22,7 @@
             </td>
         </tr>
     </table>
-    <img src alt="high" class="px" style="height: 200px;" height="200">
-    <img src alt="high" class="percentage" style="height: 50%;">
+    <img src="#" alt="high" class="px" style="height: 200px;" height="200">
+    <img src="#" alt="high" class="percentage" style="height: 50%;">
 </body>
 </html>
