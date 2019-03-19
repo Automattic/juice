@@ -1,3 +1,7 @@
+# 5.2.0 / 2019-03-18
+
+* Fix bug with `getPreservedText` (mixed up `preservePseudos` and `ignorePseudos`)
+
 # 5.1.0 / 2018-12-18
 
 * Add `codeBlocks` support in CLI `--options-file`
