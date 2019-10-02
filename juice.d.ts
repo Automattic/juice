@@ -2,6 +2,8 @@
 // Project: https://github.com/Automattic/juice
 // Definitions by: Kamil Nikel <https://github.com/knikel>
 
+/// <reference lib="dom" />
+
 /* =================== USAGE ===================
    import juice = require('juice');
    =============================================== */
