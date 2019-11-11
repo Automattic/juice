@@ -32,7 +32,7 @@
     "commander": "^2.15.1",
     "cross-spawn": "^6.0.5",
     "deep-extend": "^0.6.0",
-    "mensch": "^0.3.3",
+    "mensch": "^0.3.4",
     "slick": "^1.12.2",
     "web-resource-inliner": "^4.3.1"
   },
