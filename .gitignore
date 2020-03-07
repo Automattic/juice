@@ -5,3 +5,6 @@ coverage
 npm-debug.log
 tmp
 test/typescript/*.js
+target
+.idea
+*.iml
