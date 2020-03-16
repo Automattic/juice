@@ -5,6 +5,8 @@ var utils = require('../lib/utils');
 var basename = require('path').basename;
 var fs = require('fs');
 var assert = require('assert');
+var cheerio = require('cheerio');
+var htmlparser2 = require('htmlparser2');
 
 
 /**
@@ -22,6 +24,16 @@ files.forEach(function(file) {
 it('juice(html)', function() {
   var expected = '<div style="color: red;"></div>';
   var actual = juice('<style>div{color:red;}</style><div/>');
+  assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
+});
+
+it('juice(document) with htmlparser2', function() {
+  var dom = htmlparser2.parseDOM('<style>div{color:red;}</style><div/>');
+  var $ = cheerio.load(dom);
+
+  var expected = '<div style="color: red;"></div>';
+  juice.juiceDocument($);
+  var actual = $.html();
   assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
 });
 

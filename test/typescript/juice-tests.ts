@@ -4,6 +4,7 @@
 
 import juice = require('../../');
 import cheerio = require('cheerio');
+import htmlparser2 = require('htmlparser2');
 
 const sample = '<style>div{class: red;}</style><div></div>';
 const someHtml = '<h1 class="x">yo</h1>';
@@ -47,7 +48,10 @@ const allWebResourceOptions = {
   },
 };
 
-const cheerio$ = cheerio.load('<h1>test</h1>');
+const someMoreHtml = '<h1>test</h1>';
+const cheerio$ = cheerio.load(someMoreHtml);
+const htmlparser2dom = htmlparser2.parseDOM(someMoreHtml);
+const cheerioHtmlparser2$ = cheerio.load(htmlparser2dom);
 
 const x: string = juice(someHtml, {});
 
@@ -146,6 +150,11 @@ const c6 = juice.juiceDocument(
   cheerio$,
 );
 
+const c7 = juice.juiceDocument(
+  cheerioHtmlparser2$,
+  noOptions
+);
+
 juice.inlineContent(someHtml, someCss, noOptions);
 
 juice.inlineContent(someHtml, someCss, mostOptions);
@@ -165,6 +174,8 @@ juice.inlineDocument(cheerio$, someCss, minWebResourceOptions);
 juice.inlineDocument(cheerio$, someCss, someWebResourceOptions);
 
 juice.inlineDocument(cheerio$, someCss, allWebResourceOptions);
+
+juice.inlineDocument(cheerioHtmlparser2$, someCss, noOptions);
 
 // Global settings
 
