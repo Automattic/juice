@@ -1,15 +1,20 @@
 {
-  "name": "juice",
-  "version": "6.0.0",
+  "name": "@lassodatasystems/juice",
+  "version": "6.0.1",
   "description": "Inlines css into html source",
   "bin": "bin/juice",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "browser": "client.js",
   "scripts": {
     "test": "mocha --reporter spec && npm run test-typescript",
     "testcover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "test-typescript": "tsc ./test/typescript/juice-tests.ts && rm ./test/typescript/juice-tests.js",
-    "browserify": "browserify client.js -o tmp/bundle.js --standalone juice"
+    "browserify": "browserify client.js -o tmp/bundle.js --standalone juice",
+    "tag": "git tag v$npm_package_version && git push origin v$npm_package_version",
+    "release": "npm run tag && npm publish" 
   },
   "license": "MIT",
   "contributors": [
@@ -45,6 +50,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Automattic/juice.git"
+    "url": "https://github.com/lassodatasystems/juice.git"
   }
 }
