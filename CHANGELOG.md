@@ -1,3 +1,7 @@
+# 6.0.0 / 2019-11-27
+
+* Drop support for Node.js 4
+
 # 5.2.0 / 2019-03-18
 
 * Fix bug with `getPreservedText` (mixed up `preservePseudos` and `ignorePseudos`)
