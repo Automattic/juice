@@ -42,7 +42,6 @@ const allWebResourceOptions = {
     links: true,
     relativeTo: 'https://github.com/',
     rebaseRelativeTo: 'assets',
-    cssmin: true,
     strict: true,
   },
 };

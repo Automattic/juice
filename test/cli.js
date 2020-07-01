@@ -32,8 +32,6 @@ it('cli parses options', function(done) {
   assert.strictEqual(cli.argsToOptions({'webResourcesScripts': '24'}).webResources.scripts, 24);
   assert.strictEqual(cli.argsToOptions({'webResourcesRelativeTo': 'web'}).webResources.relativeTo, 'web');
   assert.strictEqual(cli.argsToOptions({'webResourcesRebaseRelativeTo': 'root'}).webResources.rebaseRelativeTo, 'root');
-  assert.strictEqual(cli.argsToOptions({'webResourcesCssmin': 'true'}).webResources.cssmin, true);
-  assert.strictEqual(cli.argsToOptions({'webResourcesUglify': 'true'}).webResources.uglify, true);
   assert.strictEqual(cli.argsToOptions({'webResourcesStrict': 'true'}).webResources.strict, true);
   done();
 });
