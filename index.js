@@ -59,7 +59,7 @@ function juiceFile(filePath, options, callback) {
 }
 
 function inlineExternal(html, inlineOptions, callback) {
-  var options = utils.extend({fileContent: html}, inlineOptions);
+  var options = Object.assign({fileContent: html}, inlineOptions);
   inline.html(options, callback);
 }
 
