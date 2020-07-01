@@ -60,7 +60,6 @@ declare namespace juice {
     links?: boolean | number;
     relativeTo?: string;
     rebaseRelativeTo?: string;
-    cssmin?: boolean;
     strict?: boolean;
   }
 }
