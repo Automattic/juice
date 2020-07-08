@@ -2,7 +2,6 @@
 
 var juice = require('..');
 var cli = require('../lib/cli');
-var xtend = require('deep-extend');
 var fs = require('fs');
 var path = require('path');
 
@@ -17,7 +16,13 @@ var queue = [];
 
 if (options.optionsFile) {
   var optionsFromFile = require(path.resolve(process.cwd(),options.optionsFile));
-  options = xtend({}, optionsFromFile, options);
+  options = Object.assign({}, optionsFromFile, options, {
+    webResources: Object.assign(
+      {},
+      optionsFromFile && optionsFromFile.webResources,
+      options && options.webResources
+    )
+  });
 }
 
 if (options.cssFile) {
