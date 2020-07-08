@@ -7,10 +7,11 @@ var path = require('path');
 
 var program = cli.getProgram();
 
-if (program.args < 2) { program.help(); }
+if (program.args.length < 2) {
+  program.help();
+}
 
-var inputFile = program.args[0];
-var outputFile = program.args[1];
+var [inputFile, outputFile] = program.args;
 var options = cli.argsToOptions(program);
 var queue = [];
 
