@@ -29,7 +29,7 @@
   "types": "juice.d.ts",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "commander": "^2.15.1",
+    "commander": "^5.1.0",
     "mensch": "^0.3.4",
     "slick": "^1.12.2",
     "web-resource-inliner": "^4.3.3"
