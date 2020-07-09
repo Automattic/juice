@@ -1,3 +1,8 @@
+# 7.0.0 / 2019-11-27
+
+* Breaking: requires node 10+
+* Please see changes in web-resource-inliner@6 for other details
+
 # 6.0.0 / 2019-11-27
 
 * Drop support for Node.js 4

@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "description": "Inlines css into html source",
   "bin": "bin/juice",
   "main": "index.js",
@@ -21,15 +21,9 @@
   },
   "license": "MIT",
   "contributors": [
-    {
-      "name": "Guillermo Rauch"
-    },
-    {
-      "name": "Andrew Kelley"
-    },
-    {
-      "name": "Jarrett Widman"
-    }
+    { "name": "Guillermo Rauch" },
+    { "name": "Andrew Kelley" },
+    { "name": "Jarrett Widman" }
   ],
   "engines": {
     "node": ">=10.0.0"
