@@ -5,6 +5,14 @@
   "bin": "bin/juice",
   "main": "index.js",
   "browser": "client.js",
+  "types": "juice.d.ts",
+  "files": [
+    "bin",
+    "lib",
+    "client.js",
+    "index.js",
+    "juice.d.ts"
+  ],
   "scripts": {
     "test": "mocha --reporter spec && npm run test-typescript",
     "testcover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
@@ -26,7 +34,6 @@
   "engines": {
     "node": ">=6.17.1"
   },
-  "types": "juice.d.ts",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "commander": "^5.1.0",
