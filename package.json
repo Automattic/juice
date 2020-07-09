@@ -24,7 +24,7 @@
     }
   ],
   "engines": {
-    "node": ">=6.17.1"
+    "node": ">=10.0.0"
   },
   "types": "juice.d.ts",
   "dependencies": {
@@ -32,7 +32,7 @@
     "commander": "^5.1.0",
     "mensch": "^0.3.4",
     "slick": "^1.12.2",
-    "web-resource-inliner": "^4.3.3"
+    "web-resource-inliner": "^5.0.0"
   },
   "devDependencies": {
     "batch": "0.5.3",
