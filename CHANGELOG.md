@@ -1,7 +1,7 @@
-# 7.0.0 / 2019-11-27
+# 7.0.0 / 2020-07-10
 
 * Breaking: requires node 10+
-* Please see changes in web-resource-inliner@6 for other details
+* Please see changes in web-resource-inliner@5 for other details
 
 # 6.0.0 / 2019-11-27
 
