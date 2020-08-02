@@ -1,4 +1,4 @@
-<html><body>
+<html><body style="--var: 'Element'; counter-reset: element 20 other;">
 
 <a href="#" style="text-decoration: underline; color: blue;"><span>®+</span>Test<span style="font-weight: bold;">a</span></a>
 <b><span style="color: green;">b</span></b>
@@ -6,4 +6,8 @@
 <c style="color: red;"></c>
 <c class="not"></c>
 <d><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs="><span>test</span><img style="width: 20%;" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs="></d>
+<e style="counter-increment: element other -2;"><span>Element / 21. -2</span><span></span></e>
+<e length="100" style="counter-increment: element other -2;"><span>Element / 22. -4</span><span>Test</span><span> | Length: 100 [xxii:V]</span></e>
+<f style="counter-increment: other;"><span>-3</span><span></span></f>
+<f style="counter-increment: other;"><span>-2</span><span></span></f>
 </body></html>

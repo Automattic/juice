@@ -1,5 +1,10 @@
 <html><body>
 <style>
+body {
+  --var: 'Element';
+  counter-reset: element 20 other;
+}
+
 a {
   text-decoration: underline;
 }
@@ -47,6 +52,27 @@ d:after {
   content: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=');
   width: 20%;
 }
+
+e {
+  counter-increment: element other -2;
+}
+
+e:before {
+  content: var(--var) " / " counter(element) '. ' counter(other);
+}
+
+e[length]:after {
+  content: ' | Length: ' attr(length) ' [' counter(element, lower-roman) ':' counter(element, upper-latin) ']';
+}
+
+f {
+  counter-increment: other;
+}
+
+f:before {
+  content: counter(other);
+}
+
 </style>
 <a href="#">Test</a>
 <b></b>
@@ -54,4 +80,8 @@ d:after {
 <c></c>
 <c class="not"></c>
 <d><span>test</span></d>
+<e><span></span></e>
+<e length="100"><span>Test</span></e>
+<f><span></span></f>
+<f><span></span></f>
 </body></html>
