@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Automattic/juice.svg?branch=master)](https://travis-ci.org/Automattic/juice)
 [![Dependency Status](https://david-dm.org/Automattic/juice.svg)](https://david-dm.org/Automattic/juice)
 
-# Juice ![](http://i.imgur.com/jN8Ht.gif)
+# Juice ![](https://i.imgur.com/jN8Ht.gif)
 
 Given HTML, juice will inline your CSS properties into the `style` attribute.
 
@@ -23,7 +23,7 @@ result will be:
 <div style="color: red;"></div>
 ```
 
-[Try out the web client version](http://automattic.github.io/juice/)
+[Try out the web client version](https://automattic.github.io/juice/)
 
 ## What is this useful for ?
 
