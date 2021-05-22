@@ -1,3 +1,8 @@
+# 8.0.0 / 2021-22-21
+
+* pseudo Update
+* !important table attribute update
+
 # 7.0.0 / 2020-07-10
 
 * Breaking: requires node 10+
