@@ -6,5 +6,6 @@
     <p style="color: red !important;">hi</p>
     <span style="color: blue;">there</span>
     <p style="color: blue !important;">again</p>
+    <table style="background-color: black !important; width: 100% !important;" width="100%" bgcolor="black"></table>
 </body>
 </html>
