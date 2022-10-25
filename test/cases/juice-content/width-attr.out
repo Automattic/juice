@@ -12,6 +12,9 @@
             <th class="percentage" style="width: 50%;" width="50%">
                 header 2
             </th>
+            <th class="auto" style="width: auto;" width="auto">
+                header 3
+            </th>
         </tr>
         <tr>
             <td class="px" style="width: 200px;" width="200">
@@ -20,9 +23,13 @@
             <td class="percentage" style="width: 50%;" width="50%">
                 wide
             </td>
+            <td class="auto" style="width: auto;" width="auto">
+                wide
+            </td>
         </tr>
     </table>
     <img src="#" alt="wide" class="px" style="width: 200px;" width="200">
     <img src="#" alt="wide" class="percentage" style="width: 50%;">
+    <img src="#" alt="wide" class="auto" style="width: auto;" width="auto">
 </body>
 </html>
