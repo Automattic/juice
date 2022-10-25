@@ -12,6 +12,9 @@
             <th class="percentage" style="height: 50%;" height="50%">
                 header 2
             </th>
+            <th class="auto" style="height: auto;" height="auto">
+                header 3
+            </th>
         </tr>
         <tr>
             <td class="px" style="height: 200px;" height="200">
@@ -20,9 +23,13 @@
             <td class="percentage" style="height: 50%;" height="50%">
                 high
             </td>
+            <td class="auto" style="height: auto;" height="auto">
+                high
+            </td>
         </tr>
     </table>
     <img src="#" alt="high" class="px" style="height: 200px;" height="200">
     <img src="#" alt="high" class="percentage" style="height: 50%;">
+    <img src="#" alt="high" class="auto" style="height: auto;" height="auto">
 </body>
 </html>
