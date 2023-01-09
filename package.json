@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.10",
-    "commander": "^6.1.0",
+    "commander": "^9.5.0",
     "mensch": "^0.3.4",
     "slick": "^1.12.2",
     "web-resource-inliner": "^6.0.1"
