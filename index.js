@@ -21,21 +21,9 @@ juice.Selector = utils.Selector;
 juice.Property = utils.Property;
 juice.utils = utils;
 
-juice.ignoredPseudos = juiceClient.ignoredPseudos;
-juice.widthElements = juiceClient.widthElements;
-juice.tableElements = juiceClient.tableElements;
-juice.nonVisualElements = juiceClient.nonVisualElements;
-juice.styleToAttribute = juiceClient.styleToAttribute;
-
-juice.juiceDocument = juiceClient.juiceDocument;
-juice.inlineDocument = juiceClient.inlineDocument;
-juice.inlineContent = juiceClient.inlineContent;
-
 juice.juiceFile = juiceFile;
 juice.juiceResources = juiceResources;
 juice.inlineExternal = inlineExternal;
-
-juice.codeBlocks = cheerio.codeBlocks;
 
 function juiceFile(filePath, options, callback) {
   // set default options

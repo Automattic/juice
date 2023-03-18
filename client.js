@@ -24,4 +24,6 @@ juiceClient.inlineContent = function(html, css, options) {
   return cheerio(html, { xmlMode: options && options.xmlMode}, juiceClient.inlineDocument, [css, options]);
 };
 
+juiceClient.codeBlocks = cheerio.codeBlocks;
+
 module.exports = juiceClient;
