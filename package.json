@@ -1,6 +1,6 @@
 {
   "name": "juice",
-  "version": "8.1.0",
+  "version": "9.0.0",
   "description": "Inlines css into html source",
   "bin": "bin/juice",
   "main": "index.js",
@@ -35,20 +35,20 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "cheerio": "1.0.0-rc.10",
+    "cheerio": "^1.0.0-rc.12",
     "commander": "^6.1.0",
     "mensch": "^0.3.4",
     "slick": "^1.12.2",
     "web-resource-inliner": "^6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
+    "@types/node": "^18.15.3",
     "batch": "0.6.1",
     "browserify": "^17.0.0",
     "cross-spawn": "^7.0.3",
     "mocha": "^5.2.0",
     "should": "^13.2.3",
-    "typescript": "^4.1"
+    "typescript": "^5.0.2"
   },
   "repository": {
     "type": "git",
