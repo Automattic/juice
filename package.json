@@ -42,7 +42,7 @@
     "web-resource-inliner": "^6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^18.15.3",
+    "@types/node": "^20.2.5",
     "batch": "0.6.1",
     "browserify": "^17.0.0",
     "cross-spawn": "^7.0.3",
