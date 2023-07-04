@@ -1,3 +1,7 @@
+# 9.1.0 / 2023-07-03
+
+* Fix: An error is thrown in resetCounter when adding an counter-reset inline style to an element in combination with a different style (e.g., in head).
+
 # 8.0.0 / 2021-22-21
 
 * pseudo Update
