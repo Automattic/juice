@@ -1,0 +1,15 @@
+:root{
+	--border-width:1px;
+	--border-color:red;
+	--border-style-default:solid;
+}
+p {
+  --border-width:2px;
+  --border-style:var(--border-style-default);
+  border: VAR(--border-width) var(--border-style) var(--border-color);
+  background: var(--bg);
+}
+
+td{
+  background-color: var(--bg,var(--border-color,rgb(255,0,0)));
+}

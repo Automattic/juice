@@ -47,16 +47,18 @@ optionFiles.forEach(function(file) {
 });
 
 function read(file) {
-  return fs.readFileSync(file, 'utf8');
+  try{
+    return fs.readFileSync(file, 'utf8');
+  }catch(err){}
 }
 
 function test(testName, options) {
   var base = __dirname + '/cases/' + testName;
   var html =  read(base + '.html');
   var css = read(base + '.css');
-  var config = options ? JSON.parse(read(base + '.json')) : null;
+  var config = read(base + '.json');
+  config = config ? JSON.parse(config) : null;
 
-  options = {};
 
   return function(done) {
     var onJuiced = function(err, actual) {
@@ -68,8 +70,8 @@ function test(testName, options) {
       done();
     };
 
-    if (config === null) {
-      onJuiced(null, juice.inlineContent(html, css, options));
+    if( !options ) {
+      onJuiced(null, juice.inlineContent(html, css, config));
     } else {
       juice.juiceResources(html, config, onJuiced);
     }

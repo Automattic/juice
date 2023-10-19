@@ -49,6 +49,7 @@ declare namespace juice {
     inlinePseudoElements?: boolean;
     xmlMode?: boolean;
     preserveImportant?: boolean;
+    resolveCSSVariables?: boolean;
   }
 
   interface WebResourcesOptions {

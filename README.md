@@ -64,6 +64,8 @@ All juice methods take an options object that can contain any of these propertie
 
 * `removeStyleTags` - whether to remove the original `<style></style>` tags after (possibly) inlining the css from them. Defaults to `true`.
 
+* `resolveCSSVariables` - whether to resolve CSS variables. Defaults to `true`.
+
 * `webResources` - An options object that will be passed to [web-resource-inliner](https://www.npmjs.com/package/web-resource-inliner) for juice functions that will get remote resources (`juiceResources` and `juiceFile`). Defaults to `{}`.
 
 * `xmlMode` - whether to output XML/XHTML with all tags closed. Note that the input *must* also be valid XML/XHTML or you will get undesirable results. Defaults to `false`.
