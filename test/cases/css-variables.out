@@ -1,0 +1,5 @@
+<html>
+<body>
+<p style="border: 2px solid red; background: var(--bg);">woot</p>
+<td style="background-color: red;" bgcolor="red">woot</td>
+</body></html>
