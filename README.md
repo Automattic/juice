@@ -14,13 +14,19 @@ Juice has a number of functions based on whether you want to process a file, HTM
 To inline HTML without getting remote resources, using default options:
 
 ```js
-var juice = require('juice');
-var result = juice("<style>div{color:red;}</style><div/>");
+import juice from "juice";
+
+const style = "div{color:red;}";
+const html = `<style>${style}</style><div>Hello</div>`;
+
+const result = juice(html);
+console.log(result);
 ```
 
 result will be:
+
 ```html
-<div style="color: red;"></div>
+<div style="color: red;">Hello</div>
 ```
 
 [Try out the web client version](https://automattic.github.io/juice/)
@@ -38,38 +44,37 @@ Juice is exposed as a standard module, and from CLI with a smaller set of option
 
 All juice methods take an options object that can contain any of these properties, though not every method uses all of these:
 
-* `applyAttributesTableElements` - whether to create attributes for styles in `juice.styleToAttribute` on elements set in `juice.tableElements`. Defaults to `true`.
+- `applyAttributesTableElements` - whether to create attributes for styles in `juice.styleToAttribute` on elements set in `juice.tableElements`. Defaults to `true`.
 
-* `applyHeightAttributes` - whether to use any CSS pixel heights to create `height` attributes on elements set in `juice.heightElements`. Defaults to `true`.
+- `applyHeightAttributes` - whether to use any CSS pixel heights to create `height` attributes on elements set in `juice.heightElements`. Defaults to `true`.
 
-* `applyStyleTags` - whether to inline styles in `<style></style>` Defaults to `true`.
+- `applyStyleTags` - whether to inline styles in `<style></style>` Defaults to `true`.
 
-* `applyWidthAttributes` - whether to use any CSS pixel widths to create `width` attributes on elements set in `juice.widthElements`. Defaults to `true`.
+- `applyWidthAttributes` - whether to use any CSS pixel widths to create `width` attributes on elements set in `juice.widthElements`. Defaults to `true`.
 
-* `extraCss` - extra css to apply to the file. Defaults to `""`.
+- `extraCss` - extra css to apply to the file. Defaults to `""`.
 
-* `insertPreservedExtraCss` - whether to insert into the document any preserved `@media` or `@font-face` content from `extraCss` when using `preserveMediaQueries`, `preserveFontFaces` or `preserveKeyFrames`. When `true` order of preference to append the `<style>` element is into `head`, then `body`, then at the end of the document. When a `string` the value is treated as a CSS/jQuery/cheerio selector, and when found, the `<style>` tag will be appended to the end of the first match. Defaults to `true`.
+- `insertPreservedExtraCss` - whether to insert into the document any preserved `@media` or `@font-face` content from `extraCss` when using `preserveMediaQueries`, `preserveFontFaces` or `preserveKeyFrames`. When `true` order of preference to append the `<style>` element is into `head`, then `body`, then at the end of the document. When a `string` the value is treated as a CSS/jQuery/cheerio selector, and when found, the `<style>` tag will be appended to the end of the first match. Defaults to `true`.
 
-* `inlinePseudoElements` - Whether to insert pseudo elements (`::before` and `::after`) as `<span>` into the DOM. *Note*: Inserting pseudo elements will modify the DOM and may conflict with CSS selectors elsewhere on the page (e.g., `:last-child`).
+- `inlinePseudoElements` - Whether to insert pseudo elements (`::before` and `::after`) as `<span>` into the DOM. _Note_: Inserting pseudo elements will modify the DOM and may conflict with CSS selectors elsewhere on the page (e.g., `:last-child`).
 
-* `preserveFontFaces` - preserves all `@font-face` within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
+- `preserveFontFaces` - preserves all `@font-face` within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
 
-* `preserveImportant` - preserves `!important` in values. Defaults to `false`.
+- `preserveImportant` - preserves `!important` in values. Defaults to `false`.
 
-* `preserveMediaQueries` - preserves all media queries (and contained styles) within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
+- `preserveMediaQueries` - preserves all media queries (and contained styles) within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
 
-* `preserveKeyFrames` - preserves all key frames within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
+- `preserveKeyFrames` - preserves all key frames within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
 
-* `preservePseudos` - preserves all rules containing pseudo selectors defined in `ignoredPseudos` within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
+- `preservePseudos` - preserves all rules containing pseudo selectors defined in `ignoredPseudos` within `<style></style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. Defaults to `true`.
 
-* `removeStyleTags` - whether to remove the original `<style></style>` tags after (possibly) inlining the css from them. Defaults to `true`.
+- `removeStyleTags` - whether to remove the original `<style></style>` tags after (possibly) inlining the css from them. Defaults to `true`.
 
-* `resolveCSSVariables` - whether to resolve CSS variables. Defaults to `true`.
+- `resolveCSSVariables` - whether to resolve CSS variables. Defaults to `true`.
 
-* `webResources` - An options object that will be passed to [web-resource-inliner](https://www.npmjs.com/package/web-resource-inliner) for juice functions that will get remote resources (`juiceResources` and `juiceFile`). Defaults to `{}`.
+- `webResources` - An options object that will be passed to [web-resource-inliner](https://www.npmjs.com/package/web-resource-inliner) for juice functions that will get remote resources (`juiceResources` and `juiceFile`). Defaults to `{}`.
 
-* `xmlMode` - whether to output XML/XHTML with all tags closed. Note that the input *must* also be valid XML/XHTML or you will get undesirable results. Defaults to `false`.
-
+- `xmlMode` - whether to output XML/XHTML with all tags closed. Note that the input _must_ also be valid XML/XHTML or you will get undesirable results. Defaults to `false`.
 
 ### Methods
 
@@ -77,53 +82,53 @@ All juice methods take an options object that can contain any of these propertie
 
 Returns string containing inlined HTML. Does not fetch remote resources.
 
- * `html` - html string, accepts complete documents as well as fragments
- * `options` - optional, see Options above
+- `html` - html string, accepts complete documents as well as fragments
+- `options` - optional, see Options above
 
 #### juice.juiceResources(html, options, callback)
 
 Callback returns string containing inlined HTML. Fetches remote resources.
 
- * `html` - html string
- * `options` - see Options above
- * `callback(err, html)`
-   - `err` - `Error` object or `null`
-   - `html` - inlined HTML
+- `html` - html string
+- `options` - see Options above
+- `callback(err, html)`
+  - `err` - `Error` object or `null`
+  - `html` - inlined HTML
 
 #### juice.juiceFile(filePath, options, callback)
 
 Callback returns string containing inlined HTML. Fetches remote resources.
 
- * `filePath` - path to the html file to be juiced
- * `options` - see Options above
- * `callback(err, html)`
-   - `err` - `Error` object or `null`
-   - `html` - inlined HTML
+- `filePath` - path to the html file to be juiced
+- `options` - see Options above
+- `callback(err, html)`
+  - `err` - `Error` object or `null`
+  - `html` - inlined HTML
 
 #### juice.juiceDocument($ [, options])
 
-This takes a cheerio instance and performs inlining in-place.  Returns the
-same cheerio instance.  Does not fetch remote resources.
+This takes a cheerio instance and performs inlining in-place. Returns the
+same cheerio instance. Does not fetch remote resources.
 
- * `$` - a cheerio instance, be sure to use the same cheerio version that juice uses
- * `options` - optional, see Options above`
+- `$` - a cheerio instance, be sure to use the same cheerio version that juice uses
+- `options` - optional, see Options above`
 
 #### juice.inlineContent(html, css [, options])
 
 This takes html and css and returns new html with the provided css inlined.
 It does not look at `<style>` or `<link rel="stylesheet">` elements at all.
 
- * `html` - html string
- * `css` - css string
- * `options` - optional, see Options above
+- `html` - html string
+- `css` - css string
+- `options` - optional, see Options above
 
 #### juice.inlineDocument($, css [, options])
 
 Given a cheerio instance and css, this modifies the cheerio instance so that the provided css is inlined. It does not look at `<style>` or `<link rel="stylesheet">` elements at all.
 
- * `$` - a cheerio instance, be sure to use the same cheerio version that juice uses
- * `css` - css string
- * `options` - optional, see Options above
+- `$` - a cheerio instance, be sure to use the same cheerio version that juice uses
+- `css` - css string
+- `options` - optional, see Options above
 
 ### Global settings
 
@@ -162,6 +167,7 @@ Array of css properties that won't be inlined.
 ### Special markup
 
 #### data-embed
+
 When a `data-embed` attribute is present on a stylesheet `<link>` that has been inlined into the document as a `<style></style>` tag by the web-resource-inliner juice will not inline the styles and will not remove the `<style></style>` tags.
 
 This can be used to embed email client support hacks that rely on css selectors into your email templates.
@@ -186,7 +192,7 @@ These are additional options not included in the standard `juice` options listed
 
 ### Running Juice in the Browser
 
-Attempting to Browserify `require('juice')` fails because portions of Juice and its dependencies interact with the file system using the standard `require('fs')`. However, you can `require('juice/client')` via Browserify which has support for `juiceDocument`, `inlineDocument`, and `inlineContent`, but not `juiceFile`, `juiceResources`, or `inlineExternal`. *Note that automated tests are not running in the browser yet.*
+Attempting to Browserify `require('juice')` fails because portions of Juice and its dependencies interact with the file system using the standard `require('fs')`. However, you can `require('juice/client')` via Browserify which has support for `juiceDocument`, `inlineDocument`, and `inlineContent`, but not `juiceFile`, `juiceResources`, or `inlineExternal`. _Note that automated tests are not running in the browser yet._
 
 ## License
 
@@ -195,7 +201,7 @@ MIT Licensed, see License.md
 ### 3rd-party
 
 - Uses [cheerio](https://github.com/cheeriojs/cheerio) for the underlying DOM
-representation.
+  representation.
 - Uses [mensch](https://github.com/brettstimmerman/mensch) to parse out CSS and
-[Slick](https://github.com/subtleGradient/slick) to tokenize them.
+  [Slick](https://github.com/subtleGradient/slick) to tokenize them.
 - Icon by [UnheardSounds](http://unheardsounds.deviantart.com/gallery/26536908#/d2ngozi)
