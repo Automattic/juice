@@ -29,7 +29,7 @@ it('juice(html)', function() {
 
 it('juice(document) with htmlparser2', function() {
   var dom = htmlparser2.parseDOM('<style>div{color:red;}</style><div/>');
-  var $ = cheerio.load(dom, {_useHtmlParser2:true});
+  var $ = cheerio.load(dom, {xml:true});
 
   var expected = '<div style="color: red;"></div>';
   juice.juiceDocument($);
