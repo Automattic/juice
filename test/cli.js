@@ -1,7 +1,6 @@
 'use strict';
 
 var assert = require('assert');
-var path = require('path');
 var fs = require('fs');
 var spawn = require('cross-spawn');
 var cli = require('../lib/cli');
@@ -12,28 +11,29 @@ before(function() {
 });
 
 it('cli parses options', function(done) {
-  assert.strictEqual(cli.argsToOptions({'css': 'file.css'}).cssFile, 'file.css');
-  assert.strictEqual(cli.argsToOptions({'optionsFile': 'options.json'}).optionsFile, 'options.json');
-  assert.strictEqual(cli.argsToOptions({'extraCss': 'body{color:red;}'}).extraCss, 'body{color:red;}');
-  assert.strictEqual(cli.argsToOptions({'insertPreservedExtraCss': 'true'}).insertPreservedExtraCss, true);
-  assert.strictEqual(cli.argsToOptions({'applyStyleTags': 'true'}).applyStyleTags, true);
-  assert.strictEqual(cli.argsToOptions({'removeStyleTags': 'true'}).removeStyleTags, true);
-  assert.strictEqual(cli.argsToOptions({'preserveImportant': 'true'}).preserveImportant, true);
-  assert.strictEqual(cli.argsToOptions({'preserveMediaQueries': 'true'}).preserveMediaQueries, true);
-  assert.strictEqual(cli.argsToOptions({'preserveFontFaces': 'true'}).preserveFontFaces, true);
-  assert.strictEqual(cli.argsToOptions({'preserveKeyFrames': 'true'}).preserveKeyFrames, true);
-  assert.strictEqual(cli.argsToOptions({'applyWidthAttributes': 'true'}).applyWidthAttributes, true);
-  assert.strictEqual(cli.argsToOptions({'applyHeightAttributes': 'true'}).applyHeightAttributes, true);
-  assert.strictEqual(cli.argsToOptions({'applyAttributesTableElements': 'true'}).applyAttributesTableElements, true);
-  assert.strictEqual(cli.argsToOptions({'xmlMode': 'true'}).xmlMode, true);
-  assert.strictEqual(cli.argsToOptions({'resolveCSSVariables': 'true'}).resolveCSSVariables, true);
-  assert.strictEqual(cli.argsToOptions({'webResourcesInlineAttribute': 'true'}).webResources.inlineAttribute, true);
-  assert.strictEqual(cli.argsToOptions({'webResourcesImages': '12'}).webResources.images, 12);
-  assert.strictEqual(cli.argsToOptions({'webResourcesLinks': 'true'}).webResources.links, true);
-  assert.strictEqual(cli.argsToOptions({'webResourcesScripts': '24'}).webResources.scripts, 24);
-  assert.strictEqual(cli.argsToOptions({'webResourcesRelativeTo': 'web'}).webResources.relativeTo, 'web');
-  assert.strictEqual(cli.argsToOptions({'webResourcesRebaseRelativeTo': 'root'}).webResources.rebaseRelativeTo, 'root');
-  assert.strictEqual(cli.argsToOptions({'webResourcesStrict': 'true'}).webResources.strict, true);
+  const parseArgs = (args) => cli.argsToOptions({ getOptionValue: (arg) => args[arg] });
+  assert.strictEqual(parseArgs({'css': 'file.css'}).cssFile, 'file.css');
+  assert.strictEqual(parseArgs({'optionsFile': 'options.json'}).optionsFile, 'options.json');
+  assert.strictEqual(parseArgs({'extraCss': 'body{color:red;}'}).extraCss, 'body{color:red;}');
+  assert.strictEqual(parseArgs({'insertPreservedExtraCss': 'true'}).insertPreservedExtraCss, true);
+  assert.strictEqual(parseArgs({'applyStyleTags': 'true'}).applyStyleTags, true);
+  assert.strictEqual(parseArgs({'removeStyleTags': 'true'}).removeStyleTags, true);
+  assert.strictEqual(parseArgs({'preserveImportant': 'true'}).preserveImportant, true);
+  assert.strictEqual(parseArgs({'preserveMediaQueries': 'true'}).preserveMediaQueries, true);
+  assert.strictEqual(parseArgs({'preserveFontFaces': 'true'}).preserveFontFaces, true);
+  assert.strictEqual(parseArgs({'preserveKeyFrames': 'true'}).preserveKeyFrames, true);
+  assert.strictEqual(parseArgs({'applyWidthAttributes': 'true'}).applyWidthAttributes, true);
+  assert.strictEqual(parseArgs({'applyHeightAttributes': 'true'}).applyHeightAttributes, true);
+  assert.strictEqual(parseArgs({'applyAttributesTableElements': 'true'}).applyAttributesTableElements, true);
+  assert.strictEqual(parseArgs({'xmlMode': 'true'}).xmlMode, true);
+  assert.strictEqual(parseArgs({'resolveCSSVariables': 'true'}).resolveCSSVariables, true);
+  assert.strictEqual(parseArgs({'webResourcesInlineAttribute': 'true'}).webResources.inlineAttribute, true);
+  assert.strictEqual(parseArgs({'webResourcesImages': '12'}).webResources.images, 12);
+  assert.strictEqual(parseArgs({'webResourcesLinks': 'true'}).webResources.links, true);
+  assert.strictEqual(parseArgs({'webResourcesScripts': '24'}).webResources.scripts, 24);
+  assert.strictEqual(parseArgs({'webResourcesRelativeTo': 'web'}).webResources.relativeTo, 'web');
+  assert.strictEqual(parseArgs({'webResourcesRebaseRelativeTo': 'root'}).webResources.rebaseRelativeTo, 'root');
+  assert.strictEqual(parseArgs({'webResourcesStrict': 'true'}).webResources.strict, true);
   done();
 });
 

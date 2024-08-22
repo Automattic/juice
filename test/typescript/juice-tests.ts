@@ -1,7 +1,3 @@
-// This file should be updated when `cheerio` has type definitions
-
-/// <reference path="./cheerio.d.ts" />
-
 import juice = require('../../');
 import cheerio = require('cheerio');
 import htmlparser2 = require('htmlparser2');
