@@ -28,10 +28,10 @@ it('juice(html)', function() {
 });
 
 it('juice(document) with htmlparser2', function() {
-  var dom = htmlparser2.parseDOM('<style>div{color:red;}</style><div/>');
+  var dom = htmlparser2.parseDocument('<style>div{color:red;}</style><div/>');
   var $ = cheerio.load(dom, {xml:true});
 
-  var expected = '<div style="color: red;"></div>';
+  var expected = '<div style="color: red;"/>';
   juice.juiceDocument($);
   var actual = $.html();
   assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
