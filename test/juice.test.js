@@ -192,3 +192,21 @@ it('test that preserved text order is stable', function() {
       utils.getPreservedText('div { color: red; } @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } }', { mediaQueries: true }, juice.ignoredPseudos).replace(/\s+/g, ' '),
       ' @media (min-width: 320px) { div { color: green; } } @media (max-width: 640px) { div { color: blue; } } ');
 });
+
+it('can handle style attributes with html entities', function () {
+  // Throws without decodeStyleAttributes: true
+  assert.throws(function () {
+    juice(
+      '<style type="text/css">div {color: red;}</style><div style="font-family:&quot;Open Sans&quot;, sans-serif;"></div>'
+    );
+  });
+
+  // Expected results with decodeStyleAttributes: true
+  assert.deepEqual(
+    juice(
+      '<style type="text/css">div {color: red;}</style><div style="font-family:&quot;Open Sans&quot;, sans-serif;"></div>',
+      { decodeStyleAttributes: true }
+    ),
+    "<div style=\"color: red; font-family: 'Open Sans', sans-serif;\"></div>"
+  );
+});
