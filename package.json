@@ -37,6 +37,7 @@
   "dependencies": {
     "cheerio": "^1.0.0",
     "commander": "^12.1.0",
+    "entities": "^4.5.0",
     "mensch": "^0.3.4",
     "slick": "^1.12.2",
     "web-resource-inliner": "^7.0.0"

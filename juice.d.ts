@@ -50,6 +50,7 @@ declare namespace juice {
     xmlMode?: boolean;
     preserveImportant?: boolean;
     resolveCSSVariables?: boolean;
+    decodeStyleAttributes?: boolean;
   }
 
   interface WebResourcesOptions {
