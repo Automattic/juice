@@ -46,6 +46,8 @@ All juice methods take an options object that can contain any of these propertie
 
 * `applyWidthAttributes` - whether to use any CSS pixel widths to create `width` attributes on elements set in `juice.widthElements`. Defaults to `true`.
 
+* `decodeStyleAttributes` - whether to decode the value of `style=` attributes. Defaults to `false`.
+
 * `extraCss` - extra css to apply to the file. Defaults to `""`.
 
 * `insertPreservedExtraCss` - whether to insert into the document any preserved `@media` or `@font-face` content from `extraCss` when using `preserveMediaQueries`, `preserveFontFaces` or `preserveKeyFrames`. When `true` order of preference to append the `<style>` element is into `head`, then `body`, then at the end of the document. When a `string` the value is treated as a CSS/jQuery/cheerio selector, and when found, the `<style>` tag will be appended to the end of the first match. Defaults to `true`.
