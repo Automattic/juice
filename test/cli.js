@@ -27,6 +27,7 @@ it('cli parses options', function(done) {
   assert.strictEqual(parseArgs({'applyAttributesTableElements': 'true'}).applyAttributesTableElements, true);
   assert.strictEqual(parseArgs({'xmlMode': 'true'}).xmlMode, true);
   assert.strictEqual(parseArgs({'resolveCSSVariables': 'true'}).resolveCSSVariables, true);
+  assert.strictEqual(parseArgs({'decodeStyleAttributes': 'true'}).decodeStyleAttributes, true);
   assert.strictEqual(parseArgs({'webResourcesInlineAttribute': 'true'}).webResources.inlineAttribute, true);
   assert.strictEqual(parseArgs({'webResourcesImages': '12'}).webResources.images, 12);
   assert.strictEqual(parseArgs({'webResourcesLinks': 'true'}).webResources.links, true);
