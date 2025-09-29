@@ -19,6 +19,6 @@ a:link {
 </style>
 </head>
 <body>
-    <a href="#">hover me</a>
+    <a class="my-link" href="#" style="color: blue;">hover me</a>
 </body>
 </html>
