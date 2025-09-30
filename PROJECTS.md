@@ -6,7 +6,7 @@
 * [notifme-template][10] - A Node.js library to easily handle all your notification (`emails` | `SMS` | `pushes` | `webpushes`) templates. (can be used in combination with [`notifme-sdk`][11]).
 * [mosaico][13] - The first opensource email template editor. Helps you build responsive and appealing email templates in few clicks.
 * [mjml][12] - A markup language designed for painless responsive email coding. The markup gets transpiled to HTML that works in any email client.
-* [maizzle][14] - HTML email development framework.
+* [maizzle][14] - Quickly build HTML emails with Tailwind CSS.
 * [grunt-email-workflow][15] - A Grunt workflow for designing and testing responsive HTML email templates with SCSS.
 
 [1]: https://github.com/niftylettuce/node-email-templates
@@ -22,5 +22,5 @@
 [11]: https://github.com/notifme/notifme-sdk
 [12]: https://github.com/mjmlio/mjml
 [13]: https://github.com/voidlabs/mosaico
-[14]: https://github.com/maizzle/maizzle
+[14]: https://maizzle.com
 [15]: https://github.com/leemunroe/grunt-email-workflow
