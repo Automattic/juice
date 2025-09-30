@@ -35,7 +35,7 @@
     "node": ">=18.17"
   },
   "dependencies": {
-    "cheerio": "1.1.0",
+    "cheerio": "1.0.0",
     "commander": "^12.1.0",
     "entities": "^7.0.0",
     "mensch": "^0.3.4",
