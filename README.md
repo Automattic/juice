@@ -47,6 +47,7 @@ All Juice methods take an options object that can contain any of these propertie
 | `applyWidthAttributes` | `true` | Use any CSS pixel widths to create `width` attributes on elements set in `juice.widthElements`. |
 | `decodeStyleAttributes` | `false` | Decode the value of `style` attributes. |
 | `extraCss` | `""` | Extra CSS to apply to the file. |
+| `inlineDuplicateProperties` | `false` | When `true`, declarations with identical CSS properties will all be inlined, instead of only the one with the highest specificity. Useful for progressive enhancement. |
 | `insertPreservedExtraCss` | `true` | Whether to insert into the document any preserved `@media` or `@font-face` content from `extraCss` when using `preserveMediaQueries`, `preserveFontFaces` or `preserveKeyFrames`. <br><br> When set to `true`, order of preference to append the `<style>` element is into `head`, then `body`, then at the end of the document. <br><br> When a `string` the value is treated as a CSS/jQuery/cheerio selector, and when found, the `<style>` tag will be appended to the end of the first match. |
 | `inlinePseudoElements` | `false` | Insert pseudo elements (`::before` and `::after`) as `<span>` into the DOM. *Note*: Inserting pseudo elements will modify the DOM and may conflict with CSS selectors elsewhere on the page (e.g., `:last-child`). |
 | `preserveFontFaces` | `true` | Preserve all `@font-face` within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |

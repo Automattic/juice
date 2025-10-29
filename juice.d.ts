@@ -51,6 +51,7 @@ declare namespace juice {
     preserveImportant?: boolean;
     resolveCSSVariables?: boolean;
     decodeStyleAttributes?: boolean;
+    inlineDuplicateProperties?: boolean;
   }
 
   interface WebResourcesOptions {
