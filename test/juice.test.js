@@ -210,3 +210,47 @@ it('can handle style attributes with html entities', function () {
     "<div style=\"color: red; font-family: 'Open Sans', sans-serif;\"></div>"
   );
 });
+
+it('`inlineDuplicateProperties` option', function() {
+  // Same selector with duplicate properties
+  assert.deepEqual(
+    juice.inlineContent('<div class="test"></div>', '.test { background-color: black; background-color: rgba(0,0,0,0.5); }'),
+    '<div class="test" style="background-color: black; background-color: rgba(0,0,0,0.5);"></div>'
+  );
+
+  // Different selectors - without `inlineDuplicateProperties`, only highest specificity is kept
+  assert.deepEqual(
+    juice.inlineContent('<div class="test"></div>', 'div { background-color: red; } .test { background-color: blue; }'),
+    '<div class="test" style="background-color: blue;"></div>'
+  );
+
+  // Different selectors - with `inlineDuplicateProperties`, all are preserved in specificity order
+  assert.deepEqual(
+    juice.inlineContent('<div class="test"></div>', 'div { background-color: red; } .test { background-color: blue; }', { inlineDuplicateProperties: true }),
+    '<div class="test" style="background-color: red; background-color: blue;"></div>'
+  );
+
+  // Multiple selectors with multiple properties each - complex case
+  assert.deepEqual(
+    juice.inlineContent('<div class="test"></div>', 'div { background-color: red; } .test { background-color: black; background-color: rgba(0,0,0,0.5); }', { inlineDuplicateProperties: true }),
+    '<div class="test" style="background-color: red; background-color: black; background-color: rgba(0,0,0,0.5);"></div>'
+  );
+
+  // Multiple classes on same element - without `inlineDuplicateProperties`, only last wins
+  assert.deepEqual(
+    juice.inlineContent('<div class="bg-black bg-black-50"></div>', '.bg-black { background-color: black; } .bg-black-50 { background-color: rgba(0,0,0,0.5); }'),
+    '<div class="bg-black bg-black-50" style="background-color: rgba(0,0,0,0.5);"></div>'
+  );
+
+  // Multiple classes on same element - with `inlineDuplicateProperties`, both are preserved
+  assert.deepEqual(
+    juice.inlineContent('<div class="bg-black bg-black-50"></div>', '.bg-black { background-color: black; } .bg-black-50 { background-color: rgba(0,0,0,0.5); }', { inlineDuplicateProperties: true }),
+    '<div class="bg-black bg-black-50" style="background-color: black; background-color: rgba(0,0,0,0.5);"></div>'
+  );
+
+  // HTML email use case - solid color fallback for rgba
+  assert.deepEqual(
+    juice.inlineContent('<div class="header"></div>', '.header { background-color: #000; background-color: rgba(0,0,0,0.8); }', { inlineDuplicateProperties: true }),
+    '<div class="header" style="background-color: #000; background-color: rgba(0,0,0,0.8);"></div>'
+  );
+});
