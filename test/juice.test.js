@@ -254,3 +254,153 @@ it('`inlineDuplicateProperties` option', function() {
     '<div class="header" style="background-color: #000; background-color: rgba(0,0,0,0.8);"></div>'
   );
 });
+
+it('ignore comments - ignore entire file', function() {
+  var css = '/* juice ignore */\nbody { color: red; }\n.test { color: blue; }';
+  var html = '<body><div class="test">Hello</div></body>';
+  
+  assert.deepEqual(
+    juice.inlineContent(html, css),
+    '<body><div class="test">Hello</div></body>'
+  );
+});
+
+it('ignore comments - ignore next rule', function() {
+  var css = `body { color: red; }
+/* juice ignore next */
+.test { color: blue; }
+.other { color: green; }`;
+  
+  var html = '<body><div class="test">Test</div><div class="other">Other</div></body>';
+  
+  var result = juice.inlineContent(html, css);
+  
+  // body and .other should be inlined, but .test should not
+  assert.ok(result.includes('style="color: red;'));
+  assert.ok(result.includes('style="color: green;'));
+  assert.ok(!result.includes('color: blue'));
+});
+
+it('ignore comments - ignore next declaration', function() {
+  var css = `.test { 
+  color: red;
+  /* juice ignore next */
+  font-weight: bold;
+  font-size: 14px;
+}`;
+  
+  var html = '<div class="test">Hello</div>';
+  
+  var result = juice.inlineContent(html, css);
+
+  // color and font-size should be inlined, but font-weight should not
+  assert.ok(result.includes('color: red'));
+  assert.ok(result.includes('font-size: 14px'));
+  assert.ok(!result.includes('font-weight'));
+});
+
+it('ignore comments - ignore block', function() {
+  var css = `
+body { color: red; }
+
+/* juice start ignore */
+.test { color: blue; }
+.other { color: green; }
+/* juice end ignore */
+
+.inline { color: purple; }
+`;
+  var html = '<body><div class="test">Test</div><div class="other">Other</div><div class="inline">Inline</div></body>';
+  
+  var result = juice.inlineContent(html, css);
+  
+  // body and .inline should be inlined, but .test and .other should not
+  assert.ok(result.includes('style="color: red;'));
+  assert.ok(result.includes('style="color: purple;'));
+  assert.ok(!result.includes('color: blue'));
+  assert.ok(!result.includes('color: green'));
+});
+
+it('ignore comments - preserved in style tags', function() {
+  var html = `
+<html>
+  <head>
+    <style>
+      body { margin: 0; }
+      /* juice start ignore */
+      a[x-apple-data-detectors] {
+        color: inherit!important;
+      }
+      /* juice end ignore */
+    </style>
+  </head>
+  <body>
+    <a href="#">Link</a>
+  </body>
+</html>
+`;
+  
+  var result = juice(html, { removeStyleTags: true });
+
+  // The ignored block should be preserved in a style tag
+  assert.ok(result.includes('<style>'));
+  assert.ok(result.includes('a[x-apple-data-detectors]'));
+  assert.ok(result.includes('color: inherit!important'));
+});
+
+it('ignore comments - ignore next preserved', function() {
+  var html = `
+<html>
+  <head>
+    <style>
+      body { color: red; }
+      /* juice ignore next */
+      .special {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="special">Text</div>
+  </body>
+</html>
+`;
+  
+  var result = juice(html, { removeStyleTags: true });
+  
+  // body should be inlined
+  assert.ok(result.includes('style="color: red;'));
+  // .special should be preserved in style tag
+  assert.ok(result.includes('<style>'));
+  assert.ok(result.includes('.special'));
+});
+
+it('ignore comments - ignore next declaration preserved', function() {
+  var html = `
+<html>
+  <head>
+    <style>
+      .test {
+        color: red;
+        /* juice ignore next */
+        font-weight: bold;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test">Text</div>
+  </body>
+</html>
+`;
+  
+  var result = juice(html, { removeStyleTags: true });
+  
+  // color and font-size should be inlined
+  assert.ok(result.includes('color: red'));
+  assert.ok(result.includes('font-size: 14px'));
+  // font-weight should be preserved in style tag
+  assert.ok(result.includes('<style>'));
+  assert.ok(result.includes('.test'));
+  assert.ok(result.includes('font-weight: bold'));
+});

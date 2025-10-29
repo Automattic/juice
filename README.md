@@ -224,6 +224,78 @@ The `data-embed` attribute will be removed from the output HTML, but no inlining
 </style>
 ```
 
+### Ignoring CSS with comments
+
+You can use special CSS comments to prevent Juice from inlining entire CSS files, rules, or even just declarations.
+
+#### Ignore entire file
+
+Add a `/* juice ignore */` comment on the first line in your CSS:
+
+```css
+/* juice ignore */
+body { color: red; }
+.test { color: blue; }
+```
+
+#### Ignore next rule
+
+Add `/* juice ignore next */` before any CSS rule to skip inlining that rule:
+
+```css
+body { color: black; }
+
+/* juice ignore next */
+h1 {
+  color: blue;
+}
+
+p { color: green; }
+```
+
+The `h1` rule will not be inlined, but will be preserved when `removeStyleTags: true`. The `body` and `p` rules will be inlined normally.
+
+#### Ignore next declaration
+
+Add `/* juice ignore next */` inside a CSS rule to skip inlining the next declaration:
+
+```css
+.test {
+  color: red;
+  /* juice ignore next */
+  font-weight: bold;
+  font-size: 14px;
+}
+```
+
+The `color` and `font-size` will be inlined, but `font-weight` will not. The rule with the ignored declaration will be preserved in a `<style>` tag when `removeStyleTags: true`.
+
+#### Ignore blocks of code
+
+Use start/end comment pairs to ignore multiple rules:
+
+```css
+h1 {
+  color: black;
+}
+
+/* juice start ignore */
+h2 {
+  color: pink;
+}
+
+h3 {
+  color: lightcoral;
+}
+/* juice end ignore */
+
+h4 {
+  color: green;
+}
+```
+
+The `h2` and `h3` rules will not be inlined but will be preserved in a `<style>` tag when `removeStyleTags: true`. The `h1` and `h4` rules will be inlined normally.
+
 ### CLI Options
 
 To use Juice from CLI, run `juice [options] input.html output.html`
