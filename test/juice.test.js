@@ -211,7 +211,7 @@ it('can handle style attributes with html entities', function () {
   );
 });
 
-it('`inlineDuplicateProperties` option', function() {
+it('inlineDuplicateProperties', function() {
   // Same selector with duplicate properties
   assert.deepEqual(
     juice.inlineContent('<div class="test"></div>', '.test { background-color: black; background-color: rgba(0,0,0,0.5); }'),
@@ -255,7 +255,7 @@ it('`inlineDuplicateProperties` option', function() {
   );
 });
 
-it('`removeInlinedSelectors` option', function() {
+it('removeInlinedSelectors', function() {
   // Basic test - inlined selectors should be removed, media queries preserved
   var result = juice(
     '<style>div { color: red; } .test { background: blue; } @media (max-width: 600px) { div { color: green; } }</style><div class="test">Hello</div>',
@@ -372,4 +372,32 @@ it('`removeInlinedSelectors` option', function() {
   assert.ok(result.indexOf('style="background: blue;"') > -1, 'header styles should be inlined');
   assert.ok(result.indexOf('[class~="x_header"]') > -1, 'Outlook.com x_ prefix selector should be preserved');
   assert.ok(result.indexOf('.header {') === -1, 'inlined header rule should be removed');
+
+  // Complex selectors
+  result = juice(
+    `
+      <style>
+        :where(.space-x-4>:not(:last-child)) {
+          --tw-space-x-reverse: 0;
+          margin-right: calc(1rem * var(--tw-space-x-reverse));
+          margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+        }
+        div { color: red; }
+      </style>
+      <div class="space-x-4">
+        <span>Item 1</span>
+        <span>Item 2</span>
+      </div>
+    `,
+    { removeStyleTags: false, removeInlinedSelectors: true, resolveCSSVariables: true }
+  );
+
+  assert.ok(result.indexOf('style="color: red;"') > -1, 'div styles should be inlined');
+  assert.ok(result.indexOf(
+    '<span style="margin-right: calc(1rem * 0); margin-left: calc(1rem * calc(1 - 0));">Item 1</span>') > -1,
+    'complex selector should be inlined'
+  );
+  assert.ok(result.indexOf('<span>Item 2</span>') > -1, 'second span should be unchanged');
+  assert.ok(result.indexOf(':where(.space-x-4>:not(:last-child))') === -1, 'inlined complex selector rule should be removed');
+  assert.ok(result.indexOf('<style>') === -1, 'style tag should be removed as all rules are inlined');
 });
