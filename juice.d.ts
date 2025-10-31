@@ -34,36 +34,36 @@ declare namespace juice {
   export interface Callback { (err: Error, html: string): any; }
 
   interface Options {
-    extraCss?: string;
-    applyStyleTags?: boolean;
-    removeStyleTags?: boolean;
-    removeInlinedSelectors?: boolean;
-    preserveMediaQueries?: boolean;
-    preserveFontFaces?: boolean;
-    preserveKeyFrames?: boolean;
-    preservePseudos?: boolean;
-    insertPreservedExtraCss?: boolean;
-    applyWidthAttributes?: boolean;
-    applyHeightAttributes?: boolean;
     applyAttributesTableElements?: boolean;
-    webResources?: WebResourcesOptions;
-    inlinePseudoElements?: boolean;
-    xmlMode?: boolean;
-    preserveImportant?: boolean;
-    resolveCSSVariables?: boolean;
+    applyHeightAttributes?: boolean;
+    applyStyleTags?: boolean;
+    applyWidthAttributes?: boolean;
     decodeStyleAttributes?: boolean;
+    extraCss?: string;
     inlineDuplicateProperties?: boolean;
+    inlinePseudoElements?: boolean;
+    insertPreservedExtraCss?: boolean;
+    preserveFontFaces?: boolean;
+    preserveImportant?: boolean;
+    preserveKeyFrames?: boolean;
+    preserveMediaQueries?: boolean;
+    preservePseudos?: boolean;
+    removeInlinedSelectors?: boolean;
+    removeStyleTags?: boolean;
+    resolveCSSVariables?: boolean;
+    webResources?: WebResourcesOptions;
+    xmlMode?: boolean;
   }
 
   interface WebResourcesOptions {
     fileContent?: string;
-    inlineAttribute?: string;
     images?: boolean | number;
-    svgs?: boolean | number;
-    scripts?: boolean | number;
+    inlineAttribute?: string;
     links?: boolean | number;
-    relativeTo?: string;
     rebaseRelativeTo?: string;
+    relativeTo?: string;
+    scripts?: boolean | number;
     strict?: boolean;
+    svgs?: boolean | number;
   }
 }
