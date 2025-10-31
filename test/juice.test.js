@@ -275,6 +275,8 @@ it('`removeInlinedSelectors` option', function() {
   assert.ok(result.indexOf('style="color: red;"') > -1, 'div styles should be inlined');
   assert.ok(result.indexOf('style="color: blue;"') > -1, 'p styles should be inlined');
   assert.ok(result.indexOf('span {') > -1, 'non-matched span rule should be preserved');
+  assert.ok(result.indexOf('div {') === -1, 'inlined div rule should be removed');
+  assert.ok(result.indexOf('p {') === -1, 'inlined p rule should be removed');
 
   // Preserve @font-face
   result = juice(
@@ -299,6 +301,7 @@ it('`removeInlinedSelectors` option', function() {
   );
   assert.ok(result.indexOf('style="color: red;"') > -1, 'div styles should be inlined');
   assert.ok(result.indexOf(':hover') > -1, 'hover pseudo should be preserved');
+  assert.ok(result.indexOf('div {') === -1, 'inlined div rule should be removed');
 
   // When all rules are inlined, style tag should be removed
   result = juice(
@@ -314,8 +317,8 @@ it('`removeInlinedSelectors` option', function() {
   );
   assert.ok(result.indexOf('style="color: red;"') > -1, 'matched selector should be inlined');
   // The remaining selectors (p, span) should still be in the style tag
-  assert.ok(result.indexOf('<style>') > -1, 'style tag should remain');
-  assert.ok(result.indexOf('p') > -1 || result.indexOf('span') > -1, 'unmatched selectors should remain');
+  assert.ok(result.indexOf('<style>') > -1, 'style tag should be preserved');
+  assert.ok(result.indexOf('p') > -1 && result.indexOf('span') > -1, 'unmatched selectors should be preserved');
 
   // Works with extraCss option
   result = juice(
@@ -327,13 +330,17 @@ it('`removeInlinedSelectors` option', function() {
     }
   );
   assert.ok(result.indexOf('style="color: red; background: blue;"') > -1, 'styles should be inlined');
+  assert.ok(result.indexOf('<style>') > -1, 'style tag should be preserved');
+  assert.ok(result.indexOf('@media print') > -1, 'media query should be preserved');
+  assert.ok(result.indexOf('div {') === -1 || result.indexOf('@media') < result.indexOf('div {'), 'root div rule should be removed');
+  assert.ok(result.indexOf('.test {') === -1, '.test rule should be removed');
   
-  // removeStyleTags processes independently - removes non-preserved rules, keeps preserved ones
+  // `removeStyleTags` takes precedence over `removeInlinedSelectors`
   result = juice(
     '<style>div { color: red; } @media print { div { color: black; } }</style><div>Test</div>',
     { removeStyleTags: true, removeInlinedSelectors: true }
   );
-  // removeInlinedSelectors shouldn't apply when removeStyleTags is true
+  // `removeInlinedSelectors` shouldn't apply when `removeStyleTags` is true
   assert.ok(result.indexOf('@media print') > -1, 'media query should be preserved with removeStyleTags');
 
   // Email client targeting selectors
