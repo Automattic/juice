@@ -37,6 +37,7 @@ declare namespace juice {
     extraCss?: string;
     applyStyleTags?: boolean;
     removeStyleTags?: boolean;
+    removeInlinedSelectors?: boolean;
     preserveMediaQueries?: boolean;
     preserveFontFaces?: boolean;
     preserveKeyFrames?: boolean;

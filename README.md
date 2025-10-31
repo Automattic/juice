@@ -55,7 +55,8 @@ All Juice methods take an options object that can contain any of these propertie
 | `preserveMediaQueries` | `true` | Preserve all media queries (and contained styles) within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |
 | `preserveKeyFrames` | `true` | Preserve all key frames within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |
 | `preservePseudos` | `true` | Preserve all rules containing pseudo selectors defined in `ignoredPseudos` within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |
-| `removeStyleTags` | `true` | Remove the original `<style>` tags after (possibly) inlining their CSS content. | 
+| `removeInlinedSelectors` | `false` | Remove CSS rules from `<style>` tags after (possibly) inlining them. Other rules are preserved. Works only if `removeStyleTags` is `false`. |
+| `removeStyleTags` | `true` | Remove the original `<style>` tags after (possibly) inlining their CSS content. Overrides `removeInlinedSelectors`. | 
 | `resolveCSSVariables` | `true` | Resolve CSS variables. |
 | `webResources` | `{}` | An options object that will be passed to [web-resource-inliner](https://www.npmjs.com/package/web-resource-inliner) for Juice functions that will get remote resources (`juiceResources` and `juiceFile`). |
 | `xmlMode` | `false` | Output XML/XHTML with all tags closed. Note that the input *must* also be valid XML/XHTML or you will get undesirable results. |
