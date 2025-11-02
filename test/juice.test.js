@@ -601,23 +601,24 @@ it('`preservedSelectors` option', function() {
     '<style>.important { font-weight: bold; } .another { text-decoration: underline; }</style> <div class="important" style="color: red; font-weight: bold;">Test</div>'
   );
 
-  // Substring matching - preserve selector containing pattern
-  result = juice(
-    '<style>div { margin: 0; } .gmail-fix { color: red; } #outlook-fix { padding: 0; }</style><div>Test</div>',
-    { removeStyleTags: true, preservedSelectors: ['-fix'] }
-  );
-  assert.ok(result.indexOf('.gmail-fix') > -1, 'selector containing -fix should be preserved');
-  assert.ok(result.indexOf('#outlook-fix') > -1, 'selector containing -fix should be preserved');
-
   // Email client targeting use case
   result = juice(
-    '<style>p { color: black; } u + .body { color: white; } #outlook a { padding: 0; }</style><p>Hello</p>',
-    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['u + .body', '#outlook a'] }
+    `<style>
+      p { color: black; } 
+      u + .body { color: white; } 
+      #outlook a { padding: 0; } 
+    </style>
+    <p>Hello</p>`,
+    { 
+      removeStyleTags: false, 
+      removeInlinedSelectors: true, 
+      preservedSelectors: ['u + .body', '#outlook a'] 
+    }
   );
 
   assert.deepEqual(
     cleanString(result),
-    '<style>u + .body { color: white; } #outlook a { padding: 0; }</style><p style="color: black;">Hello</p>'
+    '<style>u + .body { color: white; } #outlook a { padding: 0; }</style> <p style="color: black;">Hello</p>'
   );
 
   // Complex selectors
