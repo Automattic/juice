@@ -551,3 +551,87 @@ it('/* juice ignore next */ declaration is preserved', function () {
   assert.ok(result.includes('.test'));
   assert.ok(result.includes('font-weight: bold'));
 });
+
+it('`preservedSelectors` option', function() {
+  // Basic test - preserve specific selector with removeStyleTags
+  var result = juice(
+    '<style>div { color: red; } .preserve-me { background: blue; }</style><div>Test</div>',
+    { removeStyleTags: true, preservedSelectors: ['.preserve-me'] }
+  );
+  assert.ok(result.indexOf('style="color: red;"') > -1, 'div styles should be inlined');
+  assert.ok(result.indexOf('.preserve-me') > -1, 'preserved selector should remain in style tag');
+  assert.ok(result.indexOf('background: blue') > -1, 'preserved selector styles should remain');
+
+  // Preserve multiple selectors
+  result = juice(
+    '<style>p { margin: 0; } .keep-1 { color: red; } .keep-2 { color: blue; } span { padding: 0; }</style><p>A</p><span>B</span>',
+    { removeStyleTags: true, preservedSelectors: ['.keep-1', '.keep-2'] }
+  );
+  assert.ok(result.indexOf('style="margin: 0;"') > -1, 'p styles should be inlined');
+  assert.ok(result.indexOf('style="padding: 0;"') > -1, 'span styles should be inlined');
+  assert.ok(result.indexOf('.keep-1') > -1, 'first preserved selector should remain');
+  assert.ok(result.indexOf('.keep-2') > -1, 'second preserved selector should remain');
+
+  // Works with removeInlinedSelectors
+  result = juice(
+    '<style>div { color: red; } .important { font-weight: bold; } .another { text-decoration: underline; }</style><div>Test</div>',
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['.important'] }
+  );
+  assert.ok(result.indexOf('style="color: red;"') > -1, 'div styles should be inlined');
+  assert.ok(result.indexOf('.important') > -1, 'preserved selector should remain');
+  assert.ok(result.indexOf('.another') > -1, 'non-matching selector should remain (not inlined)');
+  assert.ok(result.indexOf('div {') === -1, 'inlined div rule should be removed');
+
+  // Preserve selector even when it matches and gets inlined
+  result = juice(
+    '<style>div { color: red; } .special { background: yellow; }</style><div class="special">Test</div>',
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['.special'] }
+  );
+  assert.ok(result.indexOf('style="color: red; background: yellow;"') > -1, 'styles should be inlined');
+  assert.ok(result.indexOf('.special') > -1, 'preserved selector should remain in style tag even though it was inlined');
+  assert.ok(result.indexOf('background: yellow') > -1, 'preserved selector styles should remain in style tag');
+  assert.ok(result.indexOf('div {') === -1, 'div rule should be removed');
+
+  // Substring matching - preserve selector containing pattern
+  result = juice(
+    '<style>div { margin: 0; } .gmail-fix { color: red; } #outlook-fix { padding: 0; }</style><div>Test</div>',
+    { removeStyleTags: true, preservedSelectors: ['-fix'] }
+  );
+  assert.ok(result.indexOf('.gmail-fix') > -1, 'selector containing -fix should be preserved');
+  assert.ok(result.indexOf('#outlook-fix') > -1, 'selector containing -fix should be preserved');
+
+  // Email client targeting use case
+  result = juice(
+    '<style>p { color: black; } u + .body { color: white; } #outlook a { padding: 0; }</style><p>Hello</p>',
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['u + .body', '#outlook a'] }
+  );
+  assert.ok(result.indexOf('style="color: black;"') > -1, 'p styles should be inlined');
+  assert.ok(result.indexOf('u + .body') > -1, 'Gmail targeting selector should be preserved');
+  assert.ok(result.indexOf('#outlook a') > -1, 'Outlook targeting selector should be preserved');
+  assert.ok(result.indexOf('p {') === -1, 'inlined p rule should be removed');
+
+  // Complex selectors
+  result = juice(
+    '<style>.btn { padding: 10px; } [class~="x_btn"] { color: blue; } div > p { margin: 0; }</style><div class="btn">Button</div><div><p>Text</p></div>',
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['[class~="x_btn"]'] }
+  );
+  assert.ok(result.indexOf('[class~="x_btn"]') > -1, 'attribute selector should be preserved');
+  assert.ok(result.indexOf('.btn {') === -1, 'inlined .btn rule should be removed');
+
+  // Empty preservedSelectors array - should behave normally
+  result = juice(
+    '<style>div { color: red; }</style><div>Test</div>',
+    { removeStyleTags: true, preservedSelectors: [] }
+  );
+  assert.ok(result.indexOf('<style>') === -1, 'style tag should be removed with empty preservedSelectors');
+  assert.ok(result.indexOf('style="color: red;"') > -1, 'styles should still be inlined');
+
+  // Preserve with media queries and other preserves
+  result = juice(
+    '<style>div { color: red; } .utility { margin: 0; } @media print { div { color: black; } }</style><div>Test</div>',
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['.utility'], preserveMediaQueries: true }
+  );
+  assert.ok(result.indexOf('@media print') > -1, 'media query should be preserved');
+  assert.ok(result.indexOf('.utility') > -1, 'preserved selector should remain');
+  assert.ok(result.indexOf('div {') === -1 || result.indexOf('@media') < result.indexOf('div {'), 'standalone div rule should be removed');
+});
