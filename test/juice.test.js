@@ -601,7 +601,7 @@ it('`preservedSelectors` option', function() {
     '<style>.important { font-weight: bold; } .another { text-decoration: underline; }</style> <div class="important" style="color: red; font-weight: bold;">Test</div>'
   );
 
-  // Email client targeting use case
+  // Email client targeting - include substring matches
   result = juice(
     `<style>
       p { color: black; } 
@@ -612,7 +612,7 @@ it('`preservedSelectors` option', function() {
     { 
       removeStyleTags: false, 
       removeInlinedSelectors: true, 
-      preservedSelectors: ['u + .body', '#outlook a'] 
+      preservedSelectors: ['body', '#outlook a']
     }
   );
 
