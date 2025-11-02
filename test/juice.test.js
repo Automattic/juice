@@ -14,6 +14,10 @@ var Property = juice.Property;
 var utils = juice.utils;
 var assert = require('assert');
 
+function cleanString(str) {
+  return str.replace(/\s+/g, ' ').trim()
+}
+
 /**
  * Tests.
  */
@@ -550,4 +554,105 @@ it('/* juice ignore next */ declaration is preserved', function () {
   assert.ok(result.includes('<style>'));
   assert.ok(result.includes('.test'));
   assert.ok(result.includes('font-weight: bold'));
+});
+
+it('`preservedSelectors` option', function() {
+  // Basic test - preserve specific selector with removeStyleTags
+  var result = juice(
+    '<style>div { color: red; } .preserve-me { background: blue; }</style><div class="preserve-me">Test</div>',
+    { removeStyleTags: true, preservedSelectors: ['.preserve-me'] }
+  );
+
+  assert.deepEqual(
+    cleanString(result),
+    '<style> .preserve-me { background: blue; } </style><div class="preserve-me" style="color: red; background: blue;">Test</div>'
+  );
+
+  // Preserve multiple selectors
+  result = juice(
+    `<style>
+      p { margin: 0; } 
+      .keep-1 { color: red; } 
+      .keep-2 { color: blue; } 
+      span { padding: 0; }
+    </style>
+    <p class="keep-1 keep-2">A</p><span>B</span>`,
+    { removeStyleTags: true, preservedSelectors: ['.keep-1', '.keep-2'] }
+  );
+
+  assert.deepEqual(
+    cleanString(result),
+    '<style> .keep-1 { color: red; } .keep-2 { color: blue; } </style> <p class="keep-1 keep-2" style="margin: 0; color: blue;">A</p><span style="padding: 0;">B</span>'
+  );
+
+  // Works with removeInlinedSelectors
+  result = juice(
+    `<style>
+      div { color: red; } 
+      .important { font-weight: bold; } 
+      .another { text-decoration: underline; }
+    </style>
+    <div class="important">Test</div>`,
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['.important'] }
+  );
+
+  assert.deepEqual(
+    cleanString(result),
+    '<style>.important { font-weight: bold; } .another { text-decoration: underline; }</style> <div class="important" style="color: red; font-weight: bold;">Test</div>'
+  );
+
+  // Email client targeting use case
+  result = juice(
+    `<style>
+      p { color: black; } 
+      u + .body { color: white; } 
+      #outlook a { padding: 0; } 
+    </style>
+    <p>Hello</p>`,
+    { 
+      removeStyleTags: false, 
+      removeInlinedSelectors: true, 
+      preservedSelectors: ['u + .body', '#outlook a'] 
+    }
+  );
+
+  assert.deepEqual(
+    cleanString(result),
+    '<style>u + .body { color: white; } #outlook a { padding: 0; }</style> <p style="color: black;">Hello</p>'
+  );
+
+  // Complex selectors
+  result = juice(
+    '<style>.btn { padding: 10px; } [class~="x_btn"] { color: blue; } div > p { margin: 0; }</style><div class="btn">Button</div><div><p>Text</p></div>',
+    { removeStyleTags: false, removeInlinedSelectors: true, preservedSelectors: ['[class~="x_btn"]'] }
+  );
+  assert.ok(result.indexOf('[class~="x_btn"]') > -1, 'attribute selector should be preserved');
+  assert.ok(result.indexOf('.btn {') === -1, 'inlined .btn rule should be removed');
+
+  // Empty preservedSelectors array - should behave normally
+  result = juice(
+    '<style>div { color: red; }</style><div>Test</div>',
+    { removeStyleTags: true, preservedSelectors: [] }
+  );
+
+  assert.deepEqual(
+    result,
+    '<div style="color: red;">Test</div>'
+  );
+
+  // Preserve with media queries and other preserves
+  result = juice(
+    '<style>div { color: red; } .m-0 { margin: 0; } @media print { div { color: black; } }</style><div>Test</div>',
+    { 
+      removeStyleTags: false, 
+      removeInlinedSelectors: true, 
+      preservedSelectors: ['.m-0'], 
+      preserveMediaQueries: true 
+    }
+  );
+
+  assert.deepEqual(
+    cleanString(result),
+    '<style>.m-0 { margin: 0; } @media print { div { color: black; } }</style><div style="color: red;">Test</div>'
+  );
 });

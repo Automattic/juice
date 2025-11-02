@@ -55,6 +55,7 @@ All Juice methods take an options object that can contain any of these propertie
 | `preserveMediaQueries` | `true` | Preserve all media queries (and contained styles) within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |
 | `preserveKeyFrames` | `true` | Preserve all key frames within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |
 | `preservePseudos` | `true` | Preserve all rules containing pseudo selectors defined in `ignoredPseudos` within `<style>` tags as a refinement when `removeStyleTags` is `true`. Other styles are removed. |
+| `preservedSelectors` | `[]` | Array of strings that represent CSS selectors to preserve inside `<style>` tags when `removeStyleTags` or `removeInlinedSelectors` are `true`. |
 | `removeInlinedSelectors` | `false` | Remove CSS rules from `<style>` tags after (possibly) inlining them. Other rules are preserved. Works only if `removeStyleTags` is `false`. |
 | `removeStyleTags` | `true` | Remove the original `<style>` tags after (possibly) inlining their CSS content. Overrides `removeInlinedSelectors`. | 
 | `resolveCSSVariables` | `true` | Resolve CSS variables. |
