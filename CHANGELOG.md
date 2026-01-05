@@ -1,3 +1,7 @@
+# 11.0.0 / 2024-05-22
+
+* Dependency updates
+
 # 10.0.0 / 2023-12-03
 
 * Resolve css variables
