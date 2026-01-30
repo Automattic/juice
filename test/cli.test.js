@@ -105,7 +105,6 @@ it('run with --css inlines an extra stylesheet', async () => {
   await runCliInProcess([
     htmlPath,
     '--css', cssPath,
-    '--apply-width-attributes', 'false',
     outputPath,
   ]);
 
