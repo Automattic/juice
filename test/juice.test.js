@@ -406,6 +406,16 @@ it('removeInlinedSelectors', function() {
   assert.ok(result.indexOf('<style>') === -1, 'style tag should be removed as all rules are inlined');
 });
 
+it('preserves styles in `data-embed` style tags', function() {
+  var result = juice(
+    '<style>div { color: blue; }</style><style data-embed>img {color: red}</style><div>Test</div>',
+    { removeStyleTags: false, removeInlinedSelectors: true }
+  );
+  assert.ok(result.indexOf('style="color: blue;"') > -1, 'div styles should be inlined');
+  assert.ok(result.indexOf('<style>img {color: red}</style>') > -1, 'data-embed style tag content should be completely untouched');
+  assert.ok(result.indexOf('data-embed') === -1, 'data-embed attribute should be removed');
+});
+
 it('/* juice ignore */ (entire file)', function () {
   var css = '/* juice ignore */\nbody { color: red; }\n.test { color: blue; }';
   var html = '<body><div class="test">Hello</div></body>';
