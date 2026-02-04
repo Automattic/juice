@@ -15,7 +15,8 @@ Juice has a number of functions based on whether you want to process a file, HTM
 To inline HTML without getting remote resources, using default options:
 
 ```js
-const juice = require('juice');
+import juice from 'juice';
+
 const result = juice("<style>div{color:red;}</style><div/>");
 ```
 
