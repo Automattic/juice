@@ -1,3 +1,9 @@
+# 11.1.1 / 2026-02-04
+
+* fix: data-embed style tags db64a51
+* build(deps): bump entities from 7.0.0 to 7.0.1 476d286
+* build(deps-dev): bump @types/node from 25.0.10 to 25.2.0 306ceb7
+
 # 11.1.0 / 2026-01-05
 
 ### New features
