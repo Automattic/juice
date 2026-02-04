@@ -1,3 +1,22 @@
+# 11.1.0 / 2026-01-05
+
+### New features
+
+* `juice ignore` CSS comments ce49f21
+* `removeInlinedSelectors` 130184e
+* inline duplicate properties c5b78ae
+* `preservedSelectors` option fbd82ca
+
+# 11.0.3 / 2025-09-30
+
+We are now pinning the `cheerio` dependency to `v1.0.0` so that we can keep supporting Node 18.
+
+To anyone affected by the `cheerio` breaking change that should have been a major version release, sorry! Moving forward, for as long as we rely on `cheerio` we will pin it to a fixed version that we make sure does not silently introduce breaking changes in patch releases.
+
+# 11.0.2 / 2025-09-29
+
+* fix: `ignorePseudos` selector matching ee81959
+
 # 11.0.0 / 2024-05-22
 
 * Dependency updates
