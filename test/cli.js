@@ -62,7 +62,7 @@ it('cli css included', function(done) {
   var expectedPath = 'test/cases/integration.out';
   var outputPath = 'tmp/integration.out';
 
-  var juiceProcess = spawn('bin/juice', [htmlPath, '--css', cssPath, '--apply-width-attributes', 'false', outputPath]);
+  var juiceProcess = spawn('bin/juice', [htmlPath, '--css', cssPath, outputPath]);
 
   juiceProcess.on('error', done);
 
