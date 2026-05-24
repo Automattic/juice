@@ -692,3 +692,62 @@ it('`preservedSelectors` option', function() {
     '<style>.m-0 { margin: 0; } @media print { div { color: black; } }</style><div style="color: red;">Test</div>'
   );
 });
+
+it('styleAttributeName option writes to a custom attribute', function() {
+  const html = '<div class="foo">x</div>';
+  const css = '.foo { color: red; }';
+  const result = juice.inlineContent(html, css, { styleAttributeName: 'data-style' });
+  assert.ok(result.includes('data-style="color: red;"'));
+  // bare `style=` (with no `data-` prefix) should not appear
+  assert.ok(!/(?<![\w-])style=/.test(result));
+});
+
+it('skips rules with unparseable selectors', function() {
+  // postcss-safe-parser parses `!` as a rule selector. postcss-selector-parser
+  // then throws on that selector text. selector.js catches the throw and
+  // returns a null AST → handleRule takes its early-return path.
+  const html = '<div class="x">y</div>';
+  const css = '! { color: red; } .x { color: blue; }';
+  const result = juice.inlineContent(html, css);
+  assert.ok(result.includes('color: blue'));
+});
+
+it('skips empty <style> elements during removeInlinedSelectors', function() {
+  // Empty style tag triggers the "childNodes.length !== 1" early-return path.
+  const result = juice(
+    '<style></style><style>div { color: red; }</style><div>x</div>',
+    { removeStyleTags: false, removeInlinedSelectors: true }
+  );
+  assert.ok(result.includes('style="color: red;"'));
+});
+
+it('inlinePseudoElements with content:none yields empty pseudo-element text', function() {
+  const html = '<div>x</div>';
+  const css = 'div::before { content: none; }';
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  assert.ok(typeof result === 'string');
+});
+
+it('inlinePseudoElements supports upper-roman counter style', function() {
+  const html = '<div>x</div>';
+  const css = 'div { counter-reset: n 5; } div::before { content: counter(n, upper-roman); }';
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  // 5 in upper-roman = "V"
+  assert.ok(result.includes('V'));
+});
+
+it('inlinePseudoElements supports lower-latin counter style', function() {
+  const html = '<div>x</div>';
+  const css = 'div { counter-reset: n 2; } div::before { content: counter(n, lower-latin); }';
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  // 2 in lower-latin = "b"
+  assert.ok(result.includes('b'));
+});
+
+it('counter-increment without counter-reset is a no-op', function() {
+  const html = '<div>x</div>';
+  const css = 'div { counter-increment: foo; } div::before { content: counter(foo); }';
+  // foo was never reset → increment should be skipped, no crash
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  assert.ok(typeof result === 'string');
+});
