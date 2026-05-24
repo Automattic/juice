@@ -1,7 +1,6 @@
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';
-import assert from 'assert';
 import juice from '../index.js';
 import * as utils from '../lib/utils.js';
 
@@ -24,10 +23,8 @@ tests.forEach((testName) => {
       juiceFile(path.join(__dirname, 'html', testName + '.in.html'), {}),
       readFile(path.join(__dirname, 'html', testName + '.out.html'), 'utf8'),
     ]);
-    assert.strictEqual(
-      utils.normalizeLineEndings(expected.trim()),
-      utils.normalizeLineEndings(actual.trim())
-    );
+    expect(utils.normalizeLineEndings(expected.trim()))
+      .toBe(utils.normalizeLineEndings(actual.trim()));
   });
 });
 
@@ -35,14 +32,16 @@ it('inlineContent', function() {
   const html = '<p>Hello</p>';
   const css = 'p{font-weight:bold;}';
 
-  assert.strictEqual(juice.inlineContent(html, css), '<p style="font-weight: bold;">Hello</p>');
+  expect(juice.inlineContent(html, css)).toBe('<p style="font-weight: bold;">Hello</p>');
 });
 
 it('juiceFile rejects when the input file is missing', async () => {
-  await assert.rejects(
-    juiceFile('/this/path/should/not/exist.html', {}),
-    (err) => err.code === 'ENOENT'
-  );
+  let caught;
+  try {
+    await juiceFile('/this/path/should/not/exist.html', {});
+  } catch (err) { caught = err; }
+  expect(caught).toBeDefined();
+  expect(caught.code).toBe('ENOENT');
 });
 
 it('juiceFile merges options.codeBlocks into juice.codeBlocks', async () => {
@@ -53,7 +52,7 @@ it('juiceFile merges options.codeBlocks into juice.codeBlocks', async () => {
         TWIG: { start: '{%', end: '%}' },
       },
     });
-    assert.deepStrictEqual(juice.codeBlocks.TWIG, { start: '{%', end: '%}' });
+    expect(juice.codeBlocks.TWIG).toStrictEqual({ start: '{%', end: '%}' });
   } finally {
     juice.codeBlocks = originalCodeBlocks;
   }
@@ -65,8 +64,8 @@ it('juiceResources propagates errors from inlineExternal', () => new Promise((re
   juice.juiceResources('<p>hi</p>', {}, (err) => {
     juice.inlineExternal = originalInlineExternal;
     try {
-      assert.ok(err);
-      assert.strictEqual(err.message, 'inline boom');
+      expect(err).toBeTruthy();
+      expect(err.message).toBe('inline boom');
       resolve();
     } catch (e) {
       reject(e);

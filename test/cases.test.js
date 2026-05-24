@@ -1,5 +1,4 @@
 import fs from 'fs';
-import assert from 'assert';
 import { basename } from 'path';
 import * as cheerio from 'cheerio';
 import * as htmlparser2 from 'htmlparser2';
@@ -23,7 +22,7 @@ files.forEach((file) => {
 it('juice(html)', () => {
   const expected = '<div style="color: red;"></div>';
   const actual = juice('<style>div{color:red;}</style><div/>');
-  assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
+  expect(utils.normalizeLineEndings(actual.trim())).toBe(utils.normalizeLineEndings(expected.trim()));
 });
 
 it('juice(document) with htmlparser2', () => {
@@ -33,7 +32,7 @@ it('juice(document) with htmlparser2', () => {
   const expected = '<div style="color: red;"/>';
   juice.juiceDocument($);
   const actual = $.html();
-  assert.equal(utils.normalizeLineEndings(actual.trim()), utils.normalizeLineEndings(expected.trim()));
+  expect(utils.normalizeLineEndings(actual.trim())).toBe(utils.normalizeLineEndings(expected.trim()));
 });
 
 const optionFiles = fs.readdirSync(__dirname + '/cases/juice-content');
@@ -63,13 +62,11 @@ function runCase(testName, useResources) {
       if (err) return reject(err);
       const expected = read(base + '.out');
       try {
-        assert.equal(
-          utils.normalizeLineEndings(actual.trim()),
-          utils.normalizeLineEndings(expected.trim())
-        );
+        expect(utils.normalizeLineEndings(actual.trim()))
+          .toBe(utils.normalizeLineEndings(expected.trim()));
         resolve();
-      } catch (assertionErr) {
-        reject(assertionErr);
+      } catch (err) {
+        reject(err);
       }
     };
 
