@@ -10,6 +10,7 @@
 
 import assert from 'assert';
 import juice from '../index.js';
+import * as numbers from '../lib/numbers.js';
 
 const Selector = juice.Selector;
 const Property = juice.Property;
@@ -790,4 +791,8 @@ it('Selector.specificity returns [1,0,0,0] for unparseable style-attribute selec
   // other arm of the `styleAttribute ? 1 : 0` ternary in the fallback.
   const sel = new Selector('!', true);
   assert.deepStrictEqual(sel.specificity(), [1, 0, 0, 0]);
+});
+
+it('numbers.romanize returns NaN for non-numeric input', function() {
+  assert.ok(Number.isNaN(numbers.romanize('abc')));
 });
