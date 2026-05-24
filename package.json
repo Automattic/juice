@@ -48,8 +48,9 @@
     "cheerio": "1.2.0",
     "commander": "^14.0.3",
     "entities": "^8.0.0",
-    "mensch": "^0.3.4",
-    "slick": "^1.12.2",
+    "postcss": "^8.5.0",
+    "postcss-safe-parser": "^7.0.1",
+    "postcss-selector-parser": "^7.1.0",
     "web-resource-inliner": "^8.0.0"
   },
   "devDependencies": {

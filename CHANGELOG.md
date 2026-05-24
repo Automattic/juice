@@ -5,6 +5,7 @@
 * **Juice is now ESM-only.** Consumers using `require('juice')` from CJS on Node ≥ 22.12 will continue to work via Node's built-in `require(esm)` interop. CJS consumers on older Node versions will need to migrate to `import` or upgrade Node.
 * **Node ≥ 22.12.0 required.** Dropped support for Node 18 and Node 20. CI now runs on Node 22, 24, and 26.
 * **Browser:** the package's `client.js` entry is now ESM. Modern bundlers (Vite, webpack 5, esbuild, Rollup, Parcel 2+) handle it transparently via the `"browser"` condition in `exports`. **Browserify is no longer supported** — it cannot parse ESM.
+* **CSS parser replaced**: `mensch` → `postcss` + `postcss-safe-parser`. Selector parser replaced: `slick` → `postcss-selector-parser`. Both old libs were unmaintained since 2022 and mis-handled modern CSS. Inlining behaviour is unchanged; preserved-CSS output inside `<style>` blocks is now canonically formatted (fixes mensch quirks like `;}` squashed on one line and `0%,\n100%` selector splits). Unlocks correct handling of `:has()` / `:is()` / `:where()` / `@layer` / `@container` in a future release.
 * `commander` upgraded to v14. Positional CLI arguments are now declared explicitly via `.argument()` (commander v14 errors on excess undeclared args).
 * `entities` upgraded to v8 (ESM-only).
 * `cheerio` pinned to `1.2.0`.
