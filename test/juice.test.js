@@ -751,3 +751,29 @@ it('counter-increment without counter-reset is a no-op', function() {
   const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
   assert.ok(typeof result === 'string');
 });
+
+it('parseCSS returns [] when the parser throws', function() {
+  // safeParser throws on null/undefined input (lone catastrophic case);
+  // parseCSS in non-strict mode swallows and returns an empty rule list.
+  assert.deepStrictEqual(utils.parseCSS(null), []);
+});
+
+it('parseCSS re-throws in strict mode', function() {
+  assert.throws(() => utils.parseCSS(null, { strict: true }));
+});
+
+it('getPreservedText returns false when the parser throws', function() {
+  assert.strictEqual(utils.getPreservedText(null, {}), false);
+});
+
+it('getPreservedText handles whole-file /* juice ignore */ directive', function() {
+  const css = '/* juice ignore */\nbody { color: red; }';
+  assert.strictEqual(utils.getPreservedText(css, {}), '\n' + css + '\n');
+});
+
+it('removeInlinedSelectorsFromCSS returns "" when the parser throws', function() {
+  assert.strictEqual(
+    utils.removeInlinedSelectorsFromCSS(null, new Set(), { preservePseudos: false, preservedSelectors: [] }, []),
+    ''
+  );
+});
