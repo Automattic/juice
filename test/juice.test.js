@@ -753,3 +753,11 @@ it('Selector.specificity returns [1,0,0,0] for unparseable style-attribute selec
 it('numbers.romanize returns NaN for non-numeric input', function() {
   expect(numbers.romanize('abc')).toBeNaN();
 });
+
+it('flattens nested CSS rules before inlining', function() {
+  const html = '<div class="card"><span class="title">x</span></div>';
+  const css = '.card { color: red; & .title { font-weight: bold; } }';
+  const result = juice.inlineContent(html, css);
+  expect(result).toContain('class="card" style="color: red;"');
+  expect(result).toContain('class="title" style="font-weight: bold;"');
+});

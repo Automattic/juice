@@ -1,0 +1,12 @@
+<html>
+<head>
+    <style>
+.btn:hover {
+  color: red;
+}
+</style>
+</head>
+<body>
+    <a class="btn" style="color: blue;">click</a>
+</body>
+</html>

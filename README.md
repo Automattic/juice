@@ -36,6 +36,10 @@ const result = juice("<style>div{color:red;}</style><div/>");
 
 Juice is exposed as a standard module, and from CLI with a smaller set of options.
 
+### Modern CSS support
+
+Juice handles modern CSS out of the box: **nested rules** (CSS Nesting Module Level 1, `.card { &:hover { ... } }`) are flattened automatically before inlining, **`@container`** and **`@layer`** at-rules pass through verbatim, and specificity for **`:is()`** / **`:where()`** / **`:has()`** / **`:not()`** is computed per the CSS Selectors Level 4 spec.
+
 ### Options
 
 All Juice methods take an options object that can contain any of these properties, though not every method uses all of these:
