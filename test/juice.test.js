@@ -8,11 +8,11 @@
  * Test dependencies.
  */
 
-var juice = require('../');
-var Selector = juice.Selector;
-var Property = juice.Property;
-var utils = juice.utils;
-var assert = require('assert');
+const juice = require('../');
+const Selector = juice.Selector;
+const Property = juice.Property;
+const utils = juice.utils;
+const assert = require('assert');
 
 function cleanString(str) {
   return str.replace(/\s+/g, ' ').trim()
@@ -23,7 +23,7 @@ function cleanString(str) {
  */
 
 it('extracting selectors', function() {
-  var extract = utils.extract;
+  const extract = utils.extract;
 
   assert.deepEqual(extract('#a'),['#a']);
   assert.deepEqual(extract('#a, .b'),['#a', '.b']);
@@ -37,13 +37,13 @@ it('extracting selectors', function() {
 });
 
 it('selector specificity comparison', function() {
-  var compare = utils.compare;
+  const compare = utils.compare;
 
   assert.deepEqual(compare([0, 1, 2, 3], [0, 2, 0, 0]),[0, 2, 0, 0]);
   assert.deepEqual(compare([0, 2, 0, 0], [0, 1, 2, 3]),[0, 2, 0, 0]);
 
   // Check that the second reference is returned upon draws
-  var b = [0, 1, 1, 4];
+  const b = [0, 1, 1, 4];
   assert.deepEqual(compare([0, 1, 1, 4], b),b);
 
   assert.deepEqual(compare([0, 0, 0, 4], [0, 0, 0, 10]),[0, 0, 0, 10]);
@@ -84,8 +84,8 @@ it('property comparison based on selector specificity', function() {
     return new Property(k, v, new Selector(sel));
   }
 
-  var a = prop('color', 'white', '#woot');
-  var b = prop('color', 'red', '#a #woot');
+  let a = prop('color', 'white', '#woot');
+  let b = prop('color', 'red', '#a #woot');
 
   assert.deepEqual(a.compare(b),b);
 
@@ -101,18 +101,18 @@ it('property comparison based on selector specificity', function() {
 });
 
 it('property toString', function() {
-  var a = new Property('color', 'white', new Selector('#woot'));
+  const a = new Property('color', 'white', new Selector('#woot'));
 
   assert.equal(a.toString(), 'color: white;');
 });
 
 it('parse simple css into a object structure', function() {
-  var parse = utils.parseCSS;
+  const parse = utils.parseCSS;
 
-  var actual = parse('a, b { c: e; }');
+  const actual = parse('a, b { c: e; }');
 
-  var a = actual[0];
-  var b = actual[1];
+  const a = actual[0];
+  const b = actual[1];
 
   assert.equal(a[0],'a');
   assert.deepEqual(a[1]['0'],{ type: 'property', name: 'c', value: 'e', position: { start: { line: 1, col: 8 }, end: { line: 1, col: 12 } }});
@@ -121,13 +121,13 @@ it('parse simple css into a object structure', function() {
 });
 
 it('parse complex css into a object structure', function() {
-  var parse = utils.parseCSS;
+  const parse = utils.parseCSS;
 
-  var actual = parse(['a, b { c: e; }', 'b.e #d { d: e; }','c[a=b] { d: e; }'].join('\n'));
-  var a = actual[0];
-  var b = actual[1];
-  var bed = actual[2];
-  var cab = actual[3];
+  const actual = parse(['a, b { c: e; }', 'b.e #d { d: e; }','c[a=b] { d: e; }'].join('\n'));
+  const a = actual[0];
+  const b = actual[1];
+  const bed = actual[2];
+  const cab = actual[3];
 
   /*
   delete bed[1].parentRule;
@@ -261,7 +261,7 @@ it('inlineDuplicateProperties', function() {
 
 it('removeInlinedSelectors', function() {
   // Basic test - inlined selectors should be removed, media queries preserved
-  var result = juice(
+  let result = juice(
     '<style>div { color: red; } .test { background: blue; } @media (max-width: 600px) { div { color: green; } }</style><div class="test">Hello</div>',
     { removeStyleTags: false, removeInlinedSelectors: true }
   );
@@ -327,7 +327,7 @@ it('removeInlinedSelectors', function() {
   // Works with extraCss option
   result = juice(
     '<div class="test">Hello</div>',
-    { 
+    {
       extraCss: 'div { color: red; } .test { background: blue; } @media print { div { color: black; } }',
       removeStyleTags: false,
       removeInlinedSelectors: true
@@ -338,7 +338,7 @@ it('removeInlinedSelectors', function() {
   assert.ok(result.indexOf('@media print') > -1, 'media query should be preserved');
   assert.ok(result.indexOf('div {') === -1 || result.indexOf('@media') < result.indexOf('div {'), 'root div rule should be removed');
   assert.ok(result.indexOf('.test {') === -1, '.test rule should be removed');
-  
+
   // `removeStyleTags` takes precedence over `removeInlinedSelectors`
   result = juice(
     '<style>div { color: red; } @media print { div { color: black; } }</style><div>Test</div>',
@@ -407,7 +407,7 @@ it('removeInlinedSelectors', function() {
 });
 
 it('preserves styles in `data-embed` style tags', function() {
-  var result = juice(
+  const result = juice(
     '<style>div { color: blue; }</style><style data-embed>img {color: red}</style><div>Test</div>',
     { removeStyleTags: false, removeInlinedSelectors: true }
   );
@@ -417,8 +417,8 @@ it('preserves styles in `data-embed` style tags', function() {
 });
 
 it('/* juice ignore */ (entire file)', function () {
-  var css = '/* juice ignore */\nbody { color: red; }\n.test { color: blue; }';
-  var html = '<body><div class="test">Hello</div></body>';
+  const css = '/* juice ignore */\nbody { color: red; }\n.test { color: blue; }';
+  const html = '<body><div class="test">Hello</div></body>';
 
   assert.deepEqual(
     juice.inlineContent(html, css),
@@ -427,14 +427,14 @@ it('/* juice ignore */ (entire file)', function () {
 });
 
 it('/* juice ignore next */ (rule)', function () {
-  var css = `body { color: red; }
+  const css = `body { color: red; }
 /* juice ignore next */
 .test { color: blue; }
 .other { color: green; }`;
 
-  var html = '<body><div class="test">Test</div><div class="other">Other</div></body>';
+  const html = '<body><div class="test">Test</div><div class="other">Other</div></body>';
 
-  var result = juice.inlineContent(html, css);
+  const result = juice.inlineContent(html, css);
 
   // body and .other should be inlined, but .test should not
   assert.ok(result.includes('style="color: red;'));
@@ -443,16 +443,16 @@ it('/* juice ignore next */ (rule)', function () {
 });
 
 it('/* juice ignore next */ (declaration)', function () {
-  var css = `.test { 
+  const css = `.test {
   color: red;
   /* juice ignore next */
   font-weight: bold;
   font-size: 14px;
 }`;
 
-  var html = '<div class="test">Hello</div>';
+  const html = '<div class="test">Hello</div>';
 
-  var result = juice.inlineContent(html, css);
+  const result = juice.inlineContent(html, css);
 
   // color and font-size should be inlined, but font-weight should not
   assert.ok(result.includes('color: red'));
@@ -461,7 +461,7 @@ it('/* juice ignore next */ (declaration)', function () {
 });
 
 it('/* juice start|end ignore */', function () {
-  var css = `
+  const css = `
 body { color: red; }
 
 /* juice start ignore */
@@ -471,9 +471,9 @@ body { color: red; }
 
 .inline { color: purple; }
 `;
-  var html = '<body><div class="test">Test</div><div class="other">Other</div><div class="inline">Inline</div></body>';
+  const html = '<body><div class="test">Test</div><div class="other">Other</div><div class="inline">Inline</div></body>';
 
-  var result = juice.inlineContent(html, css);
+  const result = juice.inlineContent(html, css);
 
   // body and .inline should be inlined, but .test and .other should not
   assert.ok(result.includes('style="color: red;'));
@@ -483,7 +483,7 @@ body { color: red; }
 });
 
 it('/* juice start|end ignore */ block is preserved', function () {
-  var html = `
+  const html = `
 <html>
   <head>
     <style>
@@ -501,7 +501,7 @@ it('/* juice start|end ignore */ block is preserved', function () {
 </html>
 `;
 
-  var result = juice(html, { removeStyleTags: true });
+  const result = juice(html, { removeStyleTags: true });
 
   // The ignored block should be preserved in a style tag
   assert.ok(result.includes('<style>'));
@@ -510,7 +510,7 @@ it('/* juice start|end ignore */ block is preserved', function () {
 });
 
 it('/* juice ignore next */ rule is preserved', function () {
-  var html = `
+  const html = `
 <html>
   <head>
     <style>
@@ -527,7 +527,7 @@ it('/* juice ignore next */ rule is preserved', function () {
 </html>
 `;
 
-  var result = juice(html, { removeStyleTags: true });
+  const result = juice(html, { removeStyleTags: true });
 
   // body should be inlined
   assert.ok(result.includes('style="color: red;'));
@@ -537,7 +537,7 @@ it('/* juice ignore next */ rule is preserved', function () {
 });
 
 it('/* juice ignore next */ declaration is preserved', function () {
-  var html = `
+  const html = `
 <html>
   <head>
     <style>
@@ -555,7 +555,7 @@ it('/* juice ignore next */ declaration is preserved', function () {
 </html>
 `;
 
-  var result = juice(html, { removeStyleTags: true });
+  const result = juice(html, { removeStyleTags: true });
 
   // color and font-size should be inlined
   assert.ok(result.includes('color: red'));
@@ -568,7 +568,7 @@ it('/* juice ignore next */ declaration is preserved', function () {
 
 it('`preservedSelectors` option', function() {
   // Basic test - preserve specific selector with removeStyleTags
-  var result = juice(
+  let result = juice(
     '<style>div { color: red; } .preserve-me { background: blue; }</style><div class="preserve-me">Test</div>',
     { removeStyleTags: true, preservedSelectors: ['.preserve-me'] }
   );
@@ -581,9 +581,9 @@ it('`preservedSelectors` option', function() {
   // Preserve multiple selectors
   result = juice(
     `<style>
-      p { margin: 0; } 
-      .keep-1 { color: red; } 
-      .keep-2 { color: blue; } 
+      p { margin: 0; }
+      .keep-1 { color: red; }
+      .keep-2 { color: blue; }
       span { padding: 0; }
     </style>
     <p class="keep-1 keep-2">A</p><span>B</span>`,
@@ -598,8 +598,8 @@ it('`preservedSelectors` option', function() {
   // Works with removeInlinedSelectors
   result = juice(
     `<style>
-      div { color: red; } 
-      .important { font-weight: bold; } 
+      div { color: red; }
+      .important { font-weight: bold; }
       .another { text-decoration: underline; }
     </style>
     <div class="important">Test</div>`,
@@ -614,14 +614,14 @@ it('`preservedSelectors` option', function() {
   // Email client targeting - include substring matches
   result = juice(
     `<style>
-      p { color: black; } 
-      u + .body { color: white; } 
-      #outlook a { padding: 0; } 
+      p { color: black; }
+      u + .body { color: white; }
+      #outlook a { padding: 0; }
     </style>
     <p>Hello</p>`,
-    { 
-      removeStyleTags: false, 
-      removeInlinedSelectors: true, 
+    {
+      removeStyleTags: false,
+      removeInlinedSelectors: true,
       preservedSelectors: ['body', '#outlook a']
     }
   );
@@ -653,11 +653,11 @@ it('`preservedSelectors` option', function() {
   // Preserve with media queries and other preserves
   result = juice(
     '<style>div { color: red; } .m-0 { margin: 0; } @media print { div { color: black; } }</style><div>Test</div>',
-    { 
-      removeStyleTags: false, 
-      removeInlinedSelectors: true, 
-      preservedSelectors: ['.m-0'], 
-      preserveMediaQueries: true 
+    {
+      removeStyleTags: false,
+      removeInlinedSelectors: true,
+      preservedSelectors: ['.m-0'],
+      preserveMediaQueries: true
     }
   );
 

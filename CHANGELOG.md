@@ -1,3 +1,19 @@
+# Unreleased
+
+### Breaking changes
+
+* **Node 22+ required.** Dropped support for Node 18 and Node 20. CI now runs on Node 22, 24, and 26.
+* Test runner migrated from Mocha to **Vitest 4**. Affects contributors only — runtime behavior is unchanged.
+
+### Tooling
+
+* `npm test` now runs `vitest run && npm run test-typescript`.
+* New `npm run coverage` script using `@vitest/coverage-v8` (replaces the previously broken `testcover` script).
+* New `npm run test:watch` for interactive development.
+* Test files renamed: `test/cli.js → test/cli.test.js`, `test/test.js → test/integration.test.js`, `test/run.js → test/cases.test.js`.
+* TypeScript test now uses a dedicated `test/typescript/tsconfig.json` instead of bare-defaults `tsc`.
+* Removed devDependencies: `mocha`, `should`, `batch`. Added: `vitest`, `@vitest/coverage-v8`.
+
 # 11.1.1 / 2026-02-04
 
 * fix: data-embed style tags db64a51
