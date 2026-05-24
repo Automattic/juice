@@ -16,9 +16,11 @@ declare namespace juice {
     inlinePseudoElements?: boolean;
     insertPreservedExtraCss?: boolean;
     preservedSelectors?: string[];
+    preserveContainerQueries?: boolean;
     preserveFontFaces?: boolean;
     preserveImportant?: boolean;
     preserveKeyFrames?: boolean;
+    preserveLayers?: boolean;
     preserveMediaQueries?: boolean;
     preservePseudos?: boolean;
     removeInlinedSelectors?: boolean;

@@ -80,6 +80,31 @@ it('selector specificity calculator', function() {
 
 });
 
+it('selector specificity for :is/:where/:has/:not', function() {
+  function spec(s) {
+    return new Selector(s).specificity();
+  }
+
+  // :where contributes 0 to specificity
+  assert.deepEqual(spec(':where(#a)'),         [0, 0, 0, 0]);
+  assert.deepEqual(spec('.x:where(#a, .b)'),   [0, 0, 1, 0]);
+  assert.deepEqual(spec(':where(:where(#a))'), [0, 0, 0, 0]);
+
+  // :is takes the max specificity across its args
+  assert.deepEqual(spec(':is(#a, .b)'),    [0, 1, 0, 0]); // #a wins
+  assert.deepEqual(spec(':is(.a, .b)'),    [0, 0, 1, 0]);
+  assert.deepEqual(spec('div:is(.a, b)'),  [0, 0, 1, 1]); // div + .a (.a > b)
+
+  // :has takes the max specificity across its args
+  assert.deepEqual(spec(':has(#a, .b)'),   [0, 1, 0, 0]);
+  assert.deepEqual(spec('p:has(> a.b)'),   [0, 0, 1, 2]); // p + a.b
+
+  // :not takes the max specificity across its args (was first-arg-only)
+  assert.deepEqual(spec(':not(#a, .b)'),       [0, 1, 0, 0]);
+  assert.deepEqual(spec(':not(.a, #b)'),       [0, 1, 0, 0]); // would have been [0,0,1,0]
+  assert.deepEqual(spec('a:not(.x):not(.y)'),  [0, 0, 2, 1]);
+});
+
 it('property comparison based on selector specificity', function() {
   function prop(k, v, sel) {
     return new Property(k, v, new Selector(sel));
