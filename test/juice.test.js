@@ -777,3 +777,17 @@ it('removeInlinedSelectorsFromCSS returns "" when the parser throws', function()
     ''
   );
 });
+
+it('Selector.specificity returns [0,0,0,0] for unparseable selectors', function() {
+  // postcss-selector-parser throws on `!`; selector.js catches → parsed() returns null;
+  // specificity() falls back to its default tuple.
+  const sel = new Selector('!');
+  assert.deepStrictEqual(sel.specificity(), [0, 0, 0, 0]);
+});
+
+it('Selector.specificity returns [1,0,0,0] for unparseable style-attribute selectors', function() {
+  // Same path as above but with the styleAttribute flag set — exercises the
+  // other arm of the `styleAttribute ? 1 : 0` ternary in the fallback.
+  const sel = new Selector('!', true);
+  assert.deepStrictEqual(sel.specificity(), [1, 0, 0, 0]);
+});
