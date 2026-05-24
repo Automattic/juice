@@ -1,19 +1,18 @@
- 'use strict';
+'use strict';
 
 /**
  * Module dependencies.
  */
 
-var utils = require('./lib/utils');
-var packageJson = require('./package.json');
-var fs = require('fs');
-var path = require('path');
-var inline = require('web-resource-inliner');
-var juiceClient = require('./client');
-var cheerio = require('./lib/cheerio');
-var juice = juiceClient;
+import fs from 'fs';
+import path from 'path';
+import inline from 'web-resource-inliner';
+import * as utils from './lib/utils.js';
+import juiceClient from './client.js';
+import cheerio from './lib/cheerio.js';
+import packageJson from './package.json' with { type: 'json' };
 
-module.exports = juice;
+const juice = juiceClient;
 
 juice.version = packageJson.version;
 
@@ -24,6 +23,8 @@ juice.utils = utils;
 juice.juiceFile = juiceFile;
 juice.juiceResources = juiceResources;
 juice.inlineExternal = inlineExternal;
+
+export default juice;
 
 function juiceFile(filePath, options, callback) {
   // set default options
@@ -39,7 +40,7 @@ function juiceFile(filePath, options, callback) {
       });
     }
     if (!options.webResources.relativeTo) {
-      var rel = path.dirname(path.relative(process.cwd(),filePath));
+      const rel = path.dirname(path.relative(process.cwd(), filePath));
       options.webResources.relativeTo = rel;
     }
     juiceResources(content, options, callback);
@@ -47,20 +48,20 @@ function juiceFile(filePath, options, callback) {
 }
 
 function inlineExternal(html, inlineOptions, callback) {
-  var options = Object.assign({fileContent: html}, inlineOptions);
+  const options = Object.assign({ fileContent: html }, inlineOptions);
   inline.html(options, callback);
 }
 
 function juiceResources(html, options, callback) {
   options = utils.getDefaultOptions(options);
 
-  var onInline = function(err, html) {
+  const onInline = function(err, html) {
     if (err) {
       return callback(err);
     }
 
     return callback(null,
-      cheerio(html, { xmlMode: options && options.xmlMode}, juiceClient.juiceDocument, [options])
+      cheerio(html, { xmlMode: options && options.xmlMode }, juiceClient.juiceDocument, [options])
     );
   };
 

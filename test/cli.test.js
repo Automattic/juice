@@ -1,10 +1,9 @@
 'use strict';
 
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-const spawn = require('cross-spawn');
-const cli = require('../lib/cli');
+import assert from 'assert';
+import fs from 'fs';
+import spawn from 'cross-spawn';
+import cli from '../lib/cli.js';
 
 beforeAll(() => {
   if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');

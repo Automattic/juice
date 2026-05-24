@@ -327,7 +327,9 @@ These are additional options not included in the standard `juice` options listed
 
 ### Running Juice in the Browser
 
-Attempting to Browserify `require('juice')` fails because portions of Juice and its dependencies interact with the file system using the standard `require('fs')`. However, you can `require('juice/client')` via Browserify which has support for `juiceDocument`, `inlineDocument`, and `inlineContent`, but not `juiceFile`, `juiceResources`, or `inlineExternal`. *Note that automated tests are not running in the browser yet.*
+Juice's default entry imports Node-only modules (`fs`, `path`), so it cannot run as-is in the browser. For browser builds, import `juice/client` instead, which exposes `juiceDocument`, `inlineDocument`, and `inlineContent` (but not `juiceFile`, `juiceResources`, or `inlineExternal`).
+
+Juice is ESM-only as of v12. Any modern bundler — Vite, webpack 5, esbuild, Rollup, Parcel 2+ — will pick up `juice/client` correctly via the `"browser"` field in `package.json`. Browserify is **not** supported on v12+ (it can't parse ESM). *Note that automated tests are not running in the browser yet.*
 
 ## License
 

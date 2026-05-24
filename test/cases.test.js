@@ -1,12 +1,14 @@
 'use strict';
 
-const fs = require('fs');
-const assert = require('assert');
-const { basename } = require('path');
-const cheerio = require('cheerio');
-const htmlparser2 = require('htmlparser2');
-const juice = require('../');
-const utils = require('../lib/utils');
+import fs from 'fs';
+import assert from 'assert';
+import { basename } from 'path';
+import * as cheerio from 'cheerio';
+import * as htmlparser2 from 'htmlparser2';
+import juice from '../index.js';
+import * as utils from '../lib/utils.js';
+
+const __dirname = import.meta.dirname;
 
 /**
  * Auto-load and run tests.

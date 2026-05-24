@@ -2,17 +2,25 @@
 
 ### Breaking changes
 
-* **Node 22+ required.** Dropped support for Node 18 and Node 20. CI now runs on Node 22, 24, and 26.
-* Test runner migrated from Mocha to **Vitest 4**. Affects contributors only — runtime behavior is unchanged.
+* **Juice is now ESM-only.** Consumers using `require('juice')` from CJS on Node ≥ 22.12 will continue to work via Node's built-in `require(esm)` interop. CJS consumers on older Node versions will need to migrate to `import` or upgrade Node.
+* **Node ≥ 22.12.0 required.** Dropped support for Node 18 and Node 20. CI now runs on Node 22, 24, and 26.
+* **Browser:** the package's `client.js` entry is now ESM. Modern bundlers (Vite, webpack 5, esbuild, Rollup, Parcel 2+) handle it transparently via the `"browser"` condition in `exports`. **Browserify is no longer supported** — it cannot parse ESM.
+* `commander` upgraded to v14. Positional CLI arguments are now declared explicitly via `.argument()` (commander v14 errors on excess undeclared args).
+* `entities` upgraded to v8 (ESM-only).
+* `cheerio` pinned to `1.2.0`.
+* TypeScript declarations renamed `juice.d.ts → index.d.ts` and restructured for ESM default-export resolution (`import juice from 'juice'`).
+* Test runner migrated from Mocha to **Vitest 4**.
 
 ### Tooling
 
-* `npm test` now runs `vitest run && npm run test-typescript`.
+* `npm test` now runs `vitest run --coverage && npm run test-typescript`.
 * New `npm run coverage` script using `@vitest/coverage-v8` (replaces the previously broken `testcover` script).
 * New `npm run test:watch` for interactive development.
 * Test files renamed: `test/cli.js → test/cli.test.js`, `test/test.js → test/integration.test.js`, `test/run.js → test/cases.test.js`.
-* TypeScript test now uses a dedicated `test/typescript/tsconfig.json` instead of bare-defaults `tsc`.
-* Removed devDependencies: `mocha`, `should`, `batch`. Added: `vitest`, `@vitest/coverage-v8`.
+* `bin/juice` extracted: the CLI logic now lives in `lib/cli.js` as a testable `cli.run(argv, deps)` function with dependency injection. The bin itself is a 3-line ESM shim.
+* TypeScript test now uses a dedicated `test/typescript/tsconfig.json` with `nodenext` module resolution.
+* Removed devDependencies: `mocha`, `should`, `batch`, `browserify`. Added: `vitest`, `@vitest/coverage-v8`.
+* `package.json` now declares `"type": "module"` and an `"exports"` map with `types` / `browser` / `default` conditions.
 
 # 11.1.1 / 2026-02-04
 

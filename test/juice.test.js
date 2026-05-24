@@ -8,14 +8,15 @@
  * Test dependencies.
  */
 
-const juice = require('../');
+import assert from 'assert';
+import juice from '../index.js';
+
 const Selector = juice.Selector;
 const Property = juice.Property;
 const utils = juice.utils;
-const assert = require('assert');
 
 function cleanString(str) {
-  return str.replace(/\s+/g, ' ').trim()
+  return str.replace(/\s+/g, ' ').trim();
 }
 
 /**

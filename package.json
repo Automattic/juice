@@ -2,23 +2,32 @@
   "name": "juice",
   "version": "11.1.1",
   "description": "Inlines css into html source",
+  "type": "module",
   "bin": "bin/juice",
   "main": "index.js",
   "browser": "client.js",
-  "types": "juice.d.ts",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "browser": "./client.js",
+      "default": "./index.js"
+    },
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "bin",
     "lib",
     "client.js",
     "index.js",
-    "juice.d.ts"
+    "index.d.ts"
   ],
   "scripts": {
     "test": "vitest run --coverage && npm run test-typescript",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "test-typescript": "tsc -p test/typescript && rm ./test/typescript/juice-tests.js",
-    "browserify": "browserify client.js -o tmp/bundle.js --standalone juice"
+    "test-typescript": "tsc -p test/typescript && rm ./test/typescript/juice-tests.js"
   },
   "license": "MIT",
   "contributors": [
@@ -38,7 +47,7 @@
   "dependencies": {
     "cheerio": "1.2.0",
     "commander": "^14.0.3",
-    "entities": "^7.0.0",
+    "entities": "^8.0.0",
     "mensch": "^0.3.4",
     "slick": "^1.12.2",
     "web-resource-inliner": "^8.0.0"
@@ -46,7 +55,6 @@
   "devDependencies": {
     "@types/node": "^25.0.3",
     "@vitest/coverage-v8": "^4.1.0",
-    "browserify": "^17.0.0",
     "cross-spawn": "^7.0.3",
     "typescript": "^5.5.4",
     "vitest": "^4.1.0"

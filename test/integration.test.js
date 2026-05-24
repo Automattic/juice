@@ -1,11 +1,13 @@
 'use strict';
 
-const { promisify } = require('util');
-const path = require('path');
-const fs = require('fs');
-const assert = require('assert');
-const juice = require('../');
-const utils = require('../lib/utils');
+import { promisify } from 'util';
+import path from 'path';
+import fs from 'fs';
+import assert from 'assert';
+import juice from '../index.js';
+import * as utils from '../lib/utils.js';
+
+const __dirname = import.meta.dirname;
 
 const juiceFile = promisify(juice.juiceFile);
 const readFile = promisify(fs.readFile);
