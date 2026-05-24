@@ -1,5 +1,3 @@
-'use strict';
-
 import assert from 'assert';
 import fs from 'fs';
 import spawn from 'cross-spawn';

@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import assert from 'assert';
 import { basename } from 'path';
