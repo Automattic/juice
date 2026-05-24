@@ -39,3 +39,39 @@ it('inlineContent', function() {
 
   assert.strictEqual(juice.inlineContent(html, css), '<p style="font-weight: bold;">Hello</p>');
 });
+
+it('juiceFile rejects when the input file is missing', async () => {
+  await assert.rejects(
+    juiceFile('/this/path/should/not/exist.html', {}),
+    (err) => err.code === 'ENOENT'
+  );
+});
+
+it('juiceFile merges options.codeBlocks into juice.codeBlocks', async () => {
+  const originalCodeBlocks = { ...juice.codeBlocks };
+  try {
+    await juiceFile(path.join(__dirname, 'html', 'no_css.in.html'), {
+      codeBlocks: {
+        TWIG: { start: '{%', end: '%}' },
+      },
+    });
+    assert.deepStrictEqual(juice.codeBlocks.TWIG, { start: '{%', end: '%}' });
+  } finally {
+    juice.codeBlocks = originalCodeBlocks;
+  }
+});
+
+it('juiceResources propagates errors from inlineExternal', () => new Promise((resolve, reject) => {
+  const originalInlineExternal = juice.inlineExternal;
+  juice.inlineExternal = (_html, _opts, cb) => cb(new Error('inline boom'));
+  juice.juiceResources('<p>hi</p>', {}, (err) => {
+    juice.inlineExternal = originalInlineExternal;
+    try {
+      assert.ok(err);
+      assert.strictEqual(err.message, 'inline boom');
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  });
+}));

@@ -66,5 +66,5 @@ function juiceResources(html, options, callback) {
   };
 
   options.webResources.relativeTo = options.webResources.relativeTo || options.url; // legacy support
-  inlineExternal(html, options.webResources, onInline);
+  juice.inlineExternal(html, options.webResources, onInline);
 }
