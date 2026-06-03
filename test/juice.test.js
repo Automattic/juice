@@ -259,6 +259,30 @@ it('inlineDuplicateProperties', function() {
   ).toBe('<div class="header" style="background-color: #000; background-color: rgba(0,0,0,0.8);"></div>');
 });
 
+it('data-juice-duplicates', function() {
+  const css = 'div { background-color: red; } .test { background-color: blue; }';
+
+  // attribute present (no value) enables duplicates even when the option is off
+  expect(
+    juice.inlineContent('<div class="test" data-juice-duplicates></div>', css)
+  ).toBe('<div class="test" style="background-color: red; background-color: blue;"></div>');
+
+  // data-juice-duplicates="true" enables duplicates
+  expect(
+    juice.inlineContent('<div class="test" data-juice-duplicates="true"></div>', css)
+  ).toBe('<div class="test" style="background-color: red; background-color: blue;"></div>');
+
+  // data-juice-duplicates="false" disables duplicates even when the option is on
+  expect(
+    juice.inlineContent('<div class="test" data-juice-duplicates="false"></div>', css, { inlineDuplicateProperties: true })
+  ).toBe('<div class="test" style="background-color: blue;"></div>');
+
+  // the attribute is stripped from output regardless of whether it matched a rule
+  expect(
+    juice.inlineContent('<div data-juice-duplicates></div>', 'span { color: red; }')
+  ).toBe('<div></div>');
+});
+
 it('removeInlinedSelectors', function() {
   // Basic test - inlined selectors should be removed, media queries preserved
   let result = juice(

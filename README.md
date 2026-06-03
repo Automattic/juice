@@ -231,6 +231,20 @@ The `data-embed` attribute will be removed from the output HTML, but no inlining
 </style>
 ```
 
+#### data-juice-duplicates
+
+Override the [`inlineDuplicateProperties`](#options) option for a single element by adding `data-juice-duplicates` to it. The attribute presence (or `data-juice-duplicates="true"`) enables duplicate declarations for that element; `data-juice-duplicates="false"` disables them:
+
+```html
+<!-- keeps both background-color declarations, even if the option is off -->
+<div class="header" data-juice-duplicates></div>
+
+<!-- collapses to the highest-specificity declaration, even if the option is on -->
+<div class="header" data-juice-duplicates="false"></div>
+```
+
+The `data-juice-duplicates` attribute is removed from the output HTML.
+
 ### Ignoring CSS with comments
 
 You can use special CSS comments to prevent Juice from inlining entire CSS files, rules, or even just declarations.
