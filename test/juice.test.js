@@ -283,6 +283,30 @@ it('data-juice-duplicates', function() {
   ).toBe('<div></div>');
 });
 
+it('data-juice-important', function() {
+  const css = '.test { color: red !important; }';
+
+  // attribute present (no value) preserves !important even when the option is off
+  expect(
+    juice.inlineContent('<div class="test" data-juice-important></div>', css)
+  ).toBe('<div class="test" style="color: red !important;"></div>');
+
+  // data-juice-important="true" preserves !important
+  expect(
+    juice.inlineContent('<div class="test" data-juice-important="true"></div>', css)
+  ).toBe('<div class="test" style="color: red !important;"></div>');
+
+  // data-juice-important="false" strips !important even when the option is on
+  expect(
+    juice.inlineContent('<div class="test" data-juice-important="false"></div>', css, { preserveImportant: true })
+  ).toBe('<div class="test" style="color: red;"></div>');
+
+  // the attribute is stripped from output regardless of whether it matched a rule
+  expect(
+    juice.inlineContent('<div data-juice-important></div>', 'span { color: red; }')
+  ).toBe('<div></div>');
+});
+
 it('removeInlinedSelectors', function() {
   // Basic test - inlined selectors should be removed, media queries preserved
   let result = juice(
