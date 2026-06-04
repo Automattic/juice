@@ -1,7 +1,9 @@
-'use strict';
+/**
+ * Module dependencies.
+ */
 
-var cheerio = require('./lib/cheerio');
-var makeJuiceClient = require('./lib/inline');
+import cheerio from './lib/cheerio.js';
+import makeJuiceClient from './lib/inline.js';
 
 /**
  * Note that makeJuiceClient will take a base object (in this case a function) and enhance it
@@ -9,21 +11,21 @@ var makeJuiceClient = require('./lib/inline');
  *
  * This client adopts cheerio as a DOM parser and adds an "inlineContent" function that let
  * users to specify the CSS to be inlined instead of extracting it from the html.
- * 
+ *
  * The weird "makeJuiceClient" behaviour is there in order to keep backward API compatibility.
  */
-var juiceClient = makeJuiceClient(function(html,options) {
-  return cheerio(html, { xmlMode: options && options.xmlMode}, juiceDocument, [options]);
+const juiceClient = makeJuiceClient(function(html, options) {
+  return cheerio(html, { xmlMode: options && options.xmlMode }, juiceDocument, [options]);
 });
 
-var juiceDocument = function(html, options) {
+const juiceDocument = function(html, options) {
   return juiceClient.juiceDocument(html, options);
-}
+};
 
 juiceClient.inlineContent = function(html, css, options) {
-  return cheerio(html, { xmlMode: options && options.xmlMode}, juiceClient.inlineDocument, [css, options]);
+  return cheerio(html, { xmlMode: options && options.xmlMode }, juiceClient.inlineDocument, [css, options]);
 };
 
 juiceClient.codeBlocks = cheerio.codeBlocks;
 
-module.exports = juiceClient;
+export default juiceClient;

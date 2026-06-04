@@ -1,6 +1,6 @@
-import juice = require('../../');
-import cheerio = require('cheerio');
-import htmlparser2 = require('htmlparser2');
+import juice from '../../index.js';
+import * as cheerio from 'cheerio';
+import * as htmlparser2 from 'htmlparser2';
 
 const sample = '<style>div{class: red;}</style><div></div>';
 const someHtml = '<h1 class="x">yo</h1>';

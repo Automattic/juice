@@ -1,12 +1,15 @@
 <html>
 <head>
     <style>
-@font-face {
-  font-family: 'Tahoma2';
+@container (min-width: 400px) {
+  .card {
+    padding: 20px;
+  }
 }
 </style>
 </head>
 <body>
     <p style="color: blue;">hi</p>
+    <div class="card">card</div>
 </body>
 </html>

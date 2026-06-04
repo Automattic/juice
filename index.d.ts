@@ -1,39 +1,11 @@
-// Type definitions for Juice 3.0.0
+// Type definitions for Juice 12.0.0
 // Project: https://github.com/Automattic/juice
 // Definitions by: Kamil Nikel <https://github.com/knikel>
 
-/* =================== USAGE ===================
-   import juice = require('juice');
-   =============================================== */
-
-export = juice;
-
-declare function juice(html: string, options?: juice.Options): string;
-
 declare namespace juice {
-
-  export function juiceResources(html: string, options: Options, callback: Callback): string
-
-  export function juiceFile(filePath: string, options: Options, callback: Callback): string
-
-  export function juiceDocument($: any, options?: Options): any
-
-  export function inlineContent(html: string, css: string, options?: Options): string
-
-  export function inlineDocument($: any, css: string, options?: Options): any
-
-  export let codeBlocks: { [index: string]: { start: string, end: string } };
-  export let excludedProperties: string[];
-  export let heightElements: HTMLElement[];
-  export let ignoredPseudos: string[];
-  export let nonVisualElements: HTMLElement[];
-  export let styleToAttribute: { [index: string]: string };
-  export let tableElements: HTMLElement[];
-  export let widthElements: HTMLElement[];
-
   export interface Callback { (err: Error, html: string): any; }
 
-  interface Options {
+  export interface Options {
     applyAttributesTableElements?: boolean;
     applyHeightAttributes?: boolean;
     applyStyleTags?: boolean;
@@ -44,9 +16,11 @@ declare namespace juice {
     inlinePseudoElements?: boolean;
     insertPreservedExtraCss?: boolean;
     preservedSelectors?: string[];
+    preserveContainerQueries?: boolean;
     preserveFontFaces?: boolean;
     preserveImportant?: boolean;
     preserveKeyFrames?: boolean;
+    preserveLayers?: boolean;
     preserveMediaQueries?: boolean;
     preservePseudos?: boolean;
     removeInlinedSelectors?: boolean;
@@ -56,7 +30,7 @@ declare namespace juice {
     xmlMode?: boolean;
   }
 
-  interface WebResourcesOptions {
+  export interface WebResourcesOptions {
     fileContent?: string;
     images?: boolean | number;
     inlineAttribute?: string;
@@ -68,3 +42,26 @@ declare namespace juice {
     svgs?: boolean | number;
   }
 }
+
+interface Juice {
+  (html: string, options?: juice.Options): string;
+
+  juiceResources(html: string, options: juice.Options, callback: juice.Callback): string;
+  juiceFile(filePath: string, options: juice.Options, callback: juice.Callback): string;
+  juiceDocument($: any, options?: juice.Options): any;
+  inlineContent(html: string, css: string, options?: juice.Options): string;
+  inlineDocument($: any, css: string, options?: juice.Options): any;
+
+  codeBlocks: { [index: string]: { start: string, end: string } };
+  excludedProperties: string[];
+  heightElements: HTMLElement[];
+  ignoredPseudos: string[];
+  nonVisualElements: HTMLElement[];
+  styleToAttribute: { [index: string]: string };
+  tableElements: HTMLElement[];
+  widthElements: HTMLElement[];
+}
+
+declare const juice: Juice;
+
+export default juice;

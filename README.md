@@ -36,6 +36,10 @@ const result = juice("<style>div{color:red;}</style><div/>");
 
 Juice is exposed as a standard module, and from CLI with a smaller set of options.
 
+### Modern CSS support
+
+Juice handles modern CSS out of the box: **nested rules** (CSS Nesting Module Level 1, `.card { &:hover { ... } }`) are flattened automatically before inlining, **`@container`** and **`@layer`** at-rules pass through verbatim, and specificity for **`:is()`** / **`:where()`** / **`:has()`** / **`:not()`** is computed per the CSS Selectors Level 4 spec.
+
 ### Options
 
 All Juice methods take an options object that can contain any of these properties, though not every method uses all of these:
@@ -227,6 +231,20 @@ The `data-embed` attribute will be removed from the output HTML, but no inlining
 </style>
 ```
 
+#### data-juice-duplicates
+
+Override the [`inlineDuplicateProperties`](#options) option for a single element by adding `data-juice-duplicates` to it. The attribute presence (or `data-juice-duplicates="true"`) enables duplicate declarations for that element; `data-juice-duplicates="false"` disables them:
+
+```html
+<!-- keeps both background-color declarations, even if the option is off -->
+<div class="header" data-juice-duplicates></div>
+
+<!-- collapses to the highest-specificity declaration, even if the option is on -->
+<div class="header" data-juice-duplicates="false"></div>
+```
+
+The `data-juice-duplicates` attribute is removed from the output HTML.
+
 ### Ignoring CSS with comments
 
 You can use special CSS comments to prevent Juice from inlining entire CSS files, rules, or even just declarations.
@@ -327,7 +345,9 @@ These are additional options not included in the standard `juice` options listed
 
 ### Running Juice in the Browser
 
-Attempting to Browserify `require('juice')` fails because portions of Juice and its dependencies interact with the file system using the standard `require('fs')`. However, you can `require('juice/client')` via Browserify which has support for `juiceDocument`, `inlineDocument`, and `inlineContent`, but not `juiceFile`, `juiceResources`, or `inlineExternal`. *Note that automated tests are not running in the browser yet.*
+Juice's default entry imports Node-only modules (`fs`, `path`), so it cannot run as-is in the browser. For browser builds, import `juice/client` instead, which exposes `juiceDocument`, `inlineDocument`, and `inlineContent` (but not `juiceFile`, `juiceResources`, or `inlineExternal`).
+
+Juice is ESM-only as of v12. Any modern bundler — Vite, webpack 5, esbuild, Rollup, Parcel 2+ — will pick up `juice/client` correctly via the `"browser"` field in `package.json`. Browserify is **not** supported on v12+ (it can't parse ESM). *Note that automated tests are not running in the browser yet.*
 
 ## License
 

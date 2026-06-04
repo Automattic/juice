@@ -1,3 +1,31 @@
+# Unreleased
+
+### Breaking changes
+
+* **Juice is now ESM-only.** Consumers using `require('juice')` from CJS on Node ≥ 22.12 will continue to work via Node's built-in `require(esm)` interop. CJS consumers on older Node versions will need to migrate to `import` or upgrade Node.
+* **Node ≥ 22.12.0 required.** Dropped support for Node 18 and Node 20. CI now runs on Node 22, 24, and 26.
+* **Browser:** the package's `client.js` entry is now ESM. Modern bundlers (Vite, webpack 5, esbuild, Rollup, Parcel 2+) handle it transparently via the `"browser"` condition in `exports`. **Browserify is no longer supported** — it cannot parse ESM.
+* **CSS parser replaced**: `mensch` → `postcss` + `postcss-safe-parser`. Selector parser replaced: `slick` → `postcss-selector-parser`. Both old libs were unmaintained since 2022 and mis-handled modern CSS. Inlining behaviour is unchanged; preserved-CSS output inside `<style>` blocks is now canonically formatted (fixes mensch quirks like `;}` squashed on one line and `0%,\n100%` selector splits).
+* **Specificity is now spec-correct for `:is()`, `:where()`, `:has()`, and `:not()`** (CSS Selectors Level 4). `:where(...)` contributes 0; `:is(...)`, `:has(...)`, and `:not(...)` contribute the maximum specificity across their arguments. Previously juice treated all four as a generic `:pseudo` and `:not` used "first argument only" (a slick legacy). Any cascade resolution that depended on the old quirks will produce different inlined styles.
+* **`@container` and `@layer` at-rules are now preserved** through inlining (mirroring `@media` / `@font-face` / `@keyframes`). New options `preserveContainerQueries` and `preserveLayers` default to `true`; pass `false` to drop them. Note: `@layer` is preserved verbatim only — layer-aware cascade resolution is not implemented (email clients don't support layers anyway).
+* **CSS Nesting is now supported.** Nested rules (`.card { &:hover { ... } }`), nested at-rules (`.card { @media (min-width: 600px) { ... } }`), and the `&` parent selector are flattened via `postcss-nesting` before inlining. Previously, nested rules were silently dropped during parsing. No behaviour change for already-flat CSS.
+* `commander` upgraded to v14. Positional CLI arguments are now declared explicitly via `.argument()` (commander v14 errors on excess undeclared args).
+* `entities` upgraded to v8 (ESM-only).
+* `cheerio` pinned to `1.2.0`.
+* TypeScript declarations renamed `juice.d.ts → index.d.ts` and restructured for ESM default-export resolution (`import juice from 'juice'`).
+* Test runner migrated from Mocha to **Vitest 4**.
+
+### Tooling
+
+* `npm test` now runs `vitest run --coverage && npm run test-typescript`.
+* New `npm run coverage` script using `@vitest/coverage-v8` (replaces the previously broken `testcover` script).
+* New `npm run test:watch` for interactive development.
+* Test files renamed: `test/cli.js → test/cli.test.js`, `test/test.js → test/integration.test.js`, `test/run.js → test/cases.test.js`.
+* `bin/juice` extracted: the CLI logic now lives in `lib/cli.js` as a testable `cli.run(argv, deps)` function with dependency injection. The bin itself is a 3-line ESM shim.
+* TypeScript test now uses a dedicated `test/typescript/tsconfig.json` with `nodenext` module resolution.
+* Removed devDependencies: `mocha`, `should`, `batch`, `browserify`. Added: `vitest`, `@vitest/coverage-v8`.
+* `package.json` now declares `"type": "module"` and an `"exports"` map with `types` / `browser` / `default` conditions.
+
 # 11.1.1 / 2026-02-04
 
 * fix: data-embed style tags db64a51

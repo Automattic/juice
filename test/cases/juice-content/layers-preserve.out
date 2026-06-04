@@ -1,0 +1,16 @@
+<html>
+<head>
+    <style>
+@layer reset, theme;
+@layer reset {
+  p {
+    margin: 0;
+  }
+}
+@layer theme;
+</style>
+</head>
+<body style="color: black;">
+    <p>hi</p>
+</body>
+</html>
