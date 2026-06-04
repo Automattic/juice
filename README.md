@@ -245,6 +245,20 @@ Override the [`inlineDuplicateProperties`](#options) option for a single element
 
 The `data-juice-duplicates` attribute is removed from the output HTML.
 
+#### data-juice-important
+
+Override the [`preserveImportant`](#options) option for a single element by adding `data-juice-important` to it. The attribute presence (or `data-juice-important="true"`) preserves `!important` in that element's inlined declarations; `data-juice-important="false"` strips it:
+
+```html
+<!-- keeps !important in the inlined style, even if the option is off -->
+<div class="cta" data-juice-important></div>
+
+<!-- strips !important from the inlined style, even if the option is on -->
+<div class="cta" data-juice-important="false"></div>
+```
+
+The `data-juice-important` attribute is removed from the output HTML.
+
 ### Ignoring CSS with comments
 
 You can use special CSS comments to prevent Juice from inlining entire CSS files, rules, or even just declarations.
