@@ -58,7 +58,7 @@
     "web-resource-inliner": "^8.0.0"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3",
+    "@types/node": "^26.0.1",
     "@vitest/coverage-v8": "^4.1.0",
     "cross-spawn": "^7.0.3",
     "typescript": "^5.5.4",
