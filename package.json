@@ -61,7 +61,7 @@
     "@types/node": "^26.1.0",
     "@vitest/coverage-v8": "^4.1.0",
     "cross-spawn": "^7.0.3",
-    "typescript": "^5.5.4",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.0"
   },
   "repository": {
