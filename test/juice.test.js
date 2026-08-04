@@ -8,6 +8,7 @@
 
 import juice from '../index.js';
 import * as numbers from '../lib/numbers.js';
+import { replaceVariables } from '../lib/variables.js';
 
 const Selector = juice.Selector;
 const Property = juice.Property;
@@ -808,4 +809,38 @@ it('flattens nested CSS rules before inlining', function() {
   const result = juice.inlineContent(html, css);
   expect(result).toContain('class="card" style="color: red;"');
   expect(result).toContain('class="title" style="font-weight: bold;"');
+});
+
+describe('replaceVariables', function() {
+  const el = {
+    styleProps: { '--color': { value: 'red' }, '--gap': { value: '10px' } }
+  };
+
+  it('resolves variables and falls back to defaults', function() {
+    expect(replaceVariables(el, 'var(--color)')).toBe('red');
+    expect(replaceVariables(el, 'var(--missing, blue)')).toBe('blue');
+    expect(replaceVariables(el, 'var(--gap , 20px)')).toBe('10px');
+  });
+
+  it('preserves multi-argument and nested function calls', function() {
+    expect(replaceVariables(el, 'rgb(255, 0, 0)')).toBe('rgb(255, 0, 0)');
+    expect(replaceVariables(el, 'rgba(0,0,0,0.5)')).toBe('rgba(0,0,0,0.5)');
+    expect(replaceVariables(el, 'var(--font, Arial, sans-serif)')).toBe('Arial, sans-serif');
+    expect(replaceVariables(el, 'calc(1rem * var(--gap))')).toBe('calc(1rem * 10px)');
+    expect(replaceVariables(el, 'var(--x, var(--color, rgb(0,0,0)))')).toBe('red');
+  });
+
+  it('leaves malformed parentheses untouched', function() {
+    expect(replaceVariables(el, 'a(')).toBe('a(');
+    expect(replaceVariables(el, 'no-name(1, 2))')).toBe('no-name(1, 2))');
+    expect(replaceVariables(el, '(1, 2)')).toBe('(1, 2)');
+    expect(replaceVariables(el, '((var(--color)))')).toBe('((red))');
+  });
+
+  it('does not hang on pathological input (ReDoS regression)', function() {
+    const evil = 'a(' + ' '.repeat(100000);
+    const start = Date.now();
+    replaceVariables(el, evil);
+    expect(Date.now() - start).toBeLessThan(1000);
+  });
 });
