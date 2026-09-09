@@ -59,10 +59,10 @@
   },
   "devDependencies": {
     "@types/node": "^26.1.0",
-    "@vitest/coverage-v8": "^4.1.0",
+    "@vitest/coverage-v8": "^5.0.0",
     "cross-spawn": "^7.0.3",
     "typescript": "^5.5.4",
-    "vitest": "^4.1.0"
+    "vitest": "^5.0.0"
   },
   "repository": {
     "type": "git",
