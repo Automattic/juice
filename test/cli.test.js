@@ -2,6 +2,7 @@ import fs from 'fs';
 import { Readable } from 'stream';
 import spawn from 'cross-spawn';
 import cli from '../lib/cli.js';
+import juice from '../index.js';
 
 beforeAll(() => {
   if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
@@ -241,6 +242,49 @@ it('run reports error and exits 1 when juiceFile fails', async () => {
   expect(caught.exitCalls).toStrictEqual([1]);
   expect(caught.errorCalls.length).toBe(1);
   expect(caught.errorCalls[0]).toMatch(/boom/);
+});
+
+it('run applies codeBlocks from --options-file when reading from stdin', async () => {
+  const originalCodeBlocks = { ...juice.codeBlocks };
+  const optionsPath = tmpPath('code-blocks.json');
+  fs.writeFileSync(optionsPath, JSON.stringify({ codeBlocks: { TWIG: { start: '{%', end: '%}' } } }));
+  const stdout = fakeStdout();
+
+  try {
+    await runCliInProcess(['--options-file', optionsPath], {
+      stdin: Readable.from(['<style>p{color:red}</style>{% if user %}<p>Hi</p>{% endif %}']),
+      stdout,
+    });
+
+    expect(juice.codeBlocks.TWIG).toStrictEqual({ start: '{%', end: '%}' });
+    expect(stdout.data).toBe('{% if user %}<p style="color: red;">Hi</p>{% endif %}');
+  } finally {
+    juice.codeBlocks = originalCodeBlocks;
+  }
+});
+
+it('run reports error and exits 1 when stdin fails', async () => {
+  const stdin = new Readable({ read() { this.destroy(new Error('stdin broke')); } });
+
+  let caught;
+  try {
+    await runCliInProcess([], { stdin, stdout: fakeStdout() });
+  } catch (err) { caught = err; }
+  expect(caught).toBeDefined();
+  expect(caught.exitCalls).toStrictEqual([1]);
+  expect(caught.errorCalls[0]).toMatch(/stdin broke/);
+});
+
+it('run reports error and exits 1 when the output file cannot be written', async () => {
+  const fakeFs = { writeFile: (_path, _html, cb) => cb(new Error('disk full')), readFile: fs.readFile };
+
+  let caught;
+  try {
+    await runCliInProcess(['test/cases/juice-content/no-css.html', 'out.html'], { fs: fakeFs });
+  } catch (err) { caught = err; }
+  expect(caught).toBeDefined();
+  expect(caught.exitCalls).toStrictEqual([1]);
+  expect(caught.errorCalls[0]).toMatch(/disk full/);
 });
 
 it('run reports error and exits 1 when --css file is missing', async () => {
