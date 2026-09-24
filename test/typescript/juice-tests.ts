@@ -189,3 +189,8 @@ juice.styleToAttribute = { x: 'y' };
 juice.tableElements = [];
 juice.nonVisualElements = [];
 juice.excludedProperties = [];
+
+juice.widthElements = ['IMG', 'VIDEO'];
+juice.heightElements = ['IMG', 'VIDEO'];
+juice.tableElements = [...juice.tableElements, 'TD'];
+juice.nonVisualElements = juice.nonVisualElements.filter((name) => name !== 'NOSCRIPT');

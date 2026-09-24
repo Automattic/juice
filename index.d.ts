@@ -56,12 +56,16 @@ interface Juice {
 
   codeBlocks: { [index: string]: { start: string, end: string } };
   excludedProperties: string[];
-  heightElements: HTMLElement[];
+  /** Upper-case tag names, e.g. `['TABLE', 'TD', 'TH', 'IMG']` */
+  heightElements: string[];
   ignoredPseudos: string[];
-  nonVisualElements: HTMLElement[];
+  /** Upper-case tag names */
+  nonVisualElements: string[];
   styleToAttribute: { [index: string]: string };
-  tableElements: HTMLElement[];
-  widthElements: HTMLElement[];
+  /** Upper-case tag names */
+  tableElements: string[];
+  /** Upper-case tag names, e.g. `['TABLE', 'TD', 'TH', 'IMG']` */
+  widthElements: string[];
 }
 
 declare const juice: Juice;
