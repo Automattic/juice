@@ -20,6 +20,7 @@ const mostOptions = {
   inlinePseudoElements: true,
   xmlMode: true,
   preserveImportant: true,
+  addImportantToPseudoClasses: true,
 };
 const minWebResourceOptions = {
   webResources: {},
