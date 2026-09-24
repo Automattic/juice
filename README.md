@@ -375,6 +375,14 @@ juice - output.html < input.html
 
 Relative URLs in HTML read from stdin are resolved against the current working directory, unless you set `--web-resources-relative-to`.
 
+To inline a whole directory, pass directories for both the input and the output. Every `.html` and `.htm` file in it (including subdirectories) is inlined and written to the same relative path in the output directory:
+
+```sh
+juice src dist
+```
+
+If a file fails, Juice reports it, keeps going with the rest, and exits with code `1` at the end.
+
 For a listing of all available options, just type `juice -h`.
 
 > Note that if you want to just type `juice` from the command line, you should `npm install juice -g` so it is globally available.

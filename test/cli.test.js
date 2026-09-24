@@ -334,3 +334,82 @@ it('bin/juice pipes stdin to stdout (spawn)', () => new Promise((resolve, reject
   });
   juiceProcess.stdin.end('<style>div{color:red;}</style><div>x</div>');
 }));
+
+describe('directory input', () => {
+  const write = (file, content) => {
+    fs.mkdirSync(file.slice(0, file.lastIndexOf('/')), { recursive: true });
+    fs.writeFileSync(file, content);
+  };
+  const setup = (name) => {
+    const root = tmpPath(name);
+    write(`${root}/src/a.html`, '<link rel="stylesheet" href="a.css"><p>A</p>');
+    write(`${root}/src/a.css`, 'p { color: red; }');
+    write(`${root}/src/sub/b.html`, '<link rel="stylesheet" href="b.css"><p>B</p>');
+    write(`${root}/src/sub/b.css`, 'p { color: blue; }');
+    write(`${root}/src/sub/deep/c.htm`, '<style>p { color: green; }</style><p>C</p>');
+    write(`${root}/src/notes.txt`, 'not html');
+    return root;
+  };
+
+  it('inlines every .html and .htm file into the output directory, keeping the structure', async () => {
+    const root = setup('dir-basic');
+
+    const { exitCalls, errorCalls } = await runCliInProcess([`${root}/src`, `${root}/dist`]);
+
+    expect(exitCalls).toStrictEqual([]);
+    expect(errorCalls).toStrictEqual([]);
+    expect(fs.readFileSync(`${root}/dist/a.html`, 'utf8')).toBe('<p style="color: red;">A</p>');
+    expect(fs.readFileSync(`${root}/dist/sub/b.html`, 'utf8')).toBe('<p style="color: blue;">B</p>');
+    expect(fs.readFileSync(`${root}/dist/sub/deep/c.htm`, 'utf8')).toBe('<p style="color: green;">C</p>');
+    expect(fs.existsSync(`${root}/dist/notes.txt`)).toBe(false);
+  });
+
+  it('applies --css to every file', async () => {
+    const root = setup('dir-css');
+    write(`${root}/extra.css`, 'p { font-weight: bold; }');
+
+    await runCliInProcess([`${root}/src`, `${root}/dist`, '--css', `${root}/extra.css`]);
+
+    expect(fs.readFileSync(`${root}/dist/a.html`, 'utf8')).toBe('<p style="color: red; font-weight: bold;">A</p>');
+    expect(fs.readFileSync(`${root}/dist/sub/deep/c.htm`, 'utf8')).toBe('<p style="color: green; font-weight: bold;">C</p>');
+  });
+
+  it('skips the output directory when it is inside the input directory', async () => {
+    const root = setup('dir-nested-output');
+
+    await runCliInProcess([`${root}/src`, `${root}/src/dist`]);
+    await runCliInProcess([`${root}/src`, `${root}/src/dist`]);
+
+    expect(fs.readFileSync(`${root}/src/dist/a.html`, 'utf8')).toBe('<p style="color: red;">A</p>');
+    expect(fs.existsSync(`${root}/src/dist/dist`)).toBe(false);
+  });
+
+  it('keeps going when a file fails, then exits 1', async () => {
+    const root = setup('dir-failure');
+    fs.mkdirSync(`${root}/src/broken.html`);
+
+    let caught;
+    try {
+      await runCliInProcess([`${root}/src`, `${root}/dist`]);
+    } catch (err) { caught = err; }
+
+    expect(caught).toBeDefined();
+    expect(caught.exitCalls).toStrictEqual([1]);
+    expect(caught.errorCalls).toHaveLength(1);
+    expect(caught.errorCalls[0]).toContain('broken.html');
+    expect(fs.readFileSync(`${root}/dist/a.html`, 'utf8')).toBe('<p style="color: red;">A</p>');
+    expect(fs.readFileSync(`${root}/dist/sub/deep/c.htm`, 'utf8')).toBe('<p style="color: green;">C</p>');
+  });
+
+  it('requires an output directory', async () => {
+    const root = setup('dir-no-output');
+
+    let caught;
+    try {
+      await runCliInProcess([`${root}/src`], { stdout: fakeStdout() });
+    } catch (err) { caught = err; }
+
+    expect(caught.exitCalls).toStrictEqual([1]);
+    expect(caught.errorCalls[0]).toMatch(/output directory/);
+  });
+});
