@@ -1066,3 +1066,62 @@ describe('code blocks inside style attributes', function() {
     expect(() => juice(css + '<div class="somediv" style="font-family: &quot;Inter&quot;"></div>')).toThrow(/Unknown word/);
   });
 });
+
+describe('CSS counters with inlinePseudoElements', function() {
+  const labels = (html) => [...html.matchAll(/<span[^>]*>([^<]*)<\/span>/g)].map((m) => m[1]);
+  const run = (css, html) => labels(juice(`<style>${css}</style>${html}`, { inlinePseudoElements: true }));
+  const headings = '<section id="nice"><h1>A</h1><h2>a</h2><h2>b</h2><h1>B</h1><h2>c</h2><h2>d</h2></section>';
+
+  // Expected values below are what Chrome renders for the same CSS and HTML.
+
+  it('resets a counter for the following siblings (issue #480)', function() {
+    const css = `
+      #nice { counter-reset: counterh1; }
+      #nice h1 { counter-reset: counterh2; }
+      #nice h1:before { counter-increment: counterh1; content: 'Part'counter(counterh1); }
+      #nice h2:before { counter-increment: counterh2; content: counter(counterh1)"."counter(counterh2); }`;
+    expect(run(css, headings)).toStrictEqual(['Part1', '1.1', '1.2', 'Part2', '2.1', '2.2']);
+  });
+
+  it('scopes a counter created by an increment on a pseudo-element to that pseudo-element', function() {
+    const css = `
+      #nice h1 { counter-reset: counterh2; }
+      #nice h1:before { counter-increment: counterh1; content: 'Part'counter(counterh1); }
+      #nice h2:before { counter-increment: counterh2; content: counter(counterh1)"."counter(counterh2); }`;
+    expect(run(css, headings)).toStrictEqual(['Part1', '0.1', '0.2', 'Part1', '0.1', '0.2']);
+  });
+
+  it('does not let a sibling reset shadow a counter of the same name from the parent', function() {
+    const css = `
+      section { counter-reset: h1c h2c; }
+      h1 { counter-reset: h2c; counter-increment: h1c; }
+      h2 { counter-increment: h2c; }
+      h1::before { content: counter(h1c) ". "; }
+      h2::before { content: counter(h1c) "." counter(h2c) " "; }`;
+    expect(run(css, headings)).toStrictEqual(['1. ', '1.1 ', '1.2 ', '2. ', '2.3 ', '2.4 ']);
+  });
+
+  it('creates nested counters for nested lists', function() {
+    const css = `
+      ol { counter-reset: item; }
+      li { counter-increment: item; }
+      li::before { content: counter(item) ") "; }`;
+    const html = '<ol><li>a<ol><li>x</li><li>y</li></ol></li><li>b</li></ol>';
+    expect(run(css, html)).toStrictEqual(['1) ', '1) ', '2) ', '2) ']);
+  });
+
+  it('starts a counter at 0 when it was never reset', function() {
+    const css = 'p { counter-increment: n; } p::before { content: counter(n); }';
+    expect(run(css, '<p>a</p><p>b</p>')).toStrictEqual(['1', '2']);
+  });
+
+  it('supports counter-set', function() {
+    const css = 'div { counter-reset: n; } p { counter-increment: n; } p.jump { counter-set: n 10; } p::before { content: counter(n); }';
+    expect(run(css, '<div><p>a</p><p class="jump">b</p><p>c</p></div>')).toStrictEqual(['1', '10', '11']);
+  });
+
+  it('uses the counter declaration that wins the cascade', function() {
+    const css = 'p { counter-increment: n 5; } p.one { counter-increment: n 1; } p::before { content: counter(n); }';
+    expect(run(css, '<p class="one">a</p><p class="one">b</p>')).toStrictEqual(['1', '2']);
+  });
+});
