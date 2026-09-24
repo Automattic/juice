@@ -844,3 +844,36 @@ describe('replaceVariables', function() {
     expect(Date.now() - start).toBeLessThan(1000);
   });
 });
+
+describe('non-string html input', function() {
+  const html = '<style>p{color:red}</style><p>x</p>';
+
+  it('juice() throws a TypeError naming the input type', function() {
+    expect(() => juice(Buffer.from(html))).toThrow(new TypeError(
+      'juice expects an HTML string, got Buffer. If you read it from a file, pass \'utf8\' as the encoding or call .toString() on it.'
+    ));
+    expect(() => juice(undefined)).toThrow(new TypeError('juice expects an HTML string, got undefined.'));
+    expect(() => juice(null)).toThrow(new TypeError('juice expects an HTML string, got null.'));
+    expect(() => juice(42)).toThrow(new TypeError('juice expects an HTML string, got number.'));
+  });
+
+  it('inlineContent() throws the same TypeError', function() {
+    expect(() => juice.inlineContent(Buffer.from('<p>x</p>'), 'p{color:red}')).toThrow(/got Buffer/);
+  });
+
+  it('juiceResources() passes the TypeError to its callback, asynchronously', () => new Promise((resolve) => {
+    let returned = false;
+    juice.juiceResources(Buffer.from(html), {}, (err, result) => {
+      expect(returned).toBe(true);
+      expect(err).toBeInstanceOf(TypeError);
+      expect(err.message).toMatch(/got Buffer/);
+      expect(result).toBeUndefined();
+      resolve();
+    });
+    returned = true;
+  }));
+
+  it('still accepts strings', function() {
+    expect(juice(html)).toBe('<p style="color: red;">x</p>');
+  });
+});

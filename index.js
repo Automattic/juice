@@ -51,6 +51,13 @@ function inlineExternal(html, inlineOptions, callback) {
 }
 
 function juiceResources(html, options, callback) {
+  const typeError = utils.htmlTypeError(html);
+  if (typeError) {
+    // Keep the callback async, like it is when inlining succeeds.
+    process.nextTick(callback, typeError);
+    return;
+  }
+
   options = utils.getDefaultOptions(options);
 
   const onInline = function(err, html) {
