@@ -904,3 +904,74 @@ describe('pseudo-elements that cannot be inlined', function() {
       .toBe('<style>\nh3::first-letter {\n  color: red;\n}\n</style><h3 style="font-size: 20px;">abc</h3>');
   });
 });
+
+describe('xmlMode with < inside style tags', function() {
+  const page = (css) => `<html><head><style>${css}</style></head><body><div>Hello</div></body></html>`;
+
+  it('leaves style tags without < as they are', function() {
+    expect(juice(page('div { color: red; }'), { xmlMode: true, removeStyleTags: false }))
+      .toBe('<html><head><style>div { color: red; }</style></head><body><div style="color: red;">Hello</div></body></html>');
+  });
+
+  it('inlines CSS whose comments contain tag-like text', function() {
+    const css = '\n/* <div> Tag literal in comment */\ndiv { color: red; }\n';
+    expect(juice(page(css), { xmlMode: true }))
+      .toBe('<html><head/><body><div style="color: red;">Hello</div></body></html>');
+    expect(juice(page(css), { xmlMode: true, removeStyleTags: false }))
+      .toBe(`<html><head><style>${css}</style></head><body><div style="color: red;">Hello</div></body></html>`);
+  });
+
+  it.each([
+    '(width < 600px)',
+    '(width<600px)',
+    '(600px < width)',
+    '(600px<width)',
+    '(400px <= width <= 700px)',
+  ])('keeps the range media query %s and still inlines', function(query) {
+    const result = juice(page(`div { color: red; } @media ${query} { div { color: blue; } }`), { xmlMode: true });
+    expect(result).toContain('<div style="color: red;">Hello</div>');
+    expect(result).toContain(`@media ${query} {`);
+  });
+});
+
+describe('xmlMode with CDATA in style tags', function() {
+  const page = (css) => `<html><head><style>${css}</style></head><body><div>Hello</div></body></html>`;
+  const inlined = '<div style="color: red;">Hello</div>';
+
+  it('inlines CSS from a CDATA section', function() {
+    expect(juice(page('<![CDATA[ div { color: red; } ]]>'), { xmlMode: true }))
+      .toBe(`<html><head/><body>${inlined}</body></html>`);
+  });
+
+  it('inlines CSS from a CDATA section wrapped in CSS comments', function() {
+    expect(juice(page('/*<![CDATA[*/ div { color: red; } /*]]>*/'), { xmlMode: true }))
+      .toBe(`<html><head/><body>${inlined}</body></html>`);
+  });
+
+  it('handles < inside the CDATA section', function() {
+    expect(juice(page('<![CDATA[ /* <div> */ div { color: red; } ]]>'), { xmlMode: true }))
+      .toBe(`<html><head/><body>${inlined}</body></html>`);
+  });
+
+  it('keeps preserved rules inside the CDATA section', function() {
+    const result = juice(page('<![CDATA[ div { color: red; } @media (width<600px) { div { color: blue; } } ]]>'), { xmlMode: true });
+    expect(result).toMatch(/<style><!\[CDATA\[\s*@media \(width<600px\) \{\s*div \{\s*color: blue;\s*\}\s*\}\s*\]\]><\/style>/);
+    expect(result).toContain(inlined);
+  });
+
+  it('keeps the CSS comment wrapper around preserved rules', function() {
+    const result = juice(page('/*<![CDATA[*/ div { color: red; } @media (width<600px) { div { color: blue; } } /*]]>*/'), { xmlMode: true });
+    expect(result).toMatch(/<style>\/\*<!\[CDATA\[\*\/\s*@media \(width<600px\) \{[\s\S]*\}\s*\/\*\]\]>\*\/<\/style>/);
+    expect(result).toContain(inlined);
+  });
+
+  it('removes inlined rules from the CDATA section with removeInlinedSelectors', function() {
+    const result = juice(page('<![CDATA[ div { color: red; } p { color: blue; } ]]>'), { xmlMode: true, removeStyleTags: false, removeInlinedSelectors: true });
+    expect(result).toMatch(/<style><!\[CDATA\[\s*p \{\s*color: blue;\s*\}\s*\]\]><\/style>/);
+    expect(result).toContain(inlined);
+  });
+
+  it('leaves style tags alone outside of xmlMode', function() {
+    expect(juice(page('div { color: red; }'))).toBe(`<html><head></head><body>${inlined}</body></html>`);
+  });
+});
