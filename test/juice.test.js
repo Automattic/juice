@@ -877,3 +877,30 @@ describe('non-string html input', function() {
     expect(juice(html)).toBe('<p style="color: red;">x</p>');
   });
 });
+
+describe('pseudo-elements that cannot be inlined', function() {
+  const html = (css) => `<style>${css}</style><h3>abc</h3>`;
+
+  it.each([
+    'h3::first-letter { color: red; }',
+    'h3:first-letter { color: red; }',
+    'h3::first-line { color: red; }',
+    'h3:first-line { color: red; }',
+    'h3::marker { color: red; }',
+    'h3::selection { color: red; }',
+    'h3::placeholder { color: red; }',
+  ])('keeps %s in a <style> tag instead of dropping it', function(css) {
+    const result = juice(html(css));
+    expect(result).toMatch(/<style>[\s\S]*color: red;[\s\S]*<\/style>/);
+    expect(result).toContain('<h3>abc</h3>');
+  });
+
+  it('drops them when preservePseudos is false, like other ignored pseudos', function() {
+    expect(juice(html('h3::first-letter { color: red; }'), { preservePseudos: false })).toBe('<h3>abc</h3>');
+  });
+
+  it('still inlines the rest of the rules', function() {
+    expect(juice(html('h3 { font-size: 20px; } h3::first-letter { color: red; }')))
+      .toBe('<style>\nh3::first-letter {\n  color: red;\n}\n</style><h3 style="font-size: 20px;">abc</h3>');
+  });
+});

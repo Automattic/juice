@@ -157,9 +157,9 @@ Note that `codeBlocks` is a dictionary which can contain many different code blo
 #### juice.ignoredPseudos
 
 Type: Array\
-Default: `['hover', 'active', 'focus', 'visited', 'link']`
+Default: `['hover', 'active', 'focus', 'visited', 'link', 'first-letter', 'first-line', 'marker', 'selection', 'placeholder']`
 
-Array of ignored pseudo-selectors such as 'hover' and 'active'.
+Array of ignored pseudo-selectors such as 'hover' and 'active'. Rules that use them can't be inlined, so they're kept in a `<style>` tag instead (see `preservePseudos`).
 
 #### juice.widthElements
 
