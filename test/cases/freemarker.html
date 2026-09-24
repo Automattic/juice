@@ -1,0 +1,8 @@
+<body>
+<#-- Order items -->
+<#list items as item>
+  <p class="item">${item.name}</p>
+</#list>
+<#if (items?size > 1)><p class="item">Many items</p></#if>
+<@layout.card title="Summary"><p class="item">Total</p></@layout.card>
+</body>
