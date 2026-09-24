@@ -48,6 +48,7 @@ interface Juice {
 
   juiceResources(html: string, options: juice.Options, callback: juice.Callback): string;
   juiceFile(filePath: string, options: juice.Options, callback: juice.Callback): string;
+  inlineExternal(html: string, options: juice.WebResourcesOptions, callback: juice.Callback): void;
   juiceDocument($: any, options?: juice.Options): any;
   inlineContent(html: string, css: string, options?: juice.Options): string;
   inlineDocument($: any, css: string, options?: juice.Options): any;

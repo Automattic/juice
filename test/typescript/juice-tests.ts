@@ -92,6 +92,12 @@ juice.juiceFile(
   (err: Error, html: string): void => console.log(html)
 );
 
+juice.inlineExternal(
+  '<link rel="stylesheet" href="email.css">',
+  { relativeTo: 'templates', images: false },
+  (err: Error, html: string): void => console.log(html)
+);
+
 juice.juiceFile(
   'somePath.html',
   mostOptions,
