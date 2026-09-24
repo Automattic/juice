@@ -975,3 +975,66 @@ describe('xmlMode with CDATA in style tags', function() {
     expect(juice(page('div { color: red; }'))).toBe(`<html><head></head><body>${inlined}</body></html>`);
   });
 });
+
+describe('addImportantToPseudoClasses', function() {
+  const html = (css) => `<style>${css}</style><a class="link">x</a><p>t</p>`;
+  const opts = { addImportantToPseudoClasses: true };
+
+  it('is off by default', function() {
+    expect(juice(html('.link { color: red; } .link:hover { color: green; }')))
+      .toBe('<style>\n.link:hover {\n  color: green;\n}\n</style><a class="link" style="color: red;">x</a><p>t</p>');
+  });
+
+  it('adds !important to declarations in pseudo-class rules', function() {
+    expect(juice(html('.link { color: red; } .link:hover { color: green; text-decoration: none; }'), opts))
+      .toBe('<style>\n.link:hover {\n  color: green !important;\n  text-decoration: none !important;\n}\n</style><a class="link" style="color: red;">x</a><p>t</p>');
+  });
+
+  it('handles pseudo-class rules inside media queries, and leaves other rules alone', function() {
+    const result = juice(html('@media (max-width: 600px) { .link { color: red !important; } .link:focus { color: blue; } }'), opts);
+    expect(result).toContain('.link:focus {\n    color: blue !important;');
+    expect(result).toContain('.link {\n    color: red !important;');
+  });
+
+  it('does not double up existing !important', function() {
+    expect(juice(html('.link:active { color: green !important; }'), opts)).toContain('color: green !important;\n');
+  });
+
+  it('leaves pseudo-elements alone', function() {
+    const result = juice(html('p::first-letter { color: red; } p:first-line { color: blue; }'), opts);
+    expect(result).toContain('color: red;');
+    expect(result).toContain('color: blue;');
+    expect(result).not.toContain('!important');
+  });
+
+  it('applies to style tags that are kept with removeStyleTags: false', function() {
+    expect(juice(html('.link { color: red; } a:visited { color: purple; }'), { ...opts, removeStyleTags: false }))
+      .toBe('<style>.link { color: red; } a:visited { color: purple !important; }</style><a class="link" style="color: red;">x</a><p>t</p>');
+  });
+
+  it('applies with removeInlinedSelectors', function() {
+    expect(juice(html('.link { color: red; } .link:hover { color: green; }'), { ...opts, removeStyleTags: false, removeInlinedSelectors: true }))
+      .toContain('color: green !important;');
+  });
+
+  it('skips style tags with data-embed', function() {
+    expect(juice('<style data-embed>a:hover { color: green; }</style><a>x</a>', opts))
+      .toBe('<style>a:hover { color: green; }</style><a>x</a>');
+  });
+
+  it('does nothing when ignoredPseudos has no pseudo-classes', function() {
+    const originalIgnoredPseudos = juice.ignoredPseudos;
+    juice.ignoredPseudos = ['first-letter'];
+    try {
+      expect(juice('<style>p::first-letter { color: red; }</style><p>t</p>', opts))
+        .toBe('<style>\np::first-letter {\n  color: red;\n}\n</style><p>t</p>');
+    } finally {
+      juice.ignoredPseudos = originalIgnoredPseudos;
+    }
+  });
+
+  it('applies to preserved extraCss', function() {
+    expect(juice('<a>x</a>', { ...opts, extraCss: '@media (max-width: 600px) { a:hover { color: green; } }' }))
+      .toContain('color: green !important;');
+  });
+});

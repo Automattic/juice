@@ -47,6 +47,7 @@ it('cli parses options', () => {
   expect(parseArgs({'xmlMode': 'true'}).xmlMode).toBe(true);
   expect(parseArgs({'resolveCSSVariables': 'true'}).resolveCSSVariables).toBe(true);
   expect(parseArgs({'decodeStyleAttributes': 'true'}).decodeStyleAttributes).toBe(true);
+  expect(parseArgs({'addImportantToPseudoClasses': 'true'}).addImportantToPseudoClasses).toBe(true);
   expect(parseArgs({'webResourcesInlineAttribute': 'true'}).webResources.inlineAttribute).toBe(true);
   expect(parseArgs({'webResourcesImages': '12'}).webResources.images).toBe(12);
   expect(parseArgs({'webResourcesLinks': 'true'}).webResources.links).toBe(true);

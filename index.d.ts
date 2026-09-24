@@ -6,6 +6,7 @@ declare namespace juice {
   export interface Callback { (err: Error, html: string): any; }
 
   export interface Options {
+    addImportantToPseudoClasses?: boolean;
     applyAttributesTableElements?: boolean;
     applyHeightAttributes?: boolean;
     applyStyleTags?: boolean;

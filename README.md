@@ -46,6 +46,7 @@ All Juice methods take an options object that can contain any of these propertie
 
 | Option | Default&nbsp;value | Description |
 |--------|-------|------------|
+| `addImportantToPseudoClasses` | `false` | Add `!important` to the declarations of rules that use a pseudo-class from `juice.ignoredPseudos`, like `:hover`, including inside `@media`. These rules can't be inlined, so without `!important` the inlined styles override them. Applies to every `<style>` tag in the output except `data-embed` ones. Pseudo-elements like `::first-letter` are left alone. |
 | `applyAttributesTableElements` | `true` | Create attributes for styles in `juice.styleToAttribute` on elements set in `juice.tableElements`. |
 | `applyHeightAttributes` | `true` | Use any CSS pixel heights to create `height` attributes on elements set in `juice.heightElements`. |
 | `applyStyleTags` | `true` | Inline styles in `<style>` tags. |
