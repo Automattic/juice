@@ -1038,3 +1038,31 @@ describe('addImportantToPseudoClasses', function() {
       .toContain('color: green !important;');
   });
 });
+
+describe('code blocks inside style attributes', function() {
+  const css = '<style>.somediv { color: blue; }</style>';
+
+  it('keeps template tags between declarations and puts inlined styles first', function() {
+    expect(juice(css + '<div class="somediv" style="{{#if @first}} border-top: 1px solid #D7DFDF; {{/if}}"></div>'))
+      .toBe('<div class="somediv" style="color: blue; {{#if @first}} border-top: 1px solid #D7DFDF; {{/if}}"></div>');
+  });
+
+  it('keeps if/else blocks', function() {
+    expect(juice(css + '<div class="somediv" style="{{#if dark}}background: #000;{{else}}background: #fff;{{/if}}"></div>'))
+      .toBe('<div class="somediv" style="color: blue; {{#if dark}}background: #000;{{else}}background: #fff;{{/if}}"></div>');
+  });
+
+  it('keeps EJS blocks', function() {
+    expect(juice(css + '<div class="somediv" style="<% if (first) { %>border-top: 1px solid red;<% } %>"></div>'))
+      .toBe('<div class="somediv" style="color: blue; <% if (first) { %>border-top: 1px solid red;<% } %>"></div>');
+  });
+
+  it('still merges attributes where the template tag is inside a value', function() {
+    expect(juice(css + '<div class="somediv" style="border-top: 1px solid {{color}};"></div>'))
+      .toBe('<div class="somediv" style="color: blue; border-top: 1px solid {{color}};"></div>');
+  });
+
+  it('still throws on invalid style attributes without template tags', function() {
+    expect(() => juice(css + '<div class="somediv" style="font-family: &quot;Inter&quot;"></div>')).toThrow(/Unknown word/);
+  });
+});
