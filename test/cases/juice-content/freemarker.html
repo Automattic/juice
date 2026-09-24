@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; }
+  .item { color: #1c1917; padding: 8px 0; }
+  .sale { color: #dc2626; font-weight: bold; }
+  .card { border: 1px solid #e7e5e4; padding: 16px; }
+  .vip { background-color: #fef2f2; }
+  a { color: #dc2626; }
+</style>
+</head>
+<body>
+<#-- Order confirmation -->
+<#assign total = 0>
+<#macro card title>
+  <table class="card" width="100%"><tr><td>
+    <h2>${title}</h2>
+    <#nested>
+  </td></tr></table>
+</#macro>
+<p class="<#if user.vip>vip</#if>">Hi ${user.name},</p>
+<@card title="Your order">
+  <#list items as item>
+    <p class="item <#if item.sale>sale</#if>">${item.name}: $${item.price}</p>
+    <#assign total = total + item.price>
+  </#list>
+</@card>
+<#if (total > 100)>
+  <p class="item">Free shipping!</p>
+<#elseif (total > 50)>
+  <p class="item">Almost there.</p>
+<#else>
+  <p class="item">Shipping: $5</p>
+</#if>
+<p>Items: <#list items as item>${item.name}<#sep>, </#sep></#list></p>
+<a href="${url}">View order</a>
+</body>
+</html>

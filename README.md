@@ -138,13 +138,19 @@ Default:
 ```js
 {
   EJS: { start: '<%', end: '%>' },
-  HBS: { start: '{{', end: '}}' }
+  HBS: { start: '{{', end: '}}' },
+  FTL: { start: '<#', end: '>' },
+  FTL_CLOSE: { start: '</#', end: '>' },
+  FTL_MACRO: { start: '<@', end: '>' },
+  FTL_MACRO_CLOSE: { start: '</@', end: '>' }
 }
 ```
 
 An object where each value has a `start` and `end` to specify fenced code blocks that should be ignored during parsing and inlining. 
 
 For example, Handlebars (hbs) templates are `juice.codeBlocks.HBS = {start: '{{', end: '}}'}`. `codeBlocks` can fix problems where otherwise juice might interpret code like `<=` as HTML, when it is meant to be template language code. 
+
+FreeMarker directives (`<#list>`, `</#list>`) and macros (`<@card>`, `</@card>`) are covered by the `FTL` blocks. Opening and closing tags are separate blocks, so HTML between them still gets its styles inlined.
 
 Note that `codeBlocks` is a dictionary which can contain many different code blocks, so don't do `juice.codeBlocks = {...}` do `juice.codeBlocks.myBlock = {...}`
 
