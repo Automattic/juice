@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["node"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "noEmitOnError": true
   },
   "include": ["juice-tests.ts"]
