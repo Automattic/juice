@@ -1,0 +1,255 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --border: #e3e3e8;
+  --text: #1c1c21;
+  --muted: #62626d;
+  --accent: #d9480f;
+  --accent-soft: #fff0e6;
+  --error: #b42318;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1f23;
+    --surface: #24292e;
+    --border: #353b42;
+    --text: #e1e4e8;
+    --muted: #959da5;
+    --accent: #ff8a4c;
+    --accent-soft: #3a2a20;
+    --error: #ff7a6e;
+  }
+
+  .shiki,
+  .shiki span { color: var(--shiki-dark) !important; }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+code { font-family: var(--mono); font-size: 0.9em; }
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand { display: flex; align-items: baseline; gap: 10px; }
+/**
+ * Text shares one baseline; the image hangs below it by as much as the version pill does.
+ * The negative margin eats the GIF's transparent right edge so the glass sits next to the title.
+ */
+.brand img { position: relative; top: 6px; margin-right: -14px; image-rendering: pixelated; }
+.brand h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+
+.version {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font: 600 12px/1.6 var(--mono);
+}
+
+.tagline { margin: 0; color: var(--muted); flex: 1 1 280px; }
+
+.links { display: flex; gap: 16px; }
+.links a { color: var(--text); text-decoration: none; font-weight: 500; }
+.links a:hover { color: var(--accent); }
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "input output"
+    "options options";
+  gap: 16px;
+  padding: 16px 24px 32px;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pane:first-of-type { grid-area: input; }
+.pane:nth-of-type(2) { grid-area: output; }
+
+.pane-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 8px 12px 8px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pane-header h2,
+.options h2 { margin: 0; font-size: 14px; font-weight: 600; }
+
+.pane-header h2 { margin-right: auto; }
+
+.editor,
+.code-view,
+iframe {
+  display: block;
+  width: 100%;
+  height: 520px;
+  margin: 0;
+  border: 0;
+}
+
+.editor {
+  position: relative;
+  overflow: hidden;
+  resize: vertical;
+}
+
+.editor .code,
+.editor textarea {
+  position: absolute;
+  inset: 0;
+  scrollbar-gutter: stable;
+}
+
+.editor .code { overflow: hidden; }
+
+.code-view {
+  overflow: auto;
+  resize: vertical;
+}
+
+.pane > .code-view,
+.pane > iframe { flex: 1 0 auto; }
+
+.shiki,
+.editor textarea {
+  margin: 0;
+  padding: 16px;
+  font: 13px/1.6 var(--mono);
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.shiki { min-height: 100%; background-color: transparent !important; }
+.shiki code { font: inherit; }
+
+.editor textarea {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--text);
+  resize: none;
+}
+
+.editor textarea::placeholder { color: var(--muted); }
+.editor textarea::selection { background: rgb(9 105 218 / 0.25); }
+
+.editor:focus-within,
+.code-view:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.editor textarea:focus { outline: none; }
+.editor:has(textarea[aria-invalid="true"]) { box-shadow: inset 3px 0 0 var(--error); }
+
+iframe { background: #ffffff; }
+
+[hidden] { display: none !important; }
+
+.extra-css { border-top: 1px solid var(--border); }
+.extra-css summary { padding: 10px 16px; color: var(--muted); font-size: 13px; cursor: pointer; }
+.extra-css .editor { height: 120px; border-top: 1px solid var(--border); }
+
+.tabs { display: flex; padding: 2px; border-radius: 8px; background: var(--bg); }
+
+.tabs button,
+.button-quiet {
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.tabs button[aria-selected="true"] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+}
+
+.button-quiet:hover,
+.tabs button:hover { color: var(--text); }
+
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.error {
+  margin: 0;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--error);
+  font: 13px/1.5 var(--mono);
+}
+
+.options {
+  grid-area: options;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.options ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 4px 16px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.options label {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.options label:hover { background: var(--bg); }
+.options input { flex: none; margin: 3px 0 0; accent-color: var(--accent); }
+.options span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.options code { font-weight: 600; overflow-wrap: anywhere; }
+.options small { color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+
+@media (max-width: 860px) {
+  .site-header { padding: 16px; }
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-areas: "input" "output" "options";
+    padding: 12px 16px 24px;
+  }
+  .editor-main, .code-view, iframe { height: 360px; }
+}

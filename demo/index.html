@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Juice: inline CSS into HTML</title>
+  <meta name="description" content="Try Juice in your browser: paste HTML with a style tag and get the CSS inlined into style attributes.">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="./juice.gif" width="50" height="50" alt="">
+      <h1>Juice</h1>
+      <span class="version" id="version"></span>
+    </div>
+    <p class="tagline">Inline CSS into <code>style</code> attributes, for HTML emails and embeds.</p>
+    <nav class="links">
+      <a href="https://github.com/Automattic/juice">GitHub</a>
+      <a href="https://www.npmjs.com/package/juice">npm</a>
+      <a href="https://github.com/Automattic/juice#options">Docs</a>
+    </nav>
+  </header>
+
+  <main class="workspace">
+    <section class="pane" aria-labelledby="input-title">
+      <div class="pane-header">
+        <h2 id="input-title">Input HTML</h2>
+        <button type="button" class="button-quiet" id="reset">Reset example</button>
+      </div>
+      <div class="editor editor-main">
+        <div class="code" aria-hidden="true"></div>
+        <textarea id="input" spellcheck="false" autocapitalize="off" autocomplete="off" aria-labelledby="input-title"></textarea>
+      </div>
+
+      <details class="extra-css" open>
+        <summary>Extra CSS</summary>
+        <div class="editor editor-extra">
+          <div class="code" aria-hidden="true"></div>
+          <textarea id="extra-css" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder=".footer { color: #6b7280; }" aria-label="Extra CSS"></textarea>
+        </div>
+      </details>
+    </section>
+
+    <section class="pane" aria-labelledby="output-title">
+      <div class="pane-header">
+        <h2 id="output-title">Output</h2>
+        <div class="tabs" role="tablist" aria-label="Output view">
+          <button type="button" role="tab" id="tab-html" aria-controls="output" aria-selected="true">HTML</button>
+          <button type="button" role="tab" id="tab-preview" aria-controls="preview" aria-selected="false">Preview</button>
+        </div>
+        <button type="button" class="button-quiet" id="copy">Copy</button>
+      </div>
+      <p class="error" id="error" role="alert" hidden></p>
+      <div id="output" class="code-view" role="tabpanel" aria-labelledby="tab-html" tabindex="0"></div>
+      <iframe id="preview" role="tabpanel" aria-labelledby="tab-preview" title="Rendered output" sandbox="" hidden></iframe>
+    </section>
+
+    <section class="options" aria-labelledby="options-title">
+      <h2 id="options-title">Options</h2>
+      <ul id="options"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
