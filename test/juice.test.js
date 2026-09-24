@@ -209,10 +209,10 @@ it('test that preserved text order is stable', function() {
 });
 
 it('can handle style attributes with html entities', function () {
-  // Throws without decodeStyleAttributes: true
-  expect(() => {
-    juice('<style type="text/css">div {color: red;}</style><div style="font-family:&quot;Open Sans&quot;, sans-serif;"></div>');
-  }).toThrow();
+  // Without decodeStyleAttributes, the attribute can't be parsed, so it's kept as-is
+  expect(
+    juice('<style type="text/css">div {color: red;}</style><div style="font-family:&quot;Open Sans&quot;, sans-serif;"></div>')
+  ).toBe('<div style="color: red; font-family:&quot;Open Sans&quot;, sans-serif;"></div>');
 
   // Expected results with decodeStyleAttributes: true
   expect(
@@ -1062,8 +1062,14 @@ describe('code blocks inside style attributes', function() {
       .toBe('<div class="somediv" style="color: blue; border-top: 1px solid {{color}};"></div>');
   });
 
-  it('still throws on invalid style attributes without template tags', function() {
-    expect(() => juice(css + '<div class="somediv" style="font-family: &quot;Inter&quot;"></div>')).toThrow(/Unknown word/);
+  it('keeps other style attributes that are not valid CSS as they are too', function() {
+    expect(juice(css + '<div class="somediv" style="font-family: &quot;Inter&quot;"></div>'))
+      .toBe('<div class="somediv" style="color: blue; font-family: &quot;Inter&quot;"></div>');
+  });
+
+  it('does not throw on generated junk in style attributes (issue #582)', function() {
+    expect(juice('<style>p { color: red; }</style><p style="undefined;;;undefined">x</p><span style="undefined">y</span>'))
+      .toBe('<p style="color: red; undefined;;;undefined">x</p><span style="undefined">y</span>');
   });
 });
 
