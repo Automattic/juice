@@ -345,6 +345,16 @@ The `h2` and `h3` rules will not be inlined but will be preserved in a `<style>`
 
 To use Juice from CLI, run `juice [options] input.html output.html`
 
+Use `-` for stdin or stdout. If you leave out the output file, the result is written to stdout, and if you pipe HTML in without any file arguments, Juice reads it from stdin:
+
+```sh
+juice input.html > output.html
+cat input.html | juice > output.html
+juice - output.html < input.html
+```
+
+Relative URLs in HTML read from stdin are resolved against the current working directory, unless you set `--web-resources-relative-to`.
+
 For a listing of all available options, just type `juice -h`.
 
 > Note that if you want to just type `juice` from the command line, you should `npm install juice -g` so it is globally available.

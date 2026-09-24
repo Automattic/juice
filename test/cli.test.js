@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { Readable } from 'stream';
 import spawn from 'cross-spawn';
 import cli from '../lib/cli.js';
 
@@ -61,7 +62,7 @@ it('getProgram parses argv into commander program', () => {
   expect(program.getOptionValue('removeStyleTags')).toBe('true');
 });
 
-it('run shows help and skips juicing when args < 2', async () => {
+it('run shows help and skips juicing when there are no args and stdin is a TTY', async () => {
   const helpCalls = [];
   let juiceCalled = false;
   const fakeProgram = {
@@ -74,6 +75,7 @@ it('run shows help and skips juicing when args < 2', async () => {
   try {
     cli.run(['node', 'bin/juice'], {
       juice: { juiceFile: () => { juiceCalled = true; } },
+      stdin: { isTTY: true },
       done: () => {},
     });
   } finally {
@@ -81,6 +83,72 @@ it('run shows help and skips juicing when args < 2', async () => {
   }
   expect(helpCalls.length).toBe(1);
   expect(juiceCalled).toBe(false);
+});
+
+const fakeStdout = () => {
+  const stdout = { data: '', write: (chunk) => { stdout.data += chunk; } };
+  return stdout;
+};
+
+it('run reads from stdin and writes to stdout when there are no args', async () => {
+  const stdout = fakeStdout();
+
+  await runCliInProcess([], {
+    stdin: Readable.from(['<style>div{color:red;}</style><div>x</div>']),
+    stdout,
+  });
+
+  expect(stdout.data).toBe('<div style="color: red;">x</div>');
+});
+
+it('run treats - as stdin and stdout', async () => {
+  const stdout = fakeStdout();
+
+  await runCliInProcess(['-', '-'], {
+    stdin: Readable.from(['<style>p{margin:0;}</style><p>x</p>']),
+    stdout,
+  });
+
+  expect(stdout.data).toBe('<p style="margin: 0;">x</p>');
+});
+
+it('run reads from stdin into an output file', async () => {
+  const outputPath = tmpPath('stdin.html');
+
+  await runCliInProcess(['-', outputPath], {
+    stdin: Readable.from(['<style>div{color:red;}</style><div>x</div>']),
+  });
+
+  expect(fs.readFileSync(outputPath, 'utf8')).toBe('<div style="color: red;">x</div>');
+});
+
+it('run writes to stdout when no output file is given', async () => {
+  const stdout = fakeStdout();
+
+  await runCliInProcess(['test/cases/juice-content/no-css.html'], { stdout });
+
+  expect(stdout.data).toBe(fs.readFileSync('test/cases/juice-content/no-css.out', 'utf8'));
+});
+
+it('run passes --options-file options through when reading from stdin', async () => {
+  const captured = {};
+  const fakeJuice = {
+    codeBlocks: {},
+    juiceResources: (html, options, cb) => {
+      captured.html = html;
+      captured.options = options;
+      cb(null, html);
+    },
+  };
+
+  await runCliInProcess(
+    ['--options-file', 'test/cases/juice-content/font-face-preserve.json'],
+    { juice: fakeJuice, stdin: Readable.from(['<p>x</p>']), stdout: fakeStdout() }
+  );
+
+  expect(captured.html).toBe('<p>x</p>');
+  expect(captured.options.preserveFontFaces).toBe(true);
+  expect(captured.options.optionsFile).toBeUndefined();
 });
 
 it('run inlines plain html into the output file', async () => {
@@ -204,4 +272,21 @@ it('bin/juice smoke test (spawn)', () => new Promise((resolve, reject) => {
       reject(err);
     }
   });
+}));
+
+it('bin/juice pipes stdin to stdout (spawn)', () => new Promise((resolve, reject) => {
+  const juiceProcess = spawn('bin/juice', []);
+  let output = '';
+  juiceProcess.stdout.on('data', (chunk) => { output += chunk; });
+  juiceProcess.on('error', reject);
+  juiceProcess.on('exit', (code) => {
+    try {
+      expect(code, 'bin/juice exited with non-zero').toBe(0);
+      expect(output).toBe('<div style="color: red;">x</div>');
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+  juiceProcess.stdin.end('<style>div{color:red;}</style><div>x</div>');
 }));
