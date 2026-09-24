@@ -102,6 +102,20 @@ Fetches remote resources.
    - `err` - `Error` object or `null`
    - `html` - (string) HTML with inlined CSS
 
+#### juice.inlineExternal(html, options, callback)
+
+Callback returns a string containing the HTML with external resources embedded, without inlining any CSS into `style` attributes.
+
+Linked stylesheets become `<style>` tags and, depending on `options`, scripts and images are embedded too. This is the first step of `juiceResources`, so use it when you only want the embedding part.
+
+Fetches remote resources.
+
+ * `html` - (string) HTML
+ * `options` - (object) [web-resource-inliner](https://www.npmjs.com/package/web-resource-inliner) options, same as the `webResources` option above
+ * `callback(err, html)`
+   - `err` - `Error` object or `null`
+   - `html` - (string) HTML with external resources embedded
+
 #### juice.juiceDocument($ [, options])
 
 This takes a `cheerio` instance and performs inlining in-place. Returns the same `cheerio` instance. 
@@ -216,7 +230,7 @@ Array of CSS properties that won't be inlined.
 
 #### data-embed
 
-Add `data-embed` to any `<style>` tag to prevent Juice from inlining its CSS and removing it.
+Add `data-embed` to any `<style>` tag to prevent Juice from inlining its CSS and removing it. It works on `<link rel="stylesheet">` tags too, when using `juiceResources` or `juiceFile`: the stylesheet is embedded as a `<style>` tag and left as-is.
 Can be used to embed email client support hacks that rely on CSS selectors into your email templates:
 
 ```html
