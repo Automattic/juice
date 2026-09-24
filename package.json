@@ -27,7 +27,9 @@
     "test": "vitest run --coverage && npm run test-typescript",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "test-typescript": "tsc -p test/typescript && rm ./test/typescript/juice-tests.js"
+    "test-typescript": "tsc -p test/typescript && rm ./test/typescript/juice-tests.js",
+    "demo": "vite demo",
+    "demo:build": "vite build demo --base ./"
   },
   "license": "MIT",
   "contributors": [
@@ -61,7 +63,9 @@
     "@types/node": "^26.1.0",
     "@vitest/coverage-v8": "^5.0.0",
     "cross-spawn": "^7.0.3",
+    "shiki": "^4.4.3",
     "typescript": "^5.5.4",
+    "vite": "^8.2.2",
     "vitest": "^5.0.0"
   },
   "repository": {

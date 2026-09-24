@@ -5,3 +5,4 @@ coverage
 npm-debug.log
 tmp
 test/typescript/*.js
+demo/dist

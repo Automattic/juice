@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="supported-color-schemes" content="light dark" />
+  <title>Inline your CSS with Juice</title>
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-weight: 400 800;
+      font-display: swap;
+      src: url('https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2') format('woff2');
+    }
+
+    @keyframes pulse {
+      50% { opacity: 0.3; }
+    }
+
+    @layer reset {
+      p { margin: 0; }
+    }
+
+    :root { --brand: #dc2626; }
+
+    body { margin: 0; padding: 32px 0; background-color: #f5f0ee; font-family: 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif; }
+    a { color: var(--brand); text-decoration: none; }
+
+    .wrapper { width: 600px; background-color: #ffffff; }
+    .header { padding: 20px 40px; color: #1c1917; font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
+
+    .hero { height: 280px; padding: 0 40px; background-color: #dc2626; vertical-align: bottom; }
+    .label { color: #fecaca; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .label::before { content: '● '; color: #ffffff; animation: pulse 2s infinite; }
+    .hero-title { margin: 12px 0 36px; color: #ffffff; font-size: 64px; line-height: 60px; font-weight: 800; letter-spacing: -0.04em; }
+
+    .content { padding: 40px; container-type: inline-size; color: #44403c; font-size: 16px; line-height: 26px; }
+    .code { margin: 28px 0; padding: 20px 24px; border-radius: 12px; background-color: #1c1917; color: #e7e5e4; font-family: Menlo, Consolas, monospace; font-size: 13px; line-height: 22px; }
+    .keyword { color: #fca5a5; }
+    .string { color: #fdba74; }
+    .comment { color: #a8a29e; }
+    .button { display: inline-block; padding: 12px 24px; border-radius: 999px; background-color: #1c1917; color: #ffffff; font-size: 15px; font-weight: 600; }
+    .button:hover { background-color: #dc2626; }
+    .note { padding-top: 16px; color: #78716c; font-size: 13px; }
+
+    .footer { padding: 28px 40px; background-color: #1c1917; color: #a8a29e !important; font-size: 12px; line-height: 20px; }
+    .footer a { color: #e7e5e4; }
+
+    @media (max-width: 600px) {
+      .wrapper { width: 100% !important; }
+      .header, .hero, .content, .footer { padding-left: 24px !important; padding-right: 24px !important; }
+      .hero-title { font-size: 48px !important; line-height: 46px !important; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { background-color: #0c0a09 !important; }
+      a { color: #f87171 !important; }
+      .wrapper { background-color: #1c1917 !important; }
+      .header { color: #fafaf9 !important; }
+      .hero { background-color: #b91c1c !important; }
+      .content { color: #d6d3d1 !important; }
+      .code { background-color: #0c0a09 !important; }
+      .button { background-color: #fafaf9 !important; color: #1c1917 !important; }
+      .button:hover { background-color: #dc2626 !important; color: #ffffff !important; }
+      .note { color: #a8a29e !important; }
+      .footer { background-color: #292524 !important; color: #a8a29e !important; }
+      .footer a { color: #d6d3d1 !important; }
+    }
+
+    @container (max-width: 420px) {
+      .code { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <table class="wrapper" align="center" role="presentation" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="header">juice</td>
+    </tr>
+    <tr>
+      <td class="hero" style="background-image: url('https://i.imgur.com/jN8Ht.gif?w=50&amp;h=50'); background-repeat: no-repeat; background-position: right 32px bottom 28px; background-size: 150px; image-rendering: pixelated;">
+        <p class="label">Open source</p>
+        <h1 class="hero-title">Inline your<br />CSS.</h1>
+      </td>
+    </tr>
+    <tr>
+      <td class="content">
+        <p>Plenty of email clients ignore &lt;style&gt; tags. Juice moves your CSS into style attributes, so your design survives Gmail, Outlook and everything in between.</p>
+        <table class="code" width="100%" role="presentation" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>
+              <span class="keyword">import</span> juice <span class="keyword">from</span> <span class="string">'juice'</span><br />
+              <br />
+              juice(<span class="string">'&lt;style&gt;p { color: red }&lt;/style&gt;&lt;p&gt;Hi&lt;/p&gt;'</span>)<br />
+              <span class="comment">// &lt;p style="color: red;"&gt;Hi&lt;/p&gt;</span>
+            </td>
+          </tr>
+        </table>
+        <a class="button" href="https://github.com/Automattic/juice">Get started on GitHub</a>
+        <p class="note">Or just run npm install juice</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="footer">
+        This email was inlined by Juice, right here in your browser.<br />
+        <a href="https://www.npmjs.com/package/juice">npm</a> · <a href="https://github.com/Automattic/juice">GitHub</a>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
