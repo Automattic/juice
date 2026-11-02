@@ -52,7 +52,7 @@
   "dependencies": {
     "cheerio": "1.2.0",
     "commander": "^14.0.3",
-    "entities": "^8.0.0",
+    "entities": "^9.0.0",
     "postcss": "^8.5.0",
     "postcss-nesting": "^14.0.0",
     "postcss-safe-parser": "^7.0.1",
