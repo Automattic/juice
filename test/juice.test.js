@@ -811,6 +811,25 @@ it('flattens nested CSS rules before inlining', function() {
   expect(result).toContain('class="title" style="font-weight: bold;"');
 });
 
+it('resolves CSS variables in style attributes of elements no rule matches', function() {
+  let result = juice(
+    '<style>.brand { --accent: #ff0000; }</style><div class="brand"><a href="#" style="color: var(--accent)">Link</a></div>'
+  );
+  expect(result).toBe('<div class="brand"><a href="#" style="color: #ff0000;">Link</a></div>');
+
+  result = juice(
+    '<style>p { margin: 0; }</style><div style="--accent: #ff0000;"><a href="#" style="color: var(--accent)">Link</a></div>'
+  );
+  expect(result).toContain('<a href="#" style="color: #ff0000;">Link</a>');
+});
+
+it('trims whitespace from custom property values in style attributes', function() {
+  const result = juice(
+    '<style>p { margin: 0; }</style><div style="--accent: #ff0000  "><a href="#" style="color: var(--accent)">Link</a></div>'
+  );
+  expect(result).toContain('<a href="#" style="color: #ff0000;">Link</a>');
+});
+
 describe('replaceVariables', function() {
   const el = {
     styleProps: { '--color': { value: 'red' }, '--gap': { value: '10px' } }
