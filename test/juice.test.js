@@ -6,6 +6,7 @@
  * Test dependencies.
  */
 
+import { load } from 'cheerio';
 import juice from '../index.js';
 import * as numbers from '../lib/numbers.js';
 import { replaceVariables } from '../lib/variables.js';
@@ -734,6 +735,38 @@ it('inlinePseudoElements with content:none yields empty pseudo-element text', fu
   const css = 'div::before { content: none; }';
   const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
   expect(typeof result).toBe('string');
+});
+
+it('inlinePseudoElements escapes markup in content strings', function() {
+  const html = '<b>x</b>';
+  const css = 'b::after { content: "<svg onload=alert(1)>"; }';
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  expect(result).toBe('<b>x<span>&lt;svg onload=alert(1)&gt;</span></b>');
+});
+
+it('inlinePseudoElements escapes markup in attr() values', function() {
+  const html = '<b title="<img src=x onerror=alert(1)>">x</b>';
+  const css = 'b::after { content: attr(title); }';
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  expect(result).toBe('<b title="<img src=x onerror=alert(1)>">x<span>&lt;img src=x onerror=alert(1)&gt;</span></b>');
+});
+
+it('inlinePseudoElements does not double-escape entities in content', function() {
+  const html = '<b title="Tom &amp; Jerry">x</b>';
+  const css = 'b::before { content: "&nbsp;"; } b::after { content: attr(title); }';
+  const result = juice.inlineContent(html, css, { inlinePseudoElements: true });
+  expect(result).toBe('<b title="Tom &amp; Jerry"><span>&nbsp;</span>x<span>Tom &amp; Jerry</span></b>');
+});
+
+it('inlinePseudoElements does not double-escape content in an entity-encoding cheerio instance', function() {
+  const $ = load('<b>x</b>');
+  juice.inlineDocument($, 'b::after { content: "<svg onload=alert(1)>"; }', { inlinePseudoElements: true });
+  expect($('b').html()).toBe('x<span>&lt;svg onload=alert(1)&gt;</span>');
+});
+
+it('inlinePseudoElements escapes markup in content in xmlMode', function() {
+  const result = juice('<style>b::after { content: "<svg onload=alert(1)>"; }</style><b>x</b>', { inlinePseudoElements: true, xmlMode: true });
+  expect(result).toBe('<b>x<span>&lt;svg onload=alert(1)&gt;</span></b>');
 });
 
 it('inlinePseudoElements supports upper-roman counter style', function() {
