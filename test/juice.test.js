@@ -925,6 +925,15 @@ describe('replaceVariables', function() {
     expect(result.length).toBeLessThan(128 * 1024);
   });
 
+  it('does not overflow the stack on long variable chains', function() {
+    const styleProps = { '--v0': { value: 'x' } };
+    for (let i = 1; i <= 10000; i++) {
+      styleProps[`--v${i}`] = { value: `var(--v${i - 1})` };
+    }
+    expect(replaceVariables({ styleProps }, 'var(--v50)')).toBe('x');
+    expect(() => replaceVariables({ styleProps }, 'var(--v10000)')).not.toThrow();
+  });
+
   it('does not expand $ replacement patterns in values', function() {
     const dollar = { styleProps: { '--a': { value: '$&-$`' } } };
     expect(replaceVariables(dollar, 'x var(--a)')).toBe('x $&-$`');
