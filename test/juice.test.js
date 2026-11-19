@@ -895,6 +895,41 @@ describe('replaceVariables', function() {
     replaceVariables(el, evil);
     expect(Date.now() - start).toBeLessThan(1000);
   });
+
+  it('does not loop on cyclic variables (GHSA-3h66-wm86-pcq8)', function() {
+    const cyclic = {
+      styleProps: {
+        '--a': { value: 'var(--a)' },
+        '--b': { value: 'var(--c)' },
+        '--c': { value: 'var(--b)' },
+        '--d': { value: 'var(--d, red)' }
+      }
+    };
+    expect(replaceVariables(cyclic, 'var(--a)')).toBe('var(--a)');
+    expect(replaceVariables(cyclic, 'var(--b)')).toBe('var(--b)');
+    expect(replaceVariables(cyclic, 'var(--d, red)')).toBe('red');
+    expect(juice('<p style="--a:var(--a);color:var(--a)"></p>'))
+      .toBe('<p style="color: var(--a);"></p>');
+    expect(juice('<style>p{--a:var(--b);--b:var(--a);color:var(--a)}</style><p></p>'))
+      .toBe('<p style="color: var(--a);"></p>');
+  });
+
+  it('caps exponential expansion of nested variables', function() {
+    const styleProps = { '--v0': { value: 'x' } };
+    for (let i = 1; i <= 40; i++) {
+      styleProps[`--v${i}`] = { value: `var(--v${i - 1}) var(--v${i - 1})` };
+    }
+    const start = Date.now();
+    const result = replaceVariables({ styleProps }, 'var(--v40)');
+    expect(Date.now() - start).toBeLessThan(1000);
+    expect(result.length).toBeLessThan(128 * 1024);
+  });
+
+  it('does not expand $ replacement patterns in values', function() {
+    const dollar = { styleProps: { '--a': { value: '$&-$`' } } };
+    expect(replaceVariables(dollar, 'x var(--a)')).toBe('x $&-$`');
+    expect(replaceVariables(el, 'x var(--missing, $&-$`)')).toBe('x $&-$`');
+  });
 });
 
 describe('non-string html input', function() {
