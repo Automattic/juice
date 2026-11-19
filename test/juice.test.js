@@ -896,6 +896,18 @@ describe('replaceVariables', function() {
     expect(Date.now() - start).toBeLessThan(1000);
   });
 
+  it('resolves many function calls in linear time', function() {
+    const start = Date.now();
+    replaceVariables(el, 'rgb(1,1,1) var(--color) '.repeat(20000));
+    replaceVariables(el, 'var('.repeat(20000) + 'f('.repeat(20000) + ')'.repeat(40000));
+    expect(Date.now() - start).toBeLessThan(1000);
+  });
+
+  it('only splits var() on its own top-level comma', function() {
+    expect(replaceVariables(el, 'var(rgb(1, 2), x)')).toBe('x');
+    expect(replaceVariables(el, 'var(--missing, rgb(1, 2), x)')).toBe('rgb(1, 2), x');
+  });
+
   it('does not loop on cyclic variables (GHSA-3h66-wm86-pcq8)', function() {
     const cyclic = {
       styleProps: {
